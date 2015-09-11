@@ -1,5 +1,3 @@
-# PAPS_2015-2
-
 # Project Name
 
 TODO: Write a project description
