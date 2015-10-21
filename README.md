@@ -2,7 +2,7 @@
 
 TODO: Write a project description
 
-## Team
+## Time
 
 1. Leonardo Almeida
 2. Gabriel Gama
