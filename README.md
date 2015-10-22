@@ -1,30 +1,10 @@
 # Atividades Complementares
 
-TODO: Write a project description
+Sistema para cadastro de atividades complementares dos alunos do ICOMP
 
-## Time
+## Time de desenvolvimento
 
 1. Leonardo Almeida
 2. Gabriel Gama
 3. Luciene Oliveira
 4. Denilson Carvalho
-
-## Installation
-
-TODO: Describe the installation process
-
-## Usage
-
-TODO: Write usage instructions
-
-## History
-
-TODO: Write history
-
-## Credits
-
-TODO: Write credits
-
-## License
-
-TODO: Write license
