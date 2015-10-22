@@ -9,7 +9,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'Ii80AN01EVP0CK2KEafHhtEhuvbSu7y1',
+            'cookieValidationKey' => 'mfWQoxey6_MM3eJPory8U_UGpX3IW1c0',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -38,16 +38,24 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        /*
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+            ],
+        ],
+        */
     ],
     'params' => $params,
 ];
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
+   /* $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
-    ];
+    ];*/
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
