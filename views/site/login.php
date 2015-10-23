@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'username') ?>
+        <?= $form->field($model, 'cpf') ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 
