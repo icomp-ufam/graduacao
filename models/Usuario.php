@@ -45,7 +45,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'isAdmin', 'isAtivo', 'curso_id'], 'required'],
             [['dtEntrada'], 'safe'],
             [['isAdmin', 'isAtivo'], 'integer'],
-            [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'remember_token', 'curso_id'], 'string', 'max' => 100],
+            [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token', 'curso_id'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 255],
         ];
     }
@@ -68,7 +68,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             'isAdmin' => 'Is Admin',
             'isAtivo' => 'Is Ativo',
             'auth_key' => 'Auth Key',
-            'remember_token' => 'Remember Token',
+            'password_reset_token' => 'Remember Token',
             'curso_id' => 'Curso ID',
         ];
     }
