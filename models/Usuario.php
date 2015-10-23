@@ -42,7 +42,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'isAdmin', 'isAtivo', 'curso_id'], 'required'],
+            [['name', 'cpf', 'email', 'password'], 'required'],
             [['dtEntrada'], 'safe'],
             [['isAdmin', 'isAtivo'], 'integer'],
             [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token', 'curso_id'], 'string', 'max' => 100],
@@ -57,19 +57,19 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'cpf' => 'Cpf',
+            'name' => 'Nome',
+            'cpf' => 'CPF',
             'email' => 'Email',
             'password' => 'Password',
             'matricula' => 'Matricula',
             'siape' => 'Siape',
             'perfil' => 'Perfil',
-            'dtEntrada' => 'Dt Entrada',
-            'isAdmin' => 'Is Admin',
-            'isAtivo' => 'Is Ativo',
+            'dtEntrada' => 'Data de Entrada',
+            'isAdmin' => 'Admin',
+            'isAtivo' => 'Ativo',
             'auth_key' => 'Auth Key',
             'password_reset_token' => 'Remember Token',
-            'curso_id' => 'Curso ID',
+            //'curso_id' => 'Curso ID',
         ];
     }
     
@@ -201,5 +201,27 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    
+    /*
+    * Criptografa a senha usando o alg. MD5()
+    * ************************************** */
+    /* 
+    public function beforeSave()
+    {
+        
+        if ($this->isNewRecord) {
+            //No caso de novo usuario...
+            $password = md5($this->password);
+            $this->password = $password;
+
+        } else {
+            //No caso de editando...
+            $this->dtEntrada = new CDbExpression('NOW()');
+        }
+        
+        return parent::beforeSave();
+        
+    } */
+    
     
 }
