@@ -13,7 +13,7 @@ AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,58 +25,36 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
-
     <?php
     NavBar::begin([
-        'brandLabel' => 'Controle de Atividades Acadêmicas',
+        'brandLabel' => 'My Company',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-
     echo Nav::widget([
-    'options' => ['class' => 'navbar-nav navbar-right'],
-    'items' => [
-        [
-            'label' => 'Página Inicial',
-            'url' => ['site/index'],
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Contact', 'url' => ['/site/contact']],
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Login', 'url' => ['/site/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->name . ')',
+                    ['class' => 'btn btn-link']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
         ],
-        [
-            'label' => 'Usuário',
-            'items' => [
-                 ['label' => 'Cadastro', 'url' => ['usuario/create'] ],
-                 ['label' => 'Lista', 'url' => ['usuario/index'] ],
-            ],
-        ],
-        [
-            'label' => 'Login',
-            'url' => ['site/login'],
-            'visible' => Yii::$app->user->isGuest
-        ],
-        [
-            'label' =>  '[' . Yii::$app->user->identity->name . ']',
-            'visible' => !Yii::$app->user->isGuest,
-            
-            'items' => [
-                ['label' => 'Perfil', 'url' => '?r=usuario/view&id=' .  Yii::$app->user->identity->id ],
-                 
-                [
-                    'label' => 'Sair', 
-                    'url' => ['site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
-                ],
-            ],
-        ],       
-    ],
-
     ]);
-    
-    
-    // -- fim do NAVBAR MENU -- //
     NavBar::end();
     ?>
-
 
     <div class="container">
         <?= Breadcrumbs::widget([
@@ -88,7 +66,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy;ICOMP <?= date('Y') ?></p>
+        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
