@@ -13,6 +13,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="container">
         <div class="row">
             <div class="col-md-6">
+
+                <h1> TESTE .... commit </h1>    
+
+
                 <h1>Bem vindo: </h1> 
                     <h2>
                         <?php
