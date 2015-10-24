@@ -2,7 +2,7 @@
 
 Sistema para cadastro de atividades complementares dos alunos do ICOMP
 
-## Time de desenvolvedores
+## Time de desenvolvimento
 
 1. Leonardo Sales Almeida
 2. Gabriel Gama Albuquerque
