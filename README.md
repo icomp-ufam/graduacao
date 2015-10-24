@@ -2,7 +2,7 @@
 
 Sistema para cadastro de atividades complementares dos alunos do ICOMP
 
-## Time de desenvolvimento
+## Time de desenvolvedores
 
 -----------x----------------
 ****** Scrum Master ********
