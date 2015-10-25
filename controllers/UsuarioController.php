@@ -11,6 +11,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
+require_once('..\vendor\autoload.php'); //necessario p mailgun-php
+
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -21,10 +23,10 @@ class UsuarioController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'index', 'update', 'view', 'delete'],
+                'only' => ['index', 'update', 'view', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'index', 'update', 'view', 'delete'],
+                        'actions' => ['index', 'update', 'view', 'delete'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -179,5 +181,39 @@ class UsuarioController extends Controller
 
     }
     
+    public function actionRecuperarsenha()
+    {
 
+        
+        if ( Yii::$app->request->post()) 
+        {
+            $email = Yii::$app->request->post('email');
+
+            $usuario = Usuario::find()->where(['email'=>$email])->one();
+
+            if($usuario!=null) //se o usuario com email informado existe...
+            {
+                $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
+                $key = 'key-f0dc85b59a45bcda5373019f605ce034';
+
+                $mailgun = new \MailgunApi( $domain, $key );
+
+                $message = $mailgun->newMessage();
+                $message->setFrom('admin@icomp.ufam.edu.br', 'Admin-Atv Complementares');
+                $message->addTo( $usuario->email, $usuario->name); //destinatario...
+                $message->setSubject('Nova Senha');
+                $message->setText('Sua nova senha temporária é: ' . $usuario->senhaAleatoria() );
+
+                $message->send();
+            }
+            else
+            {
+                return 'email nao encontrado'; //melhorar isso para uma view...
+            }
+        }
+        else
+        {
+            return $this->render('recuperarsenha');
+        }
+    }
 }

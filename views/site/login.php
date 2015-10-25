@@ -42,5 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="col-lg-offset-1" style="color:#999;">
         <?= Html::a('Novo Usuario','?r=usuario/novousuario') ?>
+        <br>
+        <?= Html::a('Nova Senha','?r=usuario/recuperarsenha') ?>
     </div>
 </div>

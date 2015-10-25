@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
-use yii\helpers\Security;
+use yii\base\Security;
 use yii\web\IdentityInterface;
 
 /**
@@ -203,25 +203,19 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     }
     
     /*
-    * Criptografa a senha usando o alg. MD5()
+    * gera uma senha. MD5()
     * ************************************** */
-    /* 
-    public function beforeSave()
-    {
-        
-        if ($this->isNewRecord) {
-            //No caso de novo usuario...
-            $password = md5($this->password);
-            $this->password = $password;
 
-        } else {
-            //No caso de editando...
-            $this->dtEntrada = new CDbExpression('NOW()');
-        }
-        
-        return parent::beforeSave();
-        
-    } */
+    public function senhaAleatoria()
+    {
+        $password = Security::generateRandomKey() ;
+
+        $this->password = md5($password);    
+
+        $this->save();
+
+        return $this->password ;      
+    } 
     
     
 }
