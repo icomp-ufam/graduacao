@@ -11,7 +11,10 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
-require_once('..\vendor\autoload.php'); //necessario p mailgun-php
+//-----------------------------------------------------------------------------
+//WINDOWS 
+//require_once('..\vendor\autoload.php'); //necessario p mailgun-php
+
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -205,10 +208,12 @@ class UsuarioController extends Controller
                 $message->setText('Sua nova senha temporária é: ' . $usuario->senhaAleatoria() );
 
                 $message->send();
+                
+                return $this->render('senhaenviada');
             }
             else
             {
-                return 'email nao encontrado'; //melhorar isso para uma view...
+                return $this->render('emailnaoencontrado');
             }
         }
         else

@@ -203,18 +203,26 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     }
     
     /*
-    * gera uma senha. MD5()
+    * gera uma senha.()
     * ************************************** */
 
     public function senhaAleatoria()
     {
-        $password = Security::generateRandomKey() ;
+        // gera uma strinf aleatoria... nao muito segura... kkk
+        
+		$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		
+		$key = substr(str_shuffle(str_repeat($chars, 5)), 0, strlen($chars) );
+        
+        $key = substr($key, 0, 10) . '_' . rand(1,10000);
+        
+        $password = $key ;
 
         $this->password = md5($password);    
 
         $this->save();
 
-        return $this->password ;      
+        return $password ; //sem ta criptografado =) eh logico...      
     } 
     
     
