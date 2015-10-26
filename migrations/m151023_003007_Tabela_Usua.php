@@ -31,14 +31,5 @@ class m151023_003007_Tabela_Usua extends Migration
         $this->dropTable('usuario');
     }
 
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
 
-    public function safeDown()
-    {
-    }
-    */
 }
