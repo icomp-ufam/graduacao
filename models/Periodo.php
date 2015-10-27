@@ -31,6 +31,7 @@ class Periodo extends \yii\db\ActiveRecord
             [['codigo', 'dtInicio', 'dtTermino'], 'required'],
             [['dtInicio', 'dtTermino'], 'safe'],
             [['codigo'], 'string', 'max' => 10],
+            
         ];
     }
 
@@ -42,8 +43,10 @@ class Periodo extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'codigo' => 'Codigo',
-            'dtInicio' => 'Dt Inicio',
-            'dtTermino' => 'Dt Termino',
+            'dtInicio' => 'Data de Inicio',
+            'dtTermino' => 'Data de Termino',
         ];
     }
+    
+
 }

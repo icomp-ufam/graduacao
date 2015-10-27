@@ -7,6 +7,7 @@ use app\models\Periodo;
 use app\models\PeriodoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -17,6 +18,19 @@ class PeriodoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index', 'update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->isAdmin == 1 ;
+                        }
+                    ], 
+                ],
+            ],           
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,6 +77,12 @@ class PeriodoController extends Controller
         $model = new Periodo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            //Altera o formato para o formato do Mysql...
+            $model->dtInicio  = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtInicio]') ) );
+            $model->dtTermino = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtTermino]') ) );
+            $model->save();
+            
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

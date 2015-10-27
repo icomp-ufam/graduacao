@@ -31,7 +31,9 @@ class UsuarioController extends Controller
                     [
                         'actions' => ['index', 'update', 'view', 'delete'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->isAdmin == 1 ;
+                        }
                     ],
                 ],
             ],            
@@ -105,7 +107,12 @@ class UsuarioController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $model->password = md5($model->password) ;
+            
             return $this->redirect(['view', 'id' => $model->id]);
+        
+            
         } else {
             return $this->render('update', [
                 'model' => $model,

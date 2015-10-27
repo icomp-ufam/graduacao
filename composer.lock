@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0416478228e04030bb33e040a90086ef",
-    "content-hash": "99901216097f2900665eb8526b40a7e9",
+    "hash": "340ff14f95febea1458b253720b5adf9",
+    "content-hash": "d55e384958ef63fc54245193bc0c362c",
     "packages": [
         {
             "name": "baibaratsky/php-mailgun",
@@ -149,6 +149,31 @@
                 "jquery",
                 "library"
             ]
+        },
+        {
+            "name": "bower-asset/jquery-ui",
+            "version": "1.11.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/jqueryui.git",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/jqueryui/zipball/c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.6"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "jquery-ui.js"
+                ],
+                "bower-asset-ignore": []
+            }
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -440,12 +465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "6c4152fe253574e5feb0ec11b310a1178f862e02"
+                "reference": "41874a809b719e61620503df8e1f441eb6f6d9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/6c4152fe253574e5feb0ec11b310a1178f862e02",
-                "reference": "6c4152fe253574e5feb0ec11b310a1178f862e02",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/41874a809b719e61620503df8e1f441eb6f6d9cd",
+                "reference": "41874a809b719e61620503df8e1f441eb6f6d9cd",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +546,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-10-24 17:31:47"
+            "time": "2015-10-25 10:45:58"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -529,12 +554,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "7c6b244d9cfd58a5a10cad9853edc090ffd479b1"
+                "reference": "09a5bfe72c0141ad26281848f1ae9c3f42541f20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/7c6b244d9cfd58a5a10cad9853edc090ffd479b1",
-                "reference": "7c6b244d9cfd58a5a10cad9853edc090ffd479b1",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/09a5bfe72c0141ad26281848f1ae9c3f42541f20",
+                "reference": "09a5bfe72c0141ad26281848f1ae9c3f42541f20",
                 "shasum": ""
             },
             "require": {
@@ -571,7 +596,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-10-15 16:22:38"
+            "time": "2015-10-25 21:18:48"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -619,6 +644,56 @@
                 "yii2"
             ],
             "time": "2015-09-25 10:48:24"
+        },
+        {
+            "name": "yiisoft/yii2-jui",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-jui.git",
+                "reference": "022637087b4f8b0d321e697cc0a01b09cd2d7345"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-jui/zipball/022637087b4f8b0d321e697cc0a01b09cd2d7345",
+                "reference": "022637087b4f8b0d321e697cc0a01b09cd2d7345",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery-ui": "1.11.*@stable",
+                "yiisoft/yii2": ">=2.0.4"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                },
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\jui\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com"
+                }
+            ],
+            "description": "The Jquery UI extension for the Yii framework",
+            "keywords": [
+                "jQuery UI",
+                "yii2"
+            ],
+            "time": "2015-09-29 10:49:11"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",

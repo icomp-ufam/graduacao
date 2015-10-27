@@ -7,6 +7,7 @@ use app\models\Curso;
 use app\models\CursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -17,6 +18,19 @@ class CursoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index', 'update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->isAdmin == 1 ;
+                        }
+                    ],                    
+                ],
+            ],            
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
