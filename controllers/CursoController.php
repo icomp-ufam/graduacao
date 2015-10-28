@@ -26,7 +26,10 @@ class CursoController extends Controller
                         'actions' => ['create','index', 'update', 'view', 'delete'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->isAdmin == 1 ;
+                            if(!Yii::$app->user->isGuest)
+                            {
+                                return Yii::$app->user->identity->isAdmin == 1 ;    
+                            }                            
                         }
                     ],                    
                 ],

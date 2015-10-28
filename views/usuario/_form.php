@@ -15,17 +15,30 @@ use yii\widgets\ActiveForm;
     'action' => ['usuario/create'],
     ]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'disabled'=> 'disabled']) ?>
 
-    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true, 'disabled'=> 'disabled']) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
+    <?php 
+        if( $model->matricula != null ) 
+        {
+            echo $form->field($model, 'matricula')->textInput(['maxlength' => true]);
 
-    <?= $form->field($model, 'siape')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'perfil')->textInput(['maxlength' => true]) ?>
+            echo $form->field($model, 'perfil')->textInput([
+                'maxlength' => true, 
+                'value'=>'Aluno',
+                'disabled'=> 'disabled'
+            ]);
+        }
+    ?>
+    <?php 
+        if( $model->siape != null ) 
+        {
+            echo $form->field($model, 'siape')->textInput(['maxlength' => true]);
+        }
+    ?>
 
     <?= $form->field($model, 'dtEntrada')->textInput() ?>
 

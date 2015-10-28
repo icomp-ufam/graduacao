@@ -26,13 +26,16 @@ class UsuarioController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'update', 'view', 'delete'],
+                'only' => ['index', 'delete', 'update'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'update', 'view', 'delete'],
+                        'actions' => ['index', 'delete', 'update'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->isAdmin == 1 ;
+                            if(!Yii::$app->user->isGuest)
+                            {
+                                return Yii::$app->user->identity->isAdmin == 1 ;    
+                            }                            
                         }
                     ],
                 ],
@@ -82,13 +85,14 @@ class UsuarioController extends Controller
     {
         $model = new Usuario();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             $model->password = md5($model->password);
             
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->id]);
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -165,19 +169,24 @@ class UsuarioController extends Controller
             
             $link = $link . Yii::$app->request->post('cpf');
 
-            $webservice = file_get_contents($link);
+            $webservice = @file_get_contents($link);
             
             $dados = json_decode($webservice, true);
 
-            $model->name = $dados[0]['NOME_PESSOA'] ;
+            $ultimo = count($dados) -1 ;
+
+            $model->name = $dados[$ultimo]['NOME_PESSOA'] ;
             
             $model->cpf = Yii::$app->request->post('cpf');
 
-            $model->email = $dados[0]['EMAIL'];
+            $model->email = $dados[$ultimo]['EMAIL'];
             
-            $model->matricula = $dados[0]['MATR_ALUNO'];
+            $model->matricula = $dados[$ultimo]['MATR_ALUNO'];
             
-            $model->perfil = Yii::$app->request->post('perfil');
+            if($model->matricula != null)
+            {
+                $model->perfil = Yii::$app->request->post('perfil');  
+            }
             
             $model->isNewRecord = true;
             
