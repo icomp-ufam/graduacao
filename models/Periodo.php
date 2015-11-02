@@ -28,7 +28,7 @@ class Periodo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo', 'dtInicio', 'dtTermino'], 'required'],
+            [['codigo', 'dtInicio', 'dtTermino'], 'required', 'message'=> 'Este campo é obrigatório'],
             [['dtInicio', 'dtTermino'], 'safe'],
             [['codigo'], 'string', 'max' => 10],
             
@@ -42,9 +42,9 @@ class Periodo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'codigo' => 'Codigo',
-            'dtInicio' => 'Data de Inicio',
-            'dtTermino' => 'Data de Termino',
+            'codigo' => 'Código',
+            'dtInicio' => 'Data de Início',
+            'dtTermino' => 'Data de Término',
         ];
     }
     

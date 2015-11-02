@@ -13,25 +13,27 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     
     <div class="form-group">
-        <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>        
+        <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="form-group">
         <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
-            'language' => 'pt',
-            'dateFormat' => 'dd-MM-yy',
+            'language' => 'pt-BR',
+            'dateFormat' => 'dd-M-y',
+            
         ]) ?>
     </div>
     
+
     <div class="form-group">    
         <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
-            'language' => 'pt',
-            'dateFormat' => 'dd-MM-yy',
+            'language' => 'pt-BR',
+            'dateFormat' => 'dd-M-y',
         ]) ?>
     </div>   
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -80,10 +80,14 @@ class PeriodoController extends Controller
         $model = new Periodo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
+
+            $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
+            //$model->dtInicio = DateTime::createFromFormat('Y/m/d', $model->dtInicio);
+            //$model->dtInicio = date('d/m/Y',  strtotime($model->dtInicio));
+            $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
             //Altera o formato para o formato do Mysql...
-            $model->dtInicio  = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtInicio]') ) );
-            $model->dtTermino = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtTermino]') ) );
+            //$model->dtInicio  = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtInicio]') ) );
+            //$model->dtTermino  = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtTermino]') ) );
             $model->save();
             
             return $this->redirect(['view', 'id' => $model->id]);
