@@ -25,7 +25,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['cpf', 'password'], 'required'],
+            [['cpf', 'password'], 'required', 'message'=> 'Este campo é obrigatório'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
