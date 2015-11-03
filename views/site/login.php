@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-9">
+
                     <?= $form->field($model, 'cpf')->label('CPF') ?>
                     <?= $form->field($model, 'password')->passwordInput() ?>
                     <div class="form-group">

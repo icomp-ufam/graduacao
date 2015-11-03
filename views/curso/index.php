@@ -2,11 +2,15 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+
+
+$this->params['breadcrumbs'][] = ['label' => 'Cursos', 'url' => ['index']];
+$this->title = 'Lista de Cursos';
 ?>
 <div class="curso-index">
-    <h2>Curso</h2>
+    <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Cadastrar Curso', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo Curso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

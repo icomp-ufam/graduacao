@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Periodo */
 
-$this->title = 'Calendário ID:'.' '.$model->id;
+$this->title = 'Calendário:' . ' '.$model->codigo;
 $this->params['breadcrumbs'][] = ['label' => 'Periodos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Você tem certeza que deseja deletar este item?',
+                'confirm' => 'Você deseja deletar este item?',
                 'method' => 'post',
             ],
         ]) ?>

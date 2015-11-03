@@ -1,10 +1,18 @@
+<?php
+
+use yii\widgets\DetailView;
+use yii\helpers\Html;
+
+/* @var $model app\models\Usuario */
+
+?>
 <!-- /.navbar-top-links -->
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li class="sidebar-search">
                                 <div class="input-group">
-                                    Olá, <b>Gabriel Gama</b>
+                                    Olá, <!--<?php $model = Usuario::findOne($id);?>--><b>Gabriel Gama</b>
                                 </div>
                                 <!-- /input-group -->
                             </li>
