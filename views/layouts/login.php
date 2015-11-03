@@ -3,6 +3,8 @@
 /* @var $content string */
 use yii\helpers\Html;
 use app\assets\AppAsset;
+use kartik\icons\Icon;
+Icon::map($this);
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

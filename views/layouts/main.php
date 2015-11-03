@@ -3,6 +3,8 @@
 /* @var $content string */
 use yii\helpers\Html;
 use app\assets\AppAsset;
+use kartik\icons\Icon;
+Icon::map($this);
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -51,6 +53,9 @@ AppAsset::register($this);
                                 <a href="?r=curso/index" ><i class="fa fa-check fa-fw"></i> Curso</a>
                             </li>
                             <li>
+                                <a href="?r=usuario/index"><i class="fa fa-user fa-fw"></i> Usuários</a>
+                            </li>
+                            <li>
                                 <a href="?r=curso/index"><i class="fa fa-line-chart fa-fw"></i> Relatório</a>
                             </li>
                             <li>
@@ -70,7 +75,7 @@ AppAsset::register($this);
                     <!-- /.sidebar-collapse -->
                 </div>
                 <!-- /.navbar-static-side -->
-                <div id="page-wrapper">
+                <div id="page-wrapper" style="padding:10px;">
                     <?= $content ?>
                 </div>
             </div>

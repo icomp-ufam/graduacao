@@ -2,19 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\CursoSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Cursos';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="curso-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    <h2>Curso</h2>
     <p>
         <?= Html::a('Cadastrar Curso', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
