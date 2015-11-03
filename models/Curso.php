@@ -28,8 +28,8 @@ class Curso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo', 'nome', 'max_horas'], 'required'],
-            [['max_horas'], 'integer'],
+            [['codigo', 'nome', 'max_horas'], 'required', 'message'=> 'Este campo é obrigatório'],
+            [['max_horas'], 'integer', 'message'=>'Máximo de horas deve ser inteiro'],
             [['codigo'], 'string', 'max' => 5],
             [['nome'], 'string', 'max' => 100],
         ];
