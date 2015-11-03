@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-1"></div>
                 <div class="col-md-9">
                     <?= $form->field($model, 'cpf')->label('CPF') ?>
-                    <?= $form->field($model, 'password')->passwordInput() ?>
+                    <?= $form->field($model, 'password')->passwordInput()->label('Senha') ?>
                     <div class="form-group">
                         <button type="submit" name="login-button" class="btn btn-success">Entrar</button>
                     </div>

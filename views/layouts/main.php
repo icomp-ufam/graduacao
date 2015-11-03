@@ -75,7 +75,7 @@ AppAsset::register($this);
                     <!-- /.sidebar-collapse -->
                 </div>
                 <!-- /.navbar-static-side -->
-                <div id="page-wrapper" style="padding:10px;">
+                <div id="page-wrapper" style="padding:10px; overflow:auto;">
                     <?= $content ?>
                 </div>
             </div>
