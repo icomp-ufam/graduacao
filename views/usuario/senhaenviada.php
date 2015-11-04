@@ -15,6 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <h2>Vaje seu email....</h2>
+    <h2>Verifique seu email!</h2>
 
 </div>
