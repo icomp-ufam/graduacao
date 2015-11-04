@@ -42,7 +42,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'cpf', 'email', 'password'], 'required'],
+            [['name', 'cpf', 'email', 'password'], 'required', 'message'=> 'Este campo é obrigatório'],
             [['dtEntrada'], 'safe'],
             [['isAdmin', 'isAtivo'], 'integer'],
             [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token', 'curso_id'], 'string', 'max' => 100],
@@ -60,8 +60,8 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             'name' => 'Nome',
             'cpf' => 'CPF',
             'email' => 'Email',
-            'password' => 'Password',
-            'matricula' => 'Matricula',
+            'password' => 'Senha',
+            'matricula' => 'Matrícula',
             'siape' => 'Siape',
             'perfil' => 'Perfil',
             'dtEntrada' => 'Data de Entrada',
