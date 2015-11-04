@@ -163,7 +163,16 @@ class UsuarioController extends Controller
         {
             
             $model = new Usuario();
-            
+
+            //verifica se o aluno já está cadastrado
+            //com o cpf informado...
+            $usuario = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();
+
+            if( $usuario != null )
+            {
+                return $this->render('novousuario', ['erro'=>'Usuário já cadastrado']);
+            }
+
             /* * pega os dados do webservice do cpd * */
             $link = 'http://200.129.163.9:8080/ecampus/servicos/getPessoaValidaSIE?cpf=' ;
             
@@ -171,8 +180,22 @@ class UsuarioController extends Controller
 
             $webservice = @file_get_contents($link);
             
+            // Caso o webservice esteja indisponivel o
+            // sistema volta para a pagina inicial
+            if($webservice == null)
+            {
+                return $this->goBack();
+            }
+            
             $dados = json_decode($webservice, true);
 
+            //verifica se encontrou o CPF no ecampus
+            if( isset( $dados['CPF inválido ']) )
+            {
+                return $this->render('novousuario', ['erro'=>'CPF inválido']);
+            }
+
+            //Para alunos com mais de uma matricula
             $ultimo = count($dados) -1 ;
 
             $model->name = $dados[$ultimo]['NOME_PESSOA'] ;
@@ -188,14 +211,13 @@ class UsuarioController extends Controller
                 $model->perfil = Yii::$app->request->post('perfil');  
             }
             
-            $model->isNewRecord = true;
-            
-            return $this->render('create', ['model' => $model]);  
+            $model->isNewRecord = true; 
 
+            return $this->render('create', ['model' => $model]);                
         }
         else
         {
-            return $this->render('novousuario');  
+            return $this->render('novousuario') ;  
         }
 
     }

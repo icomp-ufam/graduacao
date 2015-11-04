@@ -37,12 +37,19 @@ AppAsset::register($this);
         
             <div id="wrapper">
                 <!-- /.navbar-top-links -->
+
+                <?php if(isset(Yii::$app->user->identity)){ ?>
+
+
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
                             <li class="sidebar-search">
                                 <div class="input-group">
-                                    Olá, <b>Gabriel Gama</b>
+                                    Olá, 
+                                    <b><?= Yii::$app->user->identity->name ?></b>
+                                    , você está logado como: 
+                                    <b><?= Yii::$app->user->identity->perfil ?></b>
                                 </div>
                                 <!-- /input-group -->
                             </li>
@@ -78,6 +85,8 @@ AppAsset::register($this);
                     <!-- /.sidebar-collapse -->
                 </div>
                 <!-- /.navbar-static-side -->
+                <?php } ?>
+
                 <div id="page-wrapper" style="padding:10px; overflow:auto;">
                     <?= $content ?>
                 </div>

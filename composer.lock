@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1c5b300384d98820e8409dbffd0654df",
+    "hash": "b636c8f0498c1585c7149e7b0c0be408",
     "content-hash": "eb95a308112b37a444699e782281f12d",
     "packages": [
         {
@@ -450,12 +450,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "b56d50f461065d548371dfa87730216d1e81e301"
+                "reference": "2c30a74c45197befa78a57632ae761dcf765def2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/b56d50f461065d548371dfa87730216d1e81e301",
-                "reference": "b56d50f461065d548371dfa87730216d1e81e301",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/2c30a74c45197befa78a57632ae761dcf765def2",
+                "reference": "2c30a74c45197befa78a57632ae761dcf765def2",
                 "shasum": ""
             },
             "require-dev": {
@@ -490,7 +490,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2015-10-25 20:39:26"
+            "time": "2015-11-02 16:49:28"
         },
         {
             "name": "kartik-v/yii2-icons",
@@ -645,12 +645,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "b2851aede1418ef30147337ceac024ea2b8b65a2"
+                "reference": "c49e0f2c32f0e4bebbaa3d0635217fef5958b005"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b2851aede1418ef30147337ceac024ea2b8b65a2",
-                "reference": "b2851aede1418ef30147337ceac024ea2b8b65a2",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/c49e0f2c32f0e4bebbaa3d0635217fef5958b005",
+                "reference": "c49e0f2c32f0e4bebbaa3d0635217fef5958b005",
                 "shasum": ""
             },
             "require": {
@@ -726,7 +726,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-10-31 07:45:53"
+            "time": "2015-11-03 12:40:48"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -1183,12 +1183,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "3946123b429ef6aa95618a4159f3c0360054ddec"
+                "reference": "741ef183702cb8ba8f7d790040ff2c38124cc8c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/3946123b429ef6aa95618a4159f3c0360054ddec",
-                "reference": "3946123b429ef6aa95618a4159f3c0360054ddec",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/741ef183702cb8ba8f7d790040ff2c38124cc8c2",
+                "reference": "741ef183702cb8ba8f7d790040ff2c38124cc8c2",
                 "shasum": ""
             },
             "require": {
@@ -1228,7 +1228,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2015-10-07 14:54:57"
+            "time": "2015-11-03 09:49:52"
         }
     ],
     "aliases": [],

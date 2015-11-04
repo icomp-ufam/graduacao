@@ -15,9 +15,9 @@ use yii\widgets\ActiveForm;
     'action' => ['usuario/create'],
     ]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'disabled'=> 'disabled']) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true, 'disabled'=> 'disabled']) ?>
+    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
@@ -28,8 +28,7 @@ use yii\widgets\ActiveForm;
 
             echo $form->field($model, 'perfil')->textInput([
                 'maxlength' => true, 
-                'value'=>'Aluno',
-                'disabled'=> 'disabled'
+                'value'=>'Aluno'
             ]);
         }
     ?>
@@ -39,8 +38,6 @@ use yii\widgets\ActiveForm;
             echo $form->field($model, 'siape')->textInput(['maxlength' => true]);
         }
     ?>
-
-    <?= $form->field($model, 'dtEntrada')->textInput() ?>
 
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>

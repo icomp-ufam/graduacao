@@ -14,4 +14,19 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']) ?>
     </div>
 
+
+    <?php 
+
+    	if(isset($erro))
+    	{
+    		echo "<p class='col-sm-4 alert alert-danger'>";
+    		echo $erro ;
+    		echo "</p>";
+    	}
+    ?>
+    </p>
+
 <?php ActiveForm::end(); ?>
+
+
+<div class="col-md-4"></div>
