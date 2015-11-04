@@ -15,6 +15,7 @@ $this->title = 'Lista de Cursos';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'summary'=>'',
         'columns' => [
             'codigo',
             'nome',

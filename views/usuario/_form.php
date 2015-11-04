@@ -51,9 +51,9 @@ use yii\widgets\ActiveForm;
         if(Yii::$app->user->identity->isAdmin)
         {
             
-            $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador'];
+            $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin'];
             
-            echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'']);
+            echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'Selecione']);
    
         }
         
