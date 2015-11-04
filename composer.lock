@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b636c8f0498c1585c7149e7b0c0be408",
-    "content-hash": "eb95a308112b37a444699e782281f12d",
+    "hash": "5b3e52562b5a12799207f51d924ccd3d",
+    "content-hash": "90e787472aa678dfa87cbf85524b6c02",
     "packages": [
         {
             "name": "baibaratsky/php-mailgun",
@@ -645,12 +645,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "c49e0f2c32f0e4bebbaa3d0635217fef5958b005"
+                "reference": "3eb6f31db58a7b6815a955a8c53cfc893052da52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/c49e0f2c32f0e4bebbaa3d0635217fef5958b005",
-                "reference": "c49e0f2c32f0e4bebbaa3d0635217fef5958b005",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3eb6f31db58a7b6815a955a8c53cfc893052da52",
+                "reference": "3eb6f31db58a7b6815a955a8c53cfc893052da52",
                 "shasum": ""
             },
             "require": {
@@ -726,7 +726,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-11-03 12:40:48"
+            "time": "2015-11-04 10:00:42"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -960,12 +960,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "e0d369d63f3e04ac3cc18e8ccebfc92d9f0d8822"
+                "reference": "5a91b2475cd9a7a41d02615232eb4d1f18d4ae2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/e0d369d63f3e04ac3cc18e8ccebfc92d9f0d8822",
-                "reference": "e0d369d63f3e04ac3cc18e8ccebfc92d9f0d8822",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5a91b2475cd9a7a41d02615232eb4d1f18d4ae2c",
+                "reference": "5a91b2475cd9a7a41d02615232eb4d1f18d4ae2c",
                 "shasum": ""
             },
             "require": {
@@ -1002,7 +1002,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-10-30 22:32:56"
+            "time": "2015-11-04 14:05:31"
         },
         {
             "name": "phpspec/php-diff",
@@ -1234,6 +1234,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "yiisoft/yii2-jui": 20,
         "kartik-v/yii2-icons": 20
     },
     "prefer-stable": false,

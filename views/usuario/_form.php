@@ -42,6 +42,28 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
     
+    <?php
+    
+    if(isset(Yii::$app->user->identity))
+    {
+        $form = ActiveForm::begin();
+        
+        if(Yii::$app->user->identity->isAdmin)
+        {
+            
+            $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador'];
+            
+            echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'']);
+   
+        }
+        
+        ActiveForm::end(); 
+    }
+
+
+
+    ?>    
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
