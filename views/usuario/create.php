@@ -14,15 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="col-md-4"></div>
-    
-    <div class="col-md-4">
+   
         <?= $this->render('_form', [
             'model' => $model,
         ]) ?>        
-    </div>
-
-    <div class="col-md-4"></div>
+   
 
 
 </div>

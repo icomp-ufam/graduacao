@@ -59,6 +59,10 @@ class SiteController extends Controller
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            if (Yii::$app->user->identity->perfil == "admin") {
+                return $this->redirect(["curso/index"]);
+            }   
             return $this->redirect(["site/index"]);
         }
         return $this->render('login', [

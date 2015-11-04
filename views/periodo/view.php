@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Periodo */
 
-$this->title = 'Calendário:' . ' '.$model->codigo;
+$this->title = 'Período:' . ' '.$model->codigo;
 $this->params['breadcrumbs'][] = ['label' => 'Periodos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -30,8 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'codigo',
-            'dtInicio',
-            'dtTermino',
+            [
+            'attribute' => 'dtInicio',
+            'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+            'attribute' => 'dtTermino',
+            'format' => ['date', 'php:d-m-Y']
+            ],
         ],
     ]) ?>
 

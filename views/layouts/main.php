@@ -53,30 +53,35 @@ AppAsset::register($this);
                                 </div>
                                 <!-- /input-group -->
                             </li>
-                           <li>
+                         <!--  <li>
                                 <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                            </li>
+                            </li>-->
+                            <?php if(Yii::$app->user->identity->isAdmin == 1){ ?>
                             <li>
                                 <a href="?r=curso/index" ><i class="fa fa-check fa-fw"></i> Curso</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                             </li>
                             <li>
                                 <a href="?r=periodo/index"><i class="fa fa-calendar fa-fw"></i> Período</a>
                             </li>
                             <li>
+                                <a href="?r=usuario/index"><i class="fa fa-user fa-fw"></i> Usuários</a>
+                            </li>
+                            <?php } ?>
+                            <!--     <li>
+                                <a href="#"><i class="fa fa-download fa-fw"></i> Solicitações</a>
+                            </li>-->
+                        <!--    <li>
                                 <a href="#"><i class="fa fa-users fa-fw"></i> Grupos</a>
                             </li>
-                            <li>
+                         <!--   <li>
                                 <a href="#"><i class="fa fa-tasks fa-fw"></i> Atividades</a>
                             </li>
-                             <li>
+                          <!--   <li>
                                 <a href="#"><i class="fa fa-line-chart fa-fw"></i> Relatório</a>
                             </li>
-                            <li>
+                           <!-- <li>
                                 <a href="?r=curso/index"><i class="fa fa-file-text fa-fw"></i> Relação de Atividades</a>
-                            </li>
+                            </li>-->
                              <li>
                                 <a href="?r=site/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                             </li>

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
     'method' => 'post',
     'action' => ['usuario/create'],
     ]); ?>
-
+    <div class="col-md-4">
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
@@ -45,7 +45,7 @@ use yii\widgets\ActiveForm;
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
+</div>
     <?php ActiveForm::end(); ?>
 
 </div>

@@ -6,9 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Periodo */
 
 $this->title = 'Atualizar Período: ' . ' ' . $model->codigo;
-$this->params['breadcrumbs'][] = ['label' => 'Períodos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Atualizar';
 ?>
 <div class="periodo-update">
 

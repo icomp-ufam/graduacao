@@ -27,6 +27,3 @@ use yii\widgets\ActiveForm;
     </p>
 
 <?php ActiveForm::end(); ?>
-
-
-<div class="col-md-4"></div>

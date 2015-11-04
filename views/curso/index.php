@@ -15,11 +15,7 @@ $this->title = 'Lista de Cursos';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'codigo',
             'nome',
             'max_horas',
