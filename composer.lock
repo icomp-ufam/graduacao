@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5b3e52562b5a12799207f51d924ccd3d",
-    "content-hash": "90e787472aa678dfa87cbf85524b6c02",
+    "hash": "9a476fd29d2c6f4975125d6790954071",
     "packages": [
         {
             "name": "baibaratsky/php-mailgun",
@@ -177,16 +176,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.2.2",
+            "version": "3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "ebceb88a131e1fbc159733a88a6778ffc02debab"
+                "reference": "85b94d8c8158d610b148317608bf67b678b40659"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/ebceb88a131e1fbc159733a88a6778ffc02debab",
-                "reference": "ebceb88a131e1fbc159733a88a6778ffc02debab",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/85b94d8c8158d610b148317608bf67b678b40659",
+                "reference": "85b94d8c8158d610b148317608bf67b678b40659",
                 "shasum": ""
             },
             "require": {
@@ -195,33 +194,12 @@
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": [
-                    "./dist/inputmask/inputmask.dependencyLib.jquery.js",
-                    "./dist/inputmask/inputmask.js",
-                    "./dist/inputmask/inputmask.extensions.js",
-                    "./dist/inputmask/inputmask.date.extensions.js",
-                    "./dist/inputmask/inputmask.numeric.extensions.js",
-                    "./dist/inputmask/inputmask.phone.extensions.js",
-                    "./dist/inputmask/inputmask.regex.extensions.js",
-                    "./dist/inputmask/jquery.inputmask.js",
-                    "./dist/jquery.inputmask.bundle.js",
-                    "./extra/dependencyLibs/inputmask.dependencyLib.jqlite.js",
-                    "./extra/dependencyLibs/inputmask.dependencyLib.js",
-                    "./extra/phone-codes/phone-be.js",
-                    "./extra/phone-codes/phone-codes.js",
-                    "./extra/phone-codes/phone-nl.js",
-                    "./extra/phone-codes/phone-ru.js",
-                    "./extra/phone-codes/phone-uk.js"
+                    "./dist/inputmask/inputmask.js"
                 ],
                 "bower-asset-ignore": [
-                    "**/.*",
-                    "qunit/",
-                    "nuget/",
-                    "tools/",
-                    "js/",
-                    "*.md",
-                    "build.properties",
-                    "build.xml",
-                    "jquery.inputmask.jquery.json"
+                    "*",
+                    "!dist/*",
+                    "!extra/*"
                 ]
             },
             "license": [
@@ -271,12 +249,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/jquery-pjax.git",
-                "reference": "59ec6e89dab0a945eea2e9f967a9ed6ef97f4525"
+                "reference": "6818718408086db6bdcf33649cecb86b6b4f9b67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/59ec6e89dab0a945eea2e9f967a9ed6ef97f4525",
-                "reference": "59ec6e89dab0a945eea2e9f967a9ed6ef97f4525",
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/6818718408086db6bdcf33649cecb86b6b4f9b67",
+                "reference": "6818718408086db6bdcf33649cecb86b6b4f9b67",
                 "shasum": ""
             },
             "require": {
@@ -300,7 +278,7 @@
             "license": [
                 "MIT"
             ],
-            "time": "2015-10-21 22:05:55"
+            "time": "2015-11-10 10:06:36"
         },
         {
             "name": "cebe/markdown",
@@ -368,12 +346,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "65cc8a9790b0808b86e28a3327621d9314048852"
+                "reference": "33b0890f9701ae609926133d5501b51e4980829d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/65cc8a9790b0808b86e28a3327621d9314048852",
-                "reference": "65cc8a9790b0808b86e28a3327621d9314048852",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/33b0890f9701ae609926133d5501b51e4980829d",
+                "reference": "33b0890f9701ae609926133d5501b51e4980829d",
                 "shasum": ""
             },
             "type": "component",
@@ -398,7 +376,7 @@
                 }
             ],
             "description": "CSS for vector based country flags",
-            "time": "2015-10-27 18:31:57"
+            "time": "2015-11-09 19:43:49"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -450,12 +428,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FortAwesome/Font-Awesome.git",
-                "reference": "2c30a74c45197befa78a57632ae761dcf765def2"
+                "reference": "7e6010c73be2f28746d56f1024f273257fa2f5bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/2c30a74c45197befa78a57632ae761dcf765def2",
-                "reference": "2c30a74c45197befa78a57632ae761dcf765def2",
+                "url": "https://api.github.com/repos/FortAwesome/Font-Awesome/zipball/7e6010c73be2f28746d56f1024f273257fa2f5bc",
+                "reference": "7e6010c73be2f28746d56f1024f273257fa2f5bc",
                 "shasum": ""
             },
             "require-dev": {
@@ -490,7 +468,7 @@
                 "font",
                 "icon"
             ],
-            "time": "2015-11-02 16:49:28"
+            "time": "2015-11-05 08:52:53"
         },
         {
             "name": "kartik-v/yii2-icons",
@@ -645,12 +623,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "3eb6f31db58a7b6815a955a8c53cfc893052da52"
+                "reference": "7206eaf089f06aa462e96e1939eb53d0eb7312fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3eb6f31db58a7b6815a955a8c53cfc893052da52",
-                "reference": "3eb6f31db58a7b6815a955a8c53cfc893052da52",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7206eaf089f06aa462e96e1939eb53d0eb7312fb",
+                "reference": "7206eaf089f06aa462e96e1939eb53d0eb7312fb",
                 "shasum": ""
             },
             "require": {
@@ -726,7 +704,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-11-04 10:00:42"
+            "time": "2015-11-11 18:14:23"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -960,12 +938,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "5a91b2475cd9a7a41d02615232eb4d1f18d4ae2c"
+                "reference": "cd5fb1c262e1734366e77688b011a0f0422ce06d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/5a91b2475cd9a7a41d02615232eb4d1f18d4ae2c",
-                "reference": "5a91b2475cd9a7a41d02615232eb4d1f18d4ae2c",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/cd5fb1c262e1734366e77688b011a0f0422ce06d",
+                "reference": "cd5fb1c262e1734366e77688b011a0f0422ce06d",
                 "shasum": ""
             },
             "require": {
@@ -1002,7 +980,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-11-04 14:05:31"
+            "time": "2015-11-09 08:00:48"
         },
         {
             "name": "phpspec/php-diff",
@@ -1136,12 +1114,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-faker.git",
-                "reference": "6968c97fd2e951e8260d1ccc6f5e2109407290eb"
+                "reference": "51a1332d4f47681ff3f02aadfc209d7754292d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-faker/zipball/6968c97fd2e951e8260d1ccc6f5e2109407290eb",
-                "reference": "6968c97fd2e951e8260d1ccc6f5e2109407290eb",
+                "url": "https://api.github.com/repos/yiisoft/yii2-faker/zipball/51a1332d4f47681ff3f02aadfc209d7754292d0a",
+                "reference": "51a1332d4f47681ff3f02aadfc209d7754292d0a",
                 "shasum": ""
             },
             "require": {
@@ -1175,7 +1153,7 @@
                 "faker",
                 "yii2"
             ],
-            "time": "2015-09-29 10:49:25"
+            "time": "2015-11-11 15:45:23"
         },
         {
             "name": "yiisoft/yii2-gii",
