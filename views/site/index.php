@@ -35,16 +35,18 @@ use yii\helpers\Html;
                                 <a href="?r=usuario/index"><i class="fa fa-user fa-fw"></i> Usuários</a>
                             </li>
                             <?php } ?>
-                            <!--     <li>
-                                <a href="#"><i class="fa fa-download fa-fw"></i> Solicitações</a>
-                            </li>-->
-                        <!--    <li>
-                                <a href="#"><i class="fa fa-users fa-fw"></i> Grupos</a>
-                            </li>
-                         <!--   <li>
-                                <a href="#"><i class="fa fa-tasks fa-fw"></i> Atividades</a>
-                            </li>
-                          <!--   <li>
+                            <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+                                <li>
+                                    <a href="#"><i class="fa fa-download fa-fw"></i> Solicitações</a>
+                                </li>
+                                <li>
+                                <a href="?r=grupo/index"><i class="fa fa-users fa-fw"></i> Grupos</a>
+                                </li>
+                                <li>
+                                    <a href="?r=atividade/index"><i class="fa fa-tasks fa-fw"></i> Atividades</a>
+                                </li>
+                            <?php } ?>
+                            <!--   <li>
                                 <a href="#"><i class="fa fa-line-chart fa-fw"></i> Relatório</a>
                             </li>
                            <!-- <li>
