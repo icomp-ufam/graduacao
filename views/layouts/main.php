@@ -69,7 +69,7 @@ AppAsset::register($this);
                             <?php } ?>
                             <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
                                 <li>
-                                    <a href="#"><i class="fa fa-download fa-fw"></i> Solicitações</a>
+                                    <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                                 </li>
                                 <li>
                                     <a href="?r=grupo/index"><i class="fa fa-users fa-fw"></i> Grupos</a>
