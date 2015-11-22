@@ -8,6 +8,6 @@ Sistema para cadastro de atividades complementares dos alunos do ICOMP
 2. Gabriel Gama Albuquerque
 3. Luciene Oliveira
 4. Denilson Carvalho
-5.
+5. EU
 
 
