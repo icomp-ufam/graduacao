@@ -7,6 +7,7 @@ use app\models\Solicitacao;
 use app\models\SolicitacaoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
@@ -17,6 +18,22 @@ class SolicitacaoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create','index', 'update', 'view', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','index', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if(!Yii::$app->user->isGuest)
+                            {
+                                return Yii::$app->user->identity->perfil == 'Coordenador' ;
+                            }
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,6 +80,9 @@ class SolicitacaoController extends Controller
         $model = new Solicitacao();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
+            $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

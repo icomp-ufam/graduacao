@@ -14,9 +14,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dtInicio')->textInput() ?>
+    <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
+        'language' => 'pt-BR',
+        'dateFormat' => 'dd-M-y',
+    ]) ?>
 
-    <?= $form->field($model, 'dtTermino')->textInput() ?>
+    <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
+        'language' => 'pt-BR',
+        'dateFormat' => 'dd-M-y',
+    ]) ?>
 
     <?= $form->field($model, 'horasComputadas')->textInput() ?>
 
@@ -24,7 +30,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <!--<?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>-->
+
+    <?php
+
+    if(isset(Yii::$app->user->identity))
+    {
+        $form = ActiveForm::begin();
+
+        if(Yii::$app->user->identity->perfil == 'Coordenador')
+        {
+
+            $items = ['Em Edição'=>'Em Edição', 'Submetida'=>'Submetida', 'Pré-Aprovada'=>'Pré-Aprovada', 'Deferida'=>'Deferida', 'Indeferida'=>'Indeferida'];
+
+        echo $form->field($model, 'status')->dropDownList($items, ['prompt'=>'Selecione']);
+
+        }
+
+        ActiveForm::end();
+    }
+
+    ?>
 
     <?= $form->field($model, 'atividade_id')->textInput() ?>
 
@@ -37,7 +63,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'anexo_id')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
