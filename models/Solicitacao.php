@@ -52,9 +52,9 @@ class Solicitacao extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'descricao' => 'Descricao',
-            'dtInicio' => 'Dt Inicio',
-            'dtTermino' => 'Dt Termino',
+            'descricao' => 'Descrição',
+            'dtInicio' => 'Data Início',
+            'dtTermino' => 'Data Término',
             'horasComputadas' => 'Horas Computadas',
             'horasMaxAtiv' => 'Horas Max Ativ',
             'observacoes' => 'Observacoes',
