@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Atividade;
+use app\models\Periodo;
+use app\models\Usuario;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Solicitacao */
@@ -52,9 +56,33 @@ use yii\widgets\ActiveForm;
 
     ?>
 
-    <?= $form->field($model, 'atividade_id')->textInput() ?>
+    <?php
+    echo $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
+    //echo $form->field($model, 'atividade_id')->dropDownList($atividade, 'id', 'nome', ['prompt'=>'Selecione']);
+    ?>
 
-    <?= $form->field($model, 'periodo_id')->textInput() ?>
+    <?php
+    echo $form->field($model, 'periodo_id')->dropDownList(ArrayHelper::map(\app\models\Periodo::find()->all(), 'id', 'codigo'), ['prompt'=>'Selecione']);
+    ?>
+
+    <?php
+
+    if(isset(Yii::$app->user->identity))
+    {
+        $form = ActiveForm::begin();
+
+        if(Yii::$app->user->identity->perfil == 'Coordenador')
+        {
+
+         echo $form->field($model, 'usuario')->textInput( ['value' => Yii::$app->user->identity->name]);
+
+        }
+
+        ActiveForm::end();
+    }
+
+    ?>
+
 
     <?= $form->field($model, 'solicitante_id')->textInput() ?>
 
