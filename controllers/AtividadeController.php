@@ -77,12 +77,15 @@ class AtividadeController extends Controller
     public function actionCreate()
     {
         $model = new Atividade();
+        $searchModel = new AtividadeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'dataProvider' => $dataProvider
             ]);
         }
     }
