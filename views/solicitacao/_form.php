@@ -58,7 +58,6 @@ use yii\helpers\ArrayHelper;
 
     <?php
     echo $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
-    //echo $form->field($model, 'atividade_id')->dropDownList($atividade, 'id', 'nome', ['prompt'=>'Selecione']);
     ?>
 
     <?php
@@ -71,10 +70,43 @@ use yii\helpers\ArrayHelper;
     {
         $form = ActiveForm::begin();
 
+        if(Yii::$app->user->identity->perfil == 'Aluno')
+        {
+
+         echo $form->field($model, 'solicitante_id')->textInput( ['value' => Yii::$app->user->identity->id]);
+
+        }
+
         if(Yii::$app->user->identity->perfil == 'Coordenador')
         {
 
-         echo $form->field($model, 'usuario')->textInput( ['value' => Yii::$app->user->identity->name]);
+            //$nome = Usuario::findOne([Yii::$app->user->identity->id]);
+            //echo $form->field($model, 'solicitante_id')->textInput( ['value' => $nome]);
+            echo $form->field($model, 'solicitante_id')->textInput( ['value' => Yii::$app->user->identity->id]);
+
+        }
+
+        ActiveForm::end();
+
+    }
+
+    ?>
+
+
+    <!--<?= $form->field($model, 'solicitante_id')->textInput() ?>-->
+
+    <!--<?= $form->field($model, 'aprovador_id')->textInput() ?>-->
+
+    <?php
+
+    if(isset(Yii::$app->user->identity))
+    {
+        $form = ActiveForm::begin();
+
+        if(Yii::$app->user->identity->perfil == 'Coordenador')
+        {
+
+            echo $form->field($model, 'aprovador')->textInput( ['value' => Yii::$app->user->identity->name]);
 
         }
 
@@ -83,10 +115,6 @@ use yii\helpers\ArrayHelper;
 
     ?>
 
-
-    <?= $form->field($model, 'solicitante_id')->textInput() ?>
-
-    <?= $form->field($model, 'aprovador_id')->textInput() ?>
 
     <?= $form->field($model, 'anexo_id')->textInput() ?>
 
