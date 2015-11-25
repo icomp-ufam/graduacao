@@ -34,6 +34,22 @@ class SolicitacaoController extends Controller
                     ],
                 ],
             ],
+                /*'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['create','index', 'update', 'view', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'update', 'view'],
+                            'allow' => true,
+                            'matchCallback' => function ($rule, $action) {
+                                if(!Yii::$app->user->isGuest)
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Secretaria' ;
+                                }
+                            }
+                        ],
+                    ],
+                ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

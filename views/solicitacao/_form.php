@@ -64,49 +64,56 @@ use yii\helpers\ArrayHelper;
     echo $form->field($model, 'periodo_id')->dropDownList(ArrayHelper::map(\app\models\Periodo::find()->all(), 'id', 'codigo'), ['prompt'=>'Selecione']);
     ?>
 
+
+    <!-- preenchendo o campo solicitante_id com os ids do Aluno, e escondendo do formulario. caso seja coordenador que esteja criando uma solicitação pro Aluno, então o Coordenador preencherá.-->
+    <!--<?= $form->field($model, 'solicitante_id')->textInput() ?>-->
     <?php
 
     if(isset(Yii::$app->user->identity))
     {
         $form = ActiveForm::begin();
 
+
         if(Yii::$app->user->identity->perfil == 'Aluno')
         {
 
-         echo $form->field($model, 'solicitante_id')->textInput( ['value' => Yii::$app->user->identity->id]);
+            echo $form->field($model, 'solicitante_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false);
 
         }
 
-        if(Yii::$app->user->identity->perfil == 'Coordenador')
+        elseif(Yii::$app->user->identity->perfil == 'Coordenador')
         {
 
-            //$nome = Usuario::findOne([Yii::$app->user->identity->id]);
-            //echo $form->field($model, 'solicitante_id')->textInput( ['value' => $nome]);
-            echo $form->field($model, 'solicitante_id')->textInput( ['value' => Yii::$app->user->identity->id]);
+            echo $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->all(), 'id', 'name'), ['prompt'=>'Selecione']);
 
         }
 
         ActiveForm::end();
-
     }
 
     ?>
 
 
-    <!--<?= $form->field($model, 'solicitante_id')->textInput() ?>-->
-
+    <!--preenchendo o campo aprovador_id com os ids de coordenador ou secretaria, e escondendo do formulario.-->
     <!--<?= $form->field($model, 'aprovador_id')->textInput() ?>-->
-
     <?php
 
     if(isset(Yii::$app->user->identity))
     {
         $form = ActiveForm::begin();
 
+
         if(Yii::$app->user->identity->perfil == 'Coordenador')
         {
 
-            echo $form->field($model, 'aprovador')->textInput( ['value' => Yii::$app->user->identity->name]);
+            echo $form->field($model, 'aprovador_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false);
+
+        }
+
+        if(Yii::$app->user->identity->perfil == 'Secretaria')
+        {
+
+            echo $form->field($model, 'aprovador_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false);
 
         }
 
