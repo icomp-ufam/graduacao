@@ -37,11 +37,14 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao', 'dtInicio', 'dtTermino', 'status', 'atividade_id', 'periodo_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'required'],
+            [['horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id', 'periodo_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'required', 'message'=>'Este
+campo é obrigatório'],
             [['dtInicio', 'dtTermino'], 'safe'],
             [['horasComputadas', 'horasMaxAtiv', 'atividade_id', 'periodo_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
             [['descricao', 'observacoes'], 'string', 'max' => 100],
             [['status'], 'string', 'max' => 20],
+            ['horasMaxAtiv', 'integer', 'min'=>1, 'max'=>120],
+            ['horasComputadas', 'integer', 'min'=>1, 'max'=>120]
         ];
     }
 
