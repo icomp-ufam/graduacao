@@ -10,9 +10,13 @@ use app\models\LoginForm;
 use app\models\Novousuario;
 use app\models\UsuarioForm;
 use yii\helpers\Html;
+
+use App\Anexo;
+
 class SiteController extends Controller
 {
     public $layout = 'login';
+
     public function behaviors()
     {
         return [
@@ -68,6 +72,11 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function actionAnexo()
+    {
+        return 'teste...';
     }
 
     public function actionLogout()

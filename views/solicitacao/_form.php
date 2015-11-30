@@ -40,7 +40,7 @@ use yii\helpers\ArrayHelper;
 
     if(isset(Yii::$app->user->identity))
     {
-        $form = ActiveForm::begin();
+        //$form = ActiveForm::begin();
 
         if(Yii::$app->user->identity->perfil == 'Coordenador')
         {
@@ -51,7 +51,7 @@ use yii\helpers\ArrayHelper;
 
         }
 
-        ActiveForm::end();
+        //ActiveForm::end();
     }
 
     ?>
@@ -71,7 +71,6 @@ use yii\helpers\ArrayHelper;
 
     if(isset(Yii::$app->user->identity))
     {
-        $form = ActiveForm::begin();
 
 
         if(Yii::$app->user->identity->perfil == 'Aluno')
@@ -88,7 +87,6 @@ use yii\helpers\ArrayHelper;
 
         }
 
-        ActiveForm::end();
     }
 
     ?>
@@ -100,7 +98,6 @@ use yii\helpers\ArrayHelper;
 
     if(isset(Yii::$app->user->identity))
     {
-        $form = ActiveForm::begin();
 
 
         if(Yii::$app->user->identity->perfil == 'Coordenador')
@@ -117,7 +114,6 @@ use yii\helpers\ArrayHelper;
 
         }
 
-        ActiveForm::end();
     }
 
     ?>
