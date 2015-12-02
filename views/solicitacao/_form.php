@@ -15,17 +15,17 @@ use yii\helpers\ArrayHelper;
 <div class="solicitacao-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
+    <div class="col-md-4">
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
         'language' => 'pt-BR',
-        'dateFormat' => 'dd-M-y',
+        'dateFormat' => 'dd/M/y',
     ]) ?>
 
     <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
         'language' => 'pt-BR',
-        'dateFormat' => 'dd-M-y',
+        'dateFormat' => 'dd/M/y',
     ]) ?>
 
     <?= $form->field($model, 'horasComputadas')->textInput() ?>
@@ -50,8 +50,7 @@ use yii\helpers\ArrayHelper;
         echo $form->field($model, 'status')->dropDownList($items, ['prompt'=>'Selecione']);
 
         }
-
-        //ActiveForm::end();
+        
     }
 
     ?>
@@ -84,7 +83,6 @@ use yii\helpers\ArrayHelper;
         {
 
             echo $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->all(), 'id', 'name'), ['prompt'=>'Selecione']);
-
         }
 
     }
@@ -124,7 +122,7 @@ use yii\helpers\ArrayHelper;
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
+</div>
     <?php ActiveForm::end(); ?>
 
 </div>

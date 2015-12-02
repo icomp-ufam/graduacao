@@ -46,7 +46,7 @@ class Anexo extends \yii\db\ActiveRecord
             'nome' => 'Nome',
             'tipo' => 'Tipo',
             'hash' => 'Hash',
-            'solicitacao_id' => 'Solicitacao ID',
+            'solicitacao_id' => 'Solicitação',
         ];
     }
 

@@ -40,6 +40,16 @@ class SolicitacaoController extends Controller
                                 return Yii::$app->user->identity->perfil == 'Secretaria' ;
                             }
                         }
+                    ],
+                    [
+                        'actions' => ['create', 'index', 'update', 'view', 'delete'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            if(!Yii::$app->user->isGuest)
+                            {
+                                return true; //Yii::$app->user->identity->perfil == 'Aluno' ;
+                            }
+                        }
                     ],                    
                 ],
             ],

@@ -83,6 +83,11 @@ AppAsset::register($this);
                                     <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                                 </li>
                             <?php } ?>
+                             <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+                                <li>
+                                    <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
+                                </li>
+                            <?php } ?>
 
                           <!--   <li>
                                 <a href="#"><i class="fa fa-line-chart fa-fw"></i> Relatório</a>
