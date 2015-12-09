@@ -10,12 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-
-//-----------------------------------------------------------------------------
-//WINDOWS 
-//require_once('..\vendor\autoload.php'); //necessario p mailgun-php
-
-
+use yii\helpers\Url;
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -26,10 +21,10 @@ class UsuarioController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'delete', 'update'],
+                'only' => ['index', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'delete', 'update'],
+                        'actions' => ['index', 'delete'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
@@ -108,20 +103,7 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $model->password = md5($model->password) ;
-            
-            return $this->redirect(['view', 'id' => $model->id]);
-        
-            
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
     }
 
     /**
@@ -154,7 +136,8 @@ class UsuarioController extends Controller
     }
     
     /* **** ***************************
-    * denilson
+    * Novo usuario via Webservice
+    * ult.mod: 09/12/2015
     * *** ************************** */
     public function actionNovousuario()
     {
@@ -192,24 +175,36 @@ class UsuarioController extends Controller
             //verifica se encontrou o CPF no ecampus
             if( isset( $dados['CPF inválido ']) )
             {
-                return $this->render('novousuario', ['erro'=>'CPF inválido']);
+                return $this->render('novousuario', ['erro'=>'CPF não encontrado ou inválido']);
             }
 
             //Para alunos com mais de uma matricula
-            $ultimo = count($dados) -1 ;
+            //procura a matricula ativa
+            //se nenhuma matrica estiver ativa.. o sistema volta a tela inicia
+            $atual = null;
+            
+            foreach($dados as $aluno)
+            {
+                if($aluno["ATIVO"]=="true")
+                {
+                    $atual = $aluno;
+                }
+            }
 
-            $model->name = $dados[$ultimo]['NOME_PESSOA'] ;
+            if($atual==null)
+            {
+                return $this->render('novousuario', ['erro'=>'O aluno não está ativo']);
+            }
+            
+            // Adc os dados do aluno no model e redireciona p 
+            // tela de cadastro...
+            $model->name = $atual['NOME_PESSOA'] ;
             
             $model->cpf = Yii::$app->request->post('cpf');
 
-            $model->email = $dados[$ultimo]['EMAIL'];
+            $model->email = $atual['EMAIL'];
             
-            $model->matricula = $dados[$ultimo]['MATR_ALUNO'];
-            
-            if($model->matricula != null)
-            {
-                $model->perfil = Yii::$app->request->post('perfil');  
-            }
+            $model->matricula = $atual['MATR_ALUNO'];
             
             $model->isNewRecord = true; 
 
@@ -234,6 +229,11 @@ class UsuarioController extends Controller
 
             if($usuario!=null) //se o usuario com email informado existe...
             {
+                
+                //gera o token de troca senha
+                $usuario->generatePasswordResetToken();
+                
+                //prepara o email com o link
                 $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
                 $key = 'key-f0dc85b59a45bcda5373019f605ce034';
 
@@ -243,10 +243,38 @@ class UsuarioController extends Controller
                 $message->setFrom('admin@icomp.ufam.edu.br', 'Admin-Atv Complementares');
                 $message->addTo( $usuario->email, $usuario->name); //destinatario...
                 $message->setSubject('Nova Senha');
-                $message->setText('Sua nova senha temporária é: ' . $usuario->senhaAleatoria() );
-
-                $message->send();
+                //$message->setText('Sua nova senha temporária é: ' . $usuario->senhaAleatoria() );
+                $message->setHtml(
+                    '<!doctype html>
+                    <html>
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+                        <title>Email Reset</title>
+                        <style>
+                            div {
+                                width: 600px;
+                                heigth: auto;
+                                padding: 2px 2px 2px 2px;
+                                border: 1px solid navy;
+                                margin: 1px 1px 1px 1px;
+                                
+                                
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div>
+                        <h2>Prezado: ' . $usuario->name . '</h2>
+                        <p>Conforme solicitado segue abaixo o link para o troca senha:</p>
+                        <h3>'. 
+                        Url::to(['usuario/resetpassword', 'token' => $usuario->password_reset_token] , true) 
+                        . '</h3>
+                        </div></body></html>'
+                );
                 
+                $message->send();
+
                 return $this->render('senhaenviada');
             }
             else
@@ -259,4 +287,49 @@ class UsuarioController extends Controller
             return $this->render('recuperarsenha');
         }
     }
+    
+    /**
+     * Reseta a senha do usuario informado.
+     */
+    public function actionResetpassword()
+    {
+        //busca o usuario pelo token
+        $token = Yii::$app->request->get('token');
+
+        $usuario = Usuario::find()->where(['password_reset_token'=>$token])->one();
+
+        if($usuario==null)
+        {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+
+        if ( Yii::$app->request->post() ) 
+        {
+            
+            //busca o usuario pelo token
+            $token = Yii::$app->request->get('token');
+
+            $usuario = Usuario::find()->where(['password_reset_token'=>$token])->one();
+            
+            if($usuario==null)
+            {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+            
+            $usuario->password = md5(Yii::$app->request->get('senhanova'));
+            
+            $usuario->save();
+            
+            return var_dump($usuario);
+
+            return $this->goHome();
+        }
+        else
+        {
+            return $this->render('novasenha', ['model' => $usuario]);             
+        }
+      
+
+    }
+    
 }

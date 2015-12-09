@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Solicitacao */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Solicitações', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Solicitacaos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="solicitacao-view">
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Você deseja deletar este item?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,25 +28,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'descricao',
-            [
-                'attribute' => 'dtInicio',
-                'format' => ['date', 'php:d-m-Y']
-            ],
-            [
-                'attribute' => 'dtTermino',
-                'format' => ['date', 'php:d-m-Y']
-            ],
+            'dtInicio',
+            'dtTermino',
             'horasComputadas',
-            'horasMaxAtiv',
-            'observacoes',
-            'status',
-            'atividade_id',
-            'periodo_id',
-            'solicitante_id',
-            'aprovador_id',
-            'anexo_id',
+            //'horasMaxAtiv',
+            //'observacoes',
+            'status:html',
+            //'atividade_id',
+            //'periodo_id',
+            //'solicitante_id',
+            //'aprovador_id',
+            //'anexo_id',
+
+            [
+            'attribute'=>'anexoOriginalName',
+            'format'=>'raw',
+            'value'=>Html::a($model->anexoOriginalName, 'uploads/' . $model->anexoHashName ),
+            ],
+
         ],
     ]) ?>
 

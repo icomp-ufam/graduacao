@@ -24,7 +24,7 @@ $this->title = 'Atividades';
             'nome',
             'max_horas',
             'curso_id',
-            // 'grupo_id',
+            'grupo_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
