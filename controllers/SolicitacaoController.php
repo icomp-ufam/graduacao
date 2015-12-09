@@ -48,7 +48,7 @@ class SolicitacaoController extends Controller
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
                             {
-                                return true; //Yii::$app->user->identity->perfil == 'Aluno' ;
+                                return Yii::$app->user->identity->perfil == 'Aluno' ;
                             }
                         }
                     ],                    

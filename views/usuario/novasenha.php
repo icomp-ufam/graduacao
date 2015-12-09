@@ -4,14 +4,20 @@ use yii\widgets\ActiveForm;
 ?>
 
 <?php $form = ActiveForm::begin(); ?>
-
-    <h2>Informe o Email cadastrado:</h2>
+    
+    <h3>Usuario: <?= $model->name ?></h3>
+    <h3>Informe a nova senha:</h3>
     <div class="form-group">
-        <?= Html::input('text','email') ?>
+        
+        <?= Html::input('text','senhanova') ?>
+        <?= Html::input('hidden', 'token', $model->password_reset_token ) ?>
+
+        
     </div>
 
     <div class="form-group">
         <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']) ?>
     </div>
+
 
 <?php ActiveForm::end(); ?>
