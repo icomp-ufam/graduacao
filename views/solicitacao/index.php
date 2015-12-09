@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SolicitacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Lista de Solicitações';
+$this->title = 'Solicitacaos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="solicitacao-index">
@@ -16,15 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Solicitacao', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
-        'summary'=>'',
+        'filterModel' => $searchModel,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
             'descricao',
@@ -34,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'horasMaxAtiv',
             // 'observacoes',
             'status',
-            //'atividade_id',
+            // 'atividade_id',
             // 'periodo_id',
             // 'solicitante_id',
             // 'aprovador_id',

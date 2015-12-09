@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use app\models\Anexo;
+
 /**
  * SolicitacaoController implements the CRUD actions for Solicitacao model.
  */
@@ -54,7 +54,22 @@ class SolicitacaoController extends Controller
                     ],                    
                 ],
             ],
-
+                /*'access' => [
+                    'class' => AccessControl::className(),
+                    'only' => ['create','index', 'update', 'view', 'delete'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'update', 'view'],
+                            'allow' => true,
+                            'matchCallback' => function ($rule, $action) {
+                                if(!Yii::$app->user->isGuest)
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Secretaria' ;
+                                }
+                            }
+                        ],
+                    ],
+                ],*/
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -98,41 +113,13 @@ class SolicitacaoController extends Controller
      */
     public function actionCreate()
     {
-
         $model = new Solicitacao();
-        
-        $anexo = new Anexo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
             $model->save();
-            
-            $file = UploadedFile::getInstance($model, 'arquivo');
-            
-            $file_name = Yii::$app->user->identity->id . '_' . rand(1, 999999);
-
-            $file_name = $file_name . '.' . $file->extension;
-
-            $model->arquivo = $file;
-
-            $file->saveAs('uploads/' . $file_name);
-            
-            //atualiza os dados do nome no model solicitacao
-            
-            $model->anexoOriginalName   = $file->baseName . '.' . $file->extension ;
-            
-            $model->anexoHashName       = $file_name ;
-            
-            $model->arquivo = null ;     //tava dando erro na hora de salvar
-            
-            $model->save();
-            
-            //redireciona para a view da solicitacao criada
             return $this->redirect(['view', 'id' => $model->id]);
-            
-            
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -44,29 +44,47 @@ campo é obrigatório'],
             [['descricao', 'observacoes'], 'string', 'max' => 100],
             [['status'], 'string', 'max' => 20],
             ['horasMaxAtiv', 'integer', 'min'=>1, 'max'=>120],
-            ['horasComputadas', 'integer', 'min'=>1, 'max'=>120]
+            ['horasComputadas', 'integer', 'min'=>1, 'max'=>120],
+            [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf'],
         ];
     }
 
+    //faz o upload do arquivo com o nome mudado...
+    public function upload()
+    {
+        
+        
+
+        $nomeDoArquivo = Yii::$app->user->identity->id . '_' . rand(1,999999). '_' . $arquivo->extension ;
+        
+        $this->arquivo->saveAs('uploads/' . $nomeDoArquivo . '.' . $this->arquivo->extension);
+        
+        return true;
+
+    }
+    
+    
+    
     /**
      * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            //'id' => 'ID',
             'descricao' => 'Descrição',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
             'horasComputadas' => 'Horas Computadas',
-            'horasMaxAtiv' => 'Máximo de Horas de Atividade',
-            'observacoes' => 'Observações',
+            //'horasMaxAtiv' => 'Máximo de Horas de Atividade',
+            //'observacoes' => 'Observações',
             'status' => 'Status',
-            'atividade_id' => 'Atividade',
-            'periodo_id' => 'Período',
-            'solicitante_id' => 'Solicitante',
-            'aprovador_id' => 'Aprovador',
-            'anexo_id' => 'Anexo',
+            //'atividade_id' => 'Atividade',
+            //'periodo_id' => 'Período',
+            //'solicitante_id' => 'Solicitante',
+            //'aprovador_id' => 'Aprovador',
+            //'anexo_id' => 'Anexo',
+            'anexoOriginalName' => 'Arquivo Anexo',
         ];
     }
 }
