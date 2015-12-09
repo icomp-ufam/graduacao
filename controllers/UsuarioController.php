@@ -259,6 +259,7 @@ class UsuarioController extends Controller
                                 border: 1px solid navy;
                                 margin: 1px 1px 1px 1px;
                                 
+                                
                             }
                         </style>
                     </head>
