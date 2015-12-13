@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
         
         <?= Html::input('text','senhanova') ?>
         <?= Html::input('hidden', 'token', $model->password_reset_token ) ?>
-
+        <?= Html::input('hidden', 'id', $model->id ) ?>
         
     </div>
 

@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password',
             'matricula',
             'siape',
-            'perfil',
             //'dtEntrada',
             //'isAdmin',
             //'isAtivo',

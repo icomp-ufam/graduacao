@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Usuario;
+use app\models\Curso;
+
 use app\models\UsuarioSearch;
 use app\models\UsuarioForm;
 use yii\web\Controller;
@@ -79,15 +81,17 @@ class UsuarioController extends Controller
     public function actionCreate()
     {
         $model = new Usuario();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             $model->password = md5($model->password);
+
+            //$model->curso_id = 99;
             
-            $model->save();
+            $model->save(false);
             
             return $this->redirect(['view', 'id' => $model->id]);
-
+            
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -142,7 +146,7 @@ class UsuarioController extends Controller
     public function actionNovousuario()
     {
 
-        if ( Yii::$app->request->post()) 
+        if ( Yii::$app->request->post() ) 
         {
             
             $model = new Usuario();
@@ -196,19 +200,31 @@ class UsuarioController extends Controller
                 return $this->render('novousuario', ['erro'=>'O aluno não está ativo']);
             }
             
-            // Adc os dados do aluno no model e redireciona p 
+            // Adiciona os dados do aluno no model e redireciona p 
             // tela de cadastro...
-            $model->name = $atual['NOME_PESSOA'] ;
+            $model->name        = $atual['NOME_PESSOA'] ;
             
-            $model->cpf = Yii::$app->request->post('cpf');
+            $model->cpf         = Yii::$app->request->post('cpf');
+            
+            $model->email       = $atual['EMAIL'];
+            
+            $model->matricula   = $atual['MATR_ALUNO'];
+            
+            $curso_sigla = $atual['CURSO'];
+            
+            //Verifica se o curso pertence aos cursos
+            //cadastrados
+            $curso = Curso::find()->where(['codigo' => $curso_sigla])->one();
+            
+            if($curso==null)
+            {
+                throw new NotFoundHttpException('O Curso não está cadastrado para este aluno');
+            }
 
-            $model->email = $atual['EMAIL'];
             
-            $model->matricula = $atual['MATR_ALUNO'];
+            $model->isNewRecord = false;
             
-            $model->isNewRecord = true; 
-
-            return $this->render('create', ['model' => $model]);                
+            return $this->render('create', ['model' => $model, 'id_curso' => $curso->id ]);                 
         }
         else
         {
@@ -232,6 +248,7 @@ class UsuarioController extends Controller
                 
                 //gera o token de troca senha
                 $usuario->generatePasswordResetToken();
+                $usuario->save(false);
                 
                 //prepara o email com o link
                 $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
@@ -293,40 +310,39 @@ class UsuarioController extends Controller
      */
     public function actionResetpassword()
     {
-        //busca o usuario pelo token
-        $token = Yii::$app->request->get('token');
 
-        $usuario = Usuario::find()->where(['password_reset_token'=>$token])->one();
-
-        if($usuario==null)
-        {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
 
         if ( Yii::$app->request->post() ) 
         {
             
-            //busca o usuario pelo token
-            $token = Yii::$app->request->get('token');
-
-            $usuario = Usuario::find()->where(['password_reset_token'=>$token])->one();
+            $model = new Usuario();
             
-            if($usuario==null)
-            {
-                throw new NotFoundHttpException('The requested page does not exist.');
-            }
+            //busca o usuario pelo ID
+            $id = Yii::$app->request->post('id');
             
-            $usuario->password = md5(Yii::$app->request->get('senhanova'));
+            $model = Usuario::find()->where(['id'=>$id])->one();
             
-            $usuario->save();
+            $model->password = md5(Yii::$app->request->post('senhanova'));
             
-            return var_dump($usuario);
+            $model->save(false);
 
             return $this->goHome();
         }
         else
         {
-            return $this->render('novasenha', ['model' => $usuario]);             
+            $model = new Usuario();
+            
+            //busca o usuario pelo token
+            $token = Yii::$app->request->get('token');
+            
+            $model = Usuario::find()->where(['password_reset_token'=>$token])->one();
+
+            if($model==null)
+            {
+                throw new NotFoundHttpException('The requested page does not exist.');
+            }
+            
+            return $this->render('novasenha', ['model' => $model]);             
         }
       
 
