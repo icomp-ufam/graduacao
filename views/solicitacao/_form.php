@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use app\models\Atividade;
 use app\models\Periodo;
@@ -38,7 +39,16 @@ use yii\helpers\ArrayHelper;
     
     <?= $form->field($model, 'horasComputadas')->textInput() ?>
     
-    
+    <?= $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 
+        'id', 'nome'), ['prompt'=>'Selecione'],
+        [   'ajax' => [
+            'type'=>'POST', //request type
+            'url' => Url::to('solicitacao/gethorasmaximas'), //url to call.
+            'update'=>'#horasMaxAtiv', //selector to update
+            //'data'=>'js:javascript statement' 
+        ]] ); ?>
+ 
+    <?= $form->field($model, 'horasMaxAtiv')->textInput() ?>
     
     
     <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>

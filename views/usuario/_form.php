@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use app\models\Curso;
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuario */
 /* @var $form yii\widgets\ActiveForm */
@@ -14,7 +15,9 @@ use yii\widgets\ActiveForm;
     'method' => 'post',
     'action' => ['usuario/create'],
     ]); ?>
+    
     <div class="col-md-4">
+        
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
@@ -54,7 +57,10 @@ use yii\widgets\ActiveForm;
             $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin'];
             
             echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'Selecione']);
-   
+            
+            echo $form->field($model, 'curso_id')
+                    ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
+
         }
         
         ActiveForm::end(); 

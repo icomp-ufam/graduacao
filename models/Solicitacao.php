@@ -19,7 +19,6 @@ use Yii;
  * @property integer $periodo_id
  * @property integer $solicitante_id
  * @property integer $aprovador_id
- * @property integer $anexo_id
  */
 class Solicitacao extends \yii\db\ActiveRecord
 {
@@ -31,16 +30,24 @@ class Solicitacao extends \yii\db\ActiveRecord
         return 'solicitacao';
     }
 
+    //RELACIONAMENTO com a tabela usuario
+    public function Solicitante()
+    {
+        return $this->hasOne(app\models\Usuario::className(), ['id' => 'solicitante_id']);
+    }
+    
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id', 'periodo_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'required', 'message'=>'Este
-campo é obrigatório'],
+            [['horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id', 'periodo_id', 'solicitante_id', 
+            'aprovador_id', 'anexo_id'], 'required', 'message'=>'Este campo é obrigatório'],
             [['dtInicio', 'dtTermino'], 'safe'],
-            [['horasComputadas', 'horasMaxAtiv', 'atividade_id', 'periodo_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
+            [['horasComputadas', 'horasMaxAtiv', 'atividade_id', 'periodo_id', 'solicitante_id', 
+            'aprovador_id', 'anexo_id'], 'integer'],
             [['descricao', 'observacoes'], 'string', 'max' => 100],
             [['status'], 'string', 'max' => 20],
             ['horasMaxAtiv', 'integer', 'min'=>1, 'max'=>120],
@@ -49,22 +56,7 @@ campo é obrigatório'],
         ];
     }
 
-    //faz o upload do arquivo com o nome mudado...
-    public function upload()
-    {
-        
-        
 
-        $nomeDoArquivo = Yii::$app->user->identity->id . '_' . rand(1,999999). '_' . $arquivo->extension ;
-        
-        $this->arquivo->saveAs('uploads/' . $nomeDoArquivo . '.' . $this->arquivo->extension);
-        
-        return true;
-
-    }
-    
-    
-    
     /**
      * @inheritdoc
      */

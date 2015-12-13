@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-use app\models\Anexo;
+
 /**
  * SolicitacaoController implements the CRUD actions for Solicitacao model.
  */
@@ -100,8 +100,6 @@ class SolicitacaoController extends Controller
     {
 
         $model = new Solicitacao();
-        
-        $anexo = new Anexo();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
@@ -125,7 +123,7 @@ class SolicitacaoController extends Controller
             
             $model->anexoHashName       = $file_name ;
             
-            $model->arquivo = null ;     //tava dando erro na hora de salvar
+            $model->arquivo = null ;     //estava dando erro na hora de salvar
             
             $model->save();
             
@@ -187,4 +185,20 @@ class SolicitacaoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    
+    public function actionDynamiccities()
+    {
+        $data=Location::model()->findAll('parent_id=:parent_id', 
+                  array(':parent_id'=>(int) $_POST['country_id']));
+ 
+        $data=CHtml::listData($data,'id','name');
+        foreach($data as $value=>$name)
+        {
+            echo CHtml::tag('option',
+                   array('value'=>$value),CHtml::encode($name),true);
+        }
+    }
+
+
 }

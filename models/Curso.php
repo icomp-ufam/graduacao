@@ -22,6 +22,12 @@ class Curso extends \yii\db\ActiveRecord
         return 'curso';
     }
 
+    //RELACIONAMENTO com a tabela Usuarios
+    public function Usuarios()
+    {
+        return $this->hasMany(Usuario::className(), ['usuario_id' => 'id']);
+    }
+    
     /**
      * @inheritdoc
      */

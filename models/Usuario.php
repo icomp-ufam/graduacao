@@ -7,6 +7,8 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\base\Security;
 use yii\web\IdentityInterface;
+use app\models\Curso;
+use app\models\Solicitacao;
 
 /**
  * This is the model class for table "usuario".
@@ -36,6 +38,19 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
         return 'usuario';
     }
 
+    //RELACIONAMENTO com a tabela Solicitações
+    public function Solicitacoes()
+    {
+        return $this->hasMany(Solicitacao::className(), ['id'=>'solicitante_id']);
+    }
+    
+    //RELACIONAMENTO com a tabela Curso
+    public function Curso()
+    {
+        return $this->hasOne(Curso::className(), ['id' => 'curso_id']);
+    }
+    
+    
     /**
      * @inheritdoc
      */
@@ -44,11 +59,10 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
         return [
             [['name', 'cpf', 'email', 'perfil'], 'required', 'message'=> 'Este campo é obrigatório'],
             [['dtEntrada', 'password'], 'safe'],
-            [['isAdmin', 'isAtivo'], 'integer'],
-            [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token', 'curso_id'], 'string', 'max' => 100],
+            [['isAdmin', 'isAtivo', 'curso_id'], 'integer'],
+            [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 255],
             ['password', 'string', 'length' => [6, 10], 'message'=> 'A senha deve ter entre 6 e 10 caracteres'],
-            ['password', 'match', 'pattern' => '/^[a-z]\w*$/i'],
 			
         ];
     }
@@ -72,7 +86,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             //'isAtivo' => 'Ativo',
             //'auth_key' => 'Auth Key',
             //'password_reset_token' => 'Remember Token',
-            //'curso_id' => 'Curso ID',
+            'curso_id' => 'Curso',
         ];
     }
     
