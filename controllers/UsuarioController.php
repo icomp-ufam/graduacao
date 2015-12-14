@@ -86,7 +86,7 @@ class UsuarioController extends Controller
             
             $model->password = md5($model->password);
 
-            //$model->curso_id = 99;
+            $model->curso_id = curso_id;
             
             $model->save(false);
             
@@ -135,7 +135,7 @@ class UsuarioController extends Controller
         if (($model = Usuario::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('A página procurada não existe.');
         }
     }
     
@@ -171,7 +171,6 @@ class UsuarioController extends Controller
             // sistema volta para a pagina inicial
             if($webservice == null)
             {
-                //return $this->goBack();
                 return $this->render('novousuario', ['erro'=>'Não foi possível recuperar os dados do aluno']) ;  
             }
             
@@ -254,43 +253,18 @@ class UsuarioController extends Controller
                 //prepara o email com o link
                 $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
                 $key = 'key-f0dc85b59a45bcda5373019f605ce034';
-
                 $mailgun = new \MailgunApi( $domain, $key );
-
+                
                 $message = $mailgun->newMessage();
+                
                 $message->setFrom('admin@icomp.ufam.edu.br', 'Admin-Atv Complementares');
                 $message->addTo( $usuario->email, $usuario->name); //destinatario...
                 $message->setSubject('Nova Senha');
-                //$message->setText('Sua nova senha temporária é: ' . $usuario->senhaAleatoria() );
-                $message->setHtml(
-                    '<!doctype html>
-                    <html>
-                    <head>
-                        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-                        <title>Email Reset</title>
-                        <style>
-                            div {
-                                width: 600px;
-                                heigth: auto;
-                                padding: 2px 2px 2px 2px;
-                                border: 1px solid navy;
-                                margin: 1px 1px 1px 1px;
-                                
-                                
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <div>
-                        <h2>Prezado: ' . $usuario->name . '</h2>
-                        <p>Conforme solicitado segue abaixo o link para o troca senha:</p>
-                        <h3>'. 
-                        Url::to(['usuario/resetpassword', 'token' => $usuario->password_reset_token] , true) 
-                        . '</h3>
-                        </div></body></html>'
-                );
+
+                $url = Url::to(['usuario/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
                 
+                $message->setHtml($this->render('enviar', ['usuario' => $usuario->name, 'url' => $url]), []);
+
                 $message->send();
 
                 return $this->render('senhaenviada');
@@ -340,7 +314,7 @@ class UsuarioController extends Controller
 
             if($model==null)
             {
-                throw new NotFoundHttpException('The requested page does not exist.');
+                throw new NotFoundHttpException('A página procurada não existe.');
             }
             
             return $this->render('novasenha', ['model' => $model]);             

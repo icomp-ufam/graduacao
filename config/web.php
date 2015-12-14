@@ -28,6 +28,13 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        'mailgun' => [
+            'class' => 'vendor.baibaratsky.php-mailgun.MailgunYii',
+            'domain' => 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org',
+            'key' => 'key-f0dc85b59a45bcda5373019f605ce034',
+            'tags' => ['yii'], //algum parametro do mailgun
+            'enableTracking' => false,
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
