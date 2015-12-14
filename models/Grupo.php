@@ -30,7 +30,7 @@ class Grupo extends \yii\db\ActiveRecord
     {
         return [
             [['codigo', 'nome', 'max_horas'], 'required'],
-            [['max_horas'], 'integer'],
+            [['max_horas'], 'integer', 'message'=>'Máximo de horas deve ser inteiro'],
             [['codigo'], 'string', 'max' => 20],
             [['nome'], 'string', 'max' => 100],
         ];
@@ -43,9 +43,9 @@ class Grupo extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'codigo' => 'Codigo',
+            'codigo' => 'Código',
             'nome' => 'Nome',
-            'max_horas' => 'Max Horas',
+            'max_horas' => 'Máximo de Horas',
         ];
     }
 }

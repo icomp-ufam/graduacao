@@ -79,7 +79,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             'email' => 'Email',
             'password' => 'Senha',
             'matricula' => 'Matrícula',
-            'siape' => 'Siape',
+            'siape' => 'SIAPE',
             'perfil' => 'Perfil',
             'dtEntrada' => 'Data de Entrada',
             //'isAdmin' => 'Admin',

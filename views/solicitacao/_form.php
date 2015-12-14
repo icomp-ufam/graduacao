@@ -13,68 +13,51 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="col-md-6">
-    <div class="solicitacao-form">
+<div class="col-md-4">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
-        'language' => 'us',
-        'dateFormat' => 'dd-M-y',
-    ]) ?>
+        <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
+            'options' => ['class' => 'form-control'],
+            'language' => 'pt-BR',
+            'dateFormat' => 'dd-M-y',
+        ]) ?>
 
-    <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
-        'language' => 'us',
-        'dateFormat' => 'dd-M-y',
-    ]) ?>
+        <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
+            'options' => ['class' => 'form-control'],
+            'language' => 'pt-BR',
+            'dateFormat' => 'dd-M-y',
+        ]) ?>
 
-    <!-- Atividades -->
-    <?=
-        $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
-    ?>
+        <!-- Atividades -->
+        <?= $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
 
-    <?= $form->field($model, 'horasMaxAtiv')->textInput() ?>
-    
-    <?= $form->field($model, 'horasComputadas')->textInput() ?>
-    
-    <?= $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 
-        'id', 'nome'), ['prompt'=>'Selecione'],
-        [   'ajax' => [
-            'type'=>'POST', //request type
-            'url' => Url::to('solicitacao/gethorasmaximas'), //url to call.
-            'update'=>'#horasMaxAtiv', //selector to update
-            //'data'=>'js:javascript statement' 
-        ]] ); ?>
- 
-    <?= $form->field($model, 'horasMaxAtiv')->textInput() ?>
-    
-    
-    <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'horasComputadas')->textInput() ?>
+        
+        <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'periodo_id')->dropDownList(ArrayHelper::map(\app\models\Periodo::find()->all(), 'id', 'codigo'), ['prompt'=>'Selecione']);?>
+        <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+             <?= $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->all(), 'id', 'name'), ['prompt'=>'Selecione']); ?>
+        
+        <?php } ?>
+        
+        
+        <?= $form->field($model, 'status')->hiddenInput(['value' => 'Aberto'])->label(false) ?>
+        
+        <?= $form->field($model, 'anexo_id')->hiddenInput(['value' => 0])->label(false) ?>
 
-    <?= $form->field($model, 'solicitante_id')->hiddenInput(['value' => Yii::$app->user->identity->id])->label(false) ?>
+        <?= $form->field($model, 'arquivo')->fileInput(['value'=>'arquivo']) ?>
+       
 
-    <?= $form->field($model, 'aprovador_id')->hiddenInput(['value' => 0])->label(false) ?>
-    
-    <?= $form->field($model, 'status')->hiddenInput(['value' => 'Aberto'])->label(false) ?>
-    
-    <?= $form->field($model, 'anexo_id')->hiddenInput(['value' => 0])->label(false) ?>
-
-    <br/>
-    
-   <?= $form->field($model, 'arquivo')->fileInput(['value'=>'arquivo']) ?>
-
-    <br/>
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::a('Cancelar', ['solicitacao/index'], ['class' => 'btn btn-danger']) ?>
+        </div>
 
     <?php ActiveForm::end(); ?>
 
-    </div> 
     
 </div>
 

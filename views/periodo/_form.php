@@ -15,14 +15,17 @@ use yii\widgets\ActiveForm;
    
     <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
+            'options' => ['class' => 'form-control'],
             'language' => 'pt-BR',
             'dateFormat' => 'dd-M-y',
     ]) ?>
     <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
+            'options' => ['class' => 'form-control'],
             'language' => 'pt-BR',
             'dateFormat' => 'dd-M-y',
     ]) ?>
-    <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <?= Html::a('Cancelar', ['periodo/index'], ['class' => 'btn btn-danger']) ?>
 </div>
 
     <?php ActiveForm::end(); ?>

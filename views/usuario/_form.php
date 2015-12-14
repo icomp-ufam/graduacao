@@ -71,7 +71,8 @@ use yii\helpers\ArrayHelper;
     ?>    
     
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Criar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a('Cancelar', ['usuario/index'], ['class' => 'btn btn-danger']) ?>
     </div>
 </div>
     <?php ActiveForm::end(); ?>

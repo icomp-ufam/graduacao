@@ -5,10 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Solicitacao */
 
-$this->title = 'Update Solicitacao: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Solicitacaos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Editar Solicitação: ' . ' ' . $model->id;
+
 ?>
 <div class="solicitacao-update">
 

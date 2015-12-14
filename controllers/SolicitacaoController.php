@@ -105,6 +105,11 @@ class SolicitacaoController extends Controller
             
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+
+            if(Yii::$app->user->identity->perfil == 'Aluno'){
+                $model->solicitante_id = Yii::$app->user->identity->id;
+            }
+
             $model->save();
             
             $file = UploadedFile::getInstance($model, 'arquivo');
@@ -119,16 +124,16 @@ class SolicitacaoController extends Controller
             
             //atualiza os dados do nome no model solicitacao
             
-            $model->anexoOriginalName   = $file->baseName . '.' . $file->extension ;
+            $model->anexoOriginalName = $file->baseName . '.' . $file->extension ;
             
-            $model->anexoHashName       = $file_name ;
+            $model->anexoHashName = $file_name ;
             
             $model->arquivo = null ;     //estava dando erro na hora de salvar
             
             $model->save();
             
             //redireciona para a view da solicitacao criada
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
             
             
         } else {
@@ -185,20 +190,7 @@ class SolicitacaoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    
-    public function actionDynamiccities()
-    {
-        $data=Location::model()->findAll('parent_id=:parent_id', 
-                  array(':parent_id'=>(int) $_POST['country_id']));
- 
-        $data=CHtml::listData($data,'id','name');
-        foreach($data as $value=>$name)
-        {
-            echo CHtml::tag('option',
-                   array('value'=>$value),CHtml::encode($name),true);
-        }
-    }
+
 
 
 }

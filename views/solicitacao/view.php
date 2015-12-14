@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Você tem certeza que deseja excluir  a solicitação?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,19 +28,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'id',
             'descricao',
             'dtInicio',
             'dtTermino',
             'horasComputadas',
-            //'horasMaxAtiv',
-            //'observacoes',
             'status:html',
-            //'atividade_id',
-            //'periodo_id',
-            //'solicitante_id',
-            //'aprovador_id',
-            //'anexo_id',
 
             [
             'attribute'=>'anexoOriginalName',

@@ -57,7 +57,7 @@ use yii\helpers\Html;
                                     <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                                 </li>
                             <?php } ?>
-                             <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+                             <?php if(Yii::$app->user->identity->perfil == 'aluno'){ ?>
                                 <li>
                                     <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                                 </li>

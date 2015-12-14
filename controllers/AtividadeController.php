@@ -50,7 +50,6 @@ class AtividadeController extends Controller
     {
         $searchModel = new AtividadeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        //$curso = app/models/Curso::findOne(model=>id)
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -81,7 +80,7 @@ class AtividadeController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
