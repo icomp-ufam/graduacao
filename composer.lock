@@ -352,12 +352,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lipis/flag-icon-css.git",
-                "reference": "7be9aaddd2f4c1ca71772f754c977eb74874d3da"
+                "reference": "3cd183cb1729d26482080db9a60fb589ba383cfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/7be9aaddd2f4c1ca71772f754c977eb74874d3da",
-                "reference": "7be9aaddd2f4c1ca71772f754c977eb74874d3da",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/3cd183cb1729d26482080db9a60fb589ba383cfc",
+                "reference": "3cd183cb1729d26482080db9a60fb589ba383cfc",
                 "shasum": ""
             },
             "type": "component",
@@ -382,7 +382,7 @@
                 }
             ],
             "description": "CSS for vector based country flags",
-            "time": "2015-12-06 17:58:35"
+            "time": "2015-12-09 00:21:08"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -482,12 +482,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-icons.git",
-                "reference": "e53b404e15328c01dac97a69657d518ebf327cfb"
+                "reference": "58100d3278799e7a13771de6e6ca2865fb60454d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/e53b404e15328c01dac97a69657d518ebf327cfb",
-                "reference": "e53b404e15328c01dac97a69657d518ebf327cfb",
+                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/58100d3278799e7a13771de6e6ca2865fb60454d",
+                "reference": "58100d3278799e7a13771de6e6ca2865fb60454d",
                 "shasum": ""
             },
             "require": {
@@ -522,7 +522,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2015-09-11 20:20:54"
+            "time": "2015-12-13 16:27:46"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -530,12 +530,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9"
+                "reference": "602e7203680642ac4a2a5f9355316eaa9939b6ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9",
-                "reference": "6f10fd0a0bfccd729764c65fa65eb4ccf2cbade9",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/602e7203680642ac4a2a5f9355316eaa9939b6ff",
+                "reference": "602e7203680642ac4a2a5f9355316eaa9939b6ff",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +568,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-11-25 07:03:35"
+            "time": "2015-12-11 19:01:49"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -629,12 +629,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2fdfdc5aaefee5513eec5df9137be264360e8d0d"
+                "reference": "e9c2f708c0dee74b5ad41d6456361ee6db921ef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2fdfdc5aaefee5513eec5df9137be264360e8d0d",
-                "reference": "2fdfdc5aaefee5513eec5df9137be264360e8d0d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e9c2f708c0dee74b5ad41d6456361ee6db921ef2",
+                "reference": "e9c2f708c0dee74b5ad41d6456361ee6db921ef2",
                 "shasum": ""
             },
             "require": {
@@ -715,7 +715,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-12-06 19:50:33"
+            "time": "2015-12-14 11:56:39"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
@@ -723,12 +723,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "3b792412bd0fdfef4e48aff3781279e28dfd19a4"
+                "reference": "e7b4df436f09ca00f44615928909fa9cc2a78ae7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/3b792412bd0fdfef4e48aff3781279e28dfd19a4",
-                "reference": "3b792412bd0fdfef4e48aff3781279e28dfd19a4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/e7b4df436f09ca00f44615928909fa9cc2a78ae7",
+                "reference": "e7b4df436f09ca00f44615928909fa9cc2a78ae7",
                 "shasum": ""
             },
             "require": {
@@ -765,7 +765,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2015-12-07 11:34:21"
+            "time": "2015-12-11 09:35:59"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1078,12 +1078,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "6ba6798c600113aac46b89cba4fec44f180e96ec"
+                "reference": "150efc56f56bd58ca8d1aae195b2f11223cf8b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/6ba6798c600113aac46b89cba4fec44f180e96ec",
-                "reference": "6ba6798c600113aac46b89cba4fec44f180e96ec",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/150efc56f56bd58ca8d1aae195b2f11223cf8b40",
+                "reference": "150efc56f56bd58ca8d1aae195b2f11223cf8b40",
                 "shasum": ""
             },
             "require": {
@@ -1117,7 +1117,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2015-12-07 11:34:10"
+            "time": "2015-12-07 14:19:28"
         },
         {
             "name": "yiisoft/yii2-faker",
@@ -1172,12 +1172,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "2c1db8efa40b8bfa6f2f95b9c57033f271d85c3d"
+                "reference": "d25bd944c5b835520608a42b66598ead86cb079e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/2c1db8efa40b8bfa6f2f95b9c57033f271d85c3d",
-                "reference": "2c1db8efa40b8bfa6f2f95b9c57033f271d85c3d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/d25bd944c5b835520608a42b66598ead86cb079e",
+                "reference": "d25bd944c5b835520608a42b66598ead86cb079e",
                 "shasum": ""
             },
             "require": {
@@ -1217,7 +1217,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2015-12-07 11:58:10"
+            "time": "2015-12-13 08:59:50"
         }
     ],
     "aliases": [],
