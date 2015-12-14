@@ -171,7 +171,8 @@ class UsuarioController extends Controller
             // sistema volta para a pagina inicial
             if($webservice == null)
             {
-                return $this->goBack();
+                //return $this->goBack();
+                return $this->render('novousuario', ['erro'=>'Não foi possível recuperar os dados do aluno']) ;  
             }
             
             $dados = json_decode($webservice, true);
