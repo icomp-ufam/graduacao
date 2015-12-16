@@ -33,7 +33,7 @@ class SolicitacaoController extends Controller
                             }
                         }
                     ],[
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'update'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
@@ -172,6 +172,41 @@ class SolicitacaoController extends Controller
     {
         $this->findModel($id)->delete();
 
+        return $this->redirect(['index']);
+    }
+
+
+     public function actionSubmit()
+    {
+        $action = Yii::$app->request->post('action');
+        
+        $selection = (array)Yii::$app->request->post('selection');//typecasting
+
+        $status = '';
+
+        if(!$selection){
+            return $this->redirect(['index']);
+        }
+
+        if ($_POST['action'] == 'Submeter') {
+            $status = 'Submetida';
+        } else if ($_POST['action'] == 'Arquivar') {
+            $status = 'Arquivada';
+        } else if ($_POST['action'] == 'Deferir') {
+            $status = 'Deferida';
+        }else if ($_POST['action'] == 'Indeferida'){
+            $status = 'Indeferida';
+        }else{
+            $status = 'Pré-Aprovada';
+        }
+        
+        foreach($selection as $id){
+            $s = Solicitacao::findOne((int)$id);//make a typecasting
+            
+            $s->status = $status;
+            
+            $s->save();
+        }
         return $this->redirect(['index']);
     }
 

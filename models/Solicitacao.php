@@ -60,7 +60,7 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            //'id' => 'ID',
+            'id' => 'Número',
             'descricao' => 'Descrição',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
