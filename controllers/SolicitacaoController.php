@@ -33,7 +33,7 @@ class SolicitacaoController extends Controller
                             }
                         }
                     ],[
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view', 'update'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
@@ -105,6 +105,11 @@ class SolicitacaoController extends Controller
             
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+
+            if(Yii::$app->user->identity->perfil == 'Aluno'){
+                $model->solicitante_id = Yii::$app->user->identity->id;
+            }
+
             $model->save();
             
             $file = UploadedFile::getInstance($model, 'arquivo');
@@ -119,16 +124,16 @@ class SolicitacaoController extends Controller
             
             //atualiza os dados do nome no model solicitacao
             
-            $model->anexoOriginalName   = $file->baseName . '.' . $file->extension ;
+            $model->anexoOriginalName = $file->baseName . '.' . $file->extension ;
             
-            $model->anexoHashName       = $file_name ;
+            $model->anexoHashName = $file_name ;
             
             $model->arquivo = null ;     //estava dando erro na hora de salvar
             
             $model->save();
             
             //redireciona para a view da solicitacao criada
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
             
             
         } else {
@@ -170,6 +175,41 @@ class SolicitacaoController extends Controller
         return $this->redirect(['index']);
     }
 
+
+     public function actionSubmit()
+    {
+        $action = Yii::$app->request->post('action');
+        
+        $selection = (array)Yii::$app->request->post('selection');//typecasting
+
+        $status = '';
+
+        if(!$selection){
+            return $this->redirect(['index']);
+        }
+
+        if ($_POST['action'] == 'Submeter') {
+            $status = 'Submetida';
+        } else if ($_POST['action'] == 'Arquivar') {
+            $status = 'Arquivada';
+        } else if ($_POST['action'] == 'Deferir') {
+            $status = 'Deferida';
+        }else if ($_POST['action'] == 'Indeferida'){
+            $status = 'Indeferida';
+        }else{
+            $status = 'Pré-Aprovada';
+        }
+        
+        foreach($selection as $id){
+            $s = Solicitacao::findOne((int)$id);//make a typecasting
+            
+            $s->status = $status;
+            
+            $s->save();
+        }
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Solicitacao model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -185,20 +225,7 @@ class SolicitacaoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    
-    public function actionDynamiccities()
-    {
-        $data=Location::model()->findAll('parent_id=:parent_id', 
-                  array(':parent_id'=>(int) $_POST['country_id']));
- 
-        $data=CHtml::listData($data,'id','name');
-        foreach($data as $value=>$name)
-        {
-            echo CHtml::tag('option',
-                   array('value'=>$value),CHtml::encode($name),true);
-        }
-    }
+
 
 
 }

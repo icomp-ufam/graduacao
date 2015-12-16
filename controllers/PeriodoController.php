@@ -90,7 +90,7 @@ class PeriodoController extends Controller
             //$model->dtTermino  = date('Y-m-d', strtotime(Yii::$app->request->post('Periodo[dtTermino]') ) );
             $model->save();
             
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,

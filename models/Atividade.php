@@ -30,8 +30,8 @@ class Atividade extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo', 'nome', 'max_horas', 'curso_id', 'grupo_id'], 'required'],
-            [['max_horas', 'curso_id', 'grupo_id'], 'integer'],
+            [['codigo', 'nome', 'max_horas', 'curso_id', 'grupo_id'], 'required', 'message'=> 'Este campo é obrigatório'],
+            [['max_horas', 'curso_id', 'grupo_id'], 'integer', 'message'=>'Máximo de horas deve ser inteiro'],
             [['codigo'], 'string', 'max' => 5],
             [['nome'], 'string', 'max' => 100],
         ];
@@ -44,11 +44,11 @@ class Atividade extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'codigo' => 'Codigo',
+            'codigo' => 'Código',
             'nome' => 'Nome',
-            'max_horas' => 'Max Horas',
+            'max_horas' => 'Máximo de Horas',
             'curso_id' => 'Curso',
-            'grupo_id' => 'Grupo ID',
+            'grupo_id' => 'Grupo',
         ];
     }
 }

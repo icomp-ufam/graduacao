@@ -6,9 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Solicitacao */
 
-$this->title = 'Create Solicitacao';
-$this->params['breadcrumbs'][] = ['label' => 'Solicitacaos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Cadastro de Solicitação';
+
 ?>
 <div class="solicitacao-create">
 

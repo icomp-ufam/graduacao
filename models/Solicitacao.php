@@ -43,14 +43,11 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id', 'periodo_id', 'solicitante_id', 
-            'aprovador_id', 'anexo_id'], 'required', 'message'=>'Este campo é obrigatório'],
+            [['horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id', 'anexo_id'], 'required', 'message'=>'Este campo é obrigatório'],
             [['dtInicio', 'dtTermino'], 'safe'],
-            [['horasComputadas', 'horasMaxAtiv', 'atividade_id', 'periodo_id', 'solicitante_id', 
-            'aprovador_id', 'anexo_id'], 'integer'],
+            [['horasComputadas', 'atividade_id', 'anexo_id'], 'integer'],
             [['descricao', 'observacoes'], 'string', 'max' => 100],
             [['status'], 'string', 'max' => 20],
-            ['horasMaxAtiv', 'integer', 'min'=>1, 'max'=>120],
             ['horasComputadas', 'integer', 'min'=>1, 'max'=>120],
             [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf'],
         ];
@@ -63,19 +60,17 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            //'id' => 'ID',
+            'id' => 'Número',
             'descricao' => 'Descrição',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
             'horasComputadas' => 'Horas Computadas',
-            //'horasMaxAtiv' => 'Máximo de Horas de Atividade',
-            //'observacoes' => 'Observações',
+            'observacoes' => 'Observações',
             'status' => 'Status',
-            //'atividade_id' => 'Atividade',
-            //'periodo_id' => 'Período',
-            //'solicitante_id' => 'Solicitante',
-            //'aprovador_id' => 'Aprovador',
-            //'anexo_id' => 'Anexo',
+            'atividade_id' => 'Atividade',
+            'solicitante_id' => 'Solicitante',
+            'aprovador_id' => 'Aprovador',
+            'anexo_id' => 'Anexo',
             'anexoOriginalName' => 'Arquivo Anexo',
         ];
     }

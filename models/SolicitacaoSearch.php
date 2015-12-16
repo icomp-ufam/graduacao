@@ -18,7 +18,7 @@ class SolicitacaoSearch extends Solicitacao
     public function rules()
     {
         return [
-            [['id', 'horasComputadas', 'horasMaxAtiv', 'atividade_id', 'periodo_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
+            [['id', 'horasComputadas', 'atividade_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
             [['descricao', 'dtInicio', 'dtTermino', 'observacoes', 'status'], 'safe'],
         ];
     }
@@ -63,9 +63,7 @@ class SolicitacaoSearch extends Solicitacao
             'dtInicio' => $this->dtInicio,
             'dtTermino' => $this->dtTermino,
             'horasComputadas' => $this->horasComputadas,
-            'horasMaxAtiv' => $this->horasMaxAtiv,
             'atividade_id' => $this->atividade_id,
-            'periodo_id' => $this->periodo_id,
             'solicitante_id' => $this->solicitante_id,
             'aprovador_id' => $this->aprovador_id,
             'anexo_id' => $this->anexo_id,

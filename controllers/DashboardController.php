@@ -24,10 +24,6 @@ class DashboardController extends \yii\web\Controller
                             {
                                 return Yii::$app->user->identity->perfil == 'Aluno' ;
                             }
-                            if(!Yii::$app->user->isGuest)
-                            {
-                                return Yii::$app->user->identity->perfil == 'Coordenador' ;
-                            }
                         }
                     ],
                 ],
