@@ -82,7 +82,7 @@ class SiteController extends Controller
             }
 
             if (Yii::$app->user->identity->perfil == "Coordenador") {
-                $route = $this->redirect(["solicitacao/index"]);
+                $route = $this->redirect(["dashboard/index"]);
             }
 
             return $route;
