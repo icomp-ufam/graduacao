@@ -85,7 +85,7 @@ AppAsset::register($this);
                             <?php } ?>
                              <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
                                 <li>
-                                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                    <a href="?r=dashboard/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                                 </li>
                                 <li>
                                     <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
