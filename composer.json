@@ -20,7 +20,10 @@
         "yiisoft/yii2-swiftmailer": "*",
         "baibaratsky/php-mailgun":"1.2.*",
         "yiisoft/yii2-jui": "^2.0@dev",
-        "kartik-v/yii2-icons": "dev-master"
+        "kartik-v/yii2-icons": "dev-master",
+        "gietos/dadata": "^1.0",
+        "gietos/yii2-ionicons":"*",
+        "scotthuangzl/yii2-google-chart": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
