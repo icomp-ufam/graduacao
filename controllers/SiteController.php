@@ -53,22 +53,42 @@ class SiteController extends Controller
     }
     public function actionIndex()
     {
-        return $this->render('index');
+        //return $this->render('index');
+        return $this->redirect(["dashboard/index"]);
     }
 
     public function actionLogin()
     {
+        $route = "site/error";
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        
         $model = new LoginForm();
+        
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            if (Yii::$app->user->identity->perfil == "admin") {
-                return $this->redirect(["curso/index"]);
-            }   
-            return $this->redirect(["site/index"]);
+            if (Yii::$app->user->identity->isAdmin == 1) {
+                $route = $this->redirect(["curso/index"]);
+            }
+
+            if (Yii::$app->user->identity->perfil == "Secretaria") {
+                $route = $this->redirect(["solicitacao/index"]);
+            }
+
+            if (Yii::$app->user->identity->perfil == "Aluno") {
+                $route = $this->redirect(["dashboard/index"]);
+            }
+
+            if (Yii::$app->user->identity->perfil == "Coordenador") {
+                $route = $this->redirect(["solicitacao/index"]);
+            }
+
+            return $route;
+
         }
+        
         return $this->render('login', [
             'model' => $model,
         ]);
