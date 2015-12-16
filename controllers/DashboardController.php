@@ -5,6 +5,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
+
 class DashboardController extends \yii\web\Controller
 {
      public function behaviors()
@@ -20,12 +21,9 @@ class DashboardController extends \yii\web\Controller
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
                             {
-                                return Yii::$app->user->identity->perfil == 'Aluno' ;
+                                return Yii::$app->user->identity->perfil == 'Aluno' or Yii::$app->user->identity->perfil == 'Coordenador' ;
                             }
-                            if(!Yii::$app->user->isGuest)
-                            {
-                                return Yii::$app->user->identity->perfil == 'Coordenador' ;
-                            }
+
                         }
                     ],
                 ],
@@ -38,8 +36,22 @@ class DashboardController extends \yii\web\Controller
             ],
         ];
     }
+
     public function actionIndex()
     {
-        return $this->render('index');
+        if(!Yii::$app->user->isGuest)
+        {
+            if(Yii::$app->user->identity->perfil == 'Aluno'){
+                return $this->render('dashAluno');
+            }
+            if(Yii::$app->user->identity->perfil == 'Coordenador'){
+                return $this->render('dashCoordenador');
+            }
+        }
+        else
+        {
+            return false;
+        }
+
     }
 }
