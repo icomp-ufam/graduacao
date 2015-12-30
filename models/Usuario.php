@@ -7,6 +7,7 @@ use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\base\Security;
 use yii\web\IdentityInterface;
+use yiibr\brvalidator\CpfValidator;
 use app\models\Curso;
 use app\models\Solicitacao;
 
@@ -62,6 +63,8 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             [['isAdmin', 'isAtivo', 'curso_id'], 'integer'],
             [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 255],
+            // cpf validator
+            ['cpf', CpfValidator::className()],
             ['password', 'string', 'length' => [6, 10], 'message'=> 'A senha deve ter entre 6 e 10 caracteres'],
 			
         ];

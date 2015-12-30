@@ -7,6 +7,11 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php
+    $this->registerJsFile(Yii::$app->request->baseUrl.'/js/validaCPF.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+?>
+
 <div class="site-login">
     
     <div class="navbar-default sidebar" role="navigation">
@@ -25,19 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-9">
 
                     <?= $form->field($model, 'cpf')->label('CPF') ?>
+
                     <?= $form->field($model, 'password')->passwordInput()->label('Senha') ?>
+
                     <div class="form-group">
                         <button type="submit" name="login-button" class="btn btn-success">Entrar</button>
                     </div>
                     <div class="form-group">
                         <a href="?r=usuario/recuperarsenha">Solicitar nova senha</a>
                         <br>
-                        <a href="?r=usuario/novousuario">Registrar aluno</a>
-                        
-                        
+                        <a href="?r=usuario/novousuario">Registrar aluno</a>              
                     </div>
                 </div>
             </div>
+            
+            <div class="row">             
+                <div class="col-md-12">
+                    <p class="alert alert-danger" id="status" hidden="true"></p>
+                </div>
+            </div>
+
         </div>
         <!-- /.sidebar-collapse -->
     </div>
@@ -47,7 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
             <div class="col-md-4">
             </div>
-            
         </div>
         
     </div>
