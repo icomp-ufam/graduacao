@@ -24,6 +24,7 @@
         "gietos/dadata": "^1.0",
         "gietos/yii2-ionicons":"*",
         "scotthuangzl/yii2-google-chart": "dev-master",
+        "miloschuman/yii2-highcharts-widget": "dev-master",
         "yiibr/yii2-br-validator": "*"
     },
     "require-dev": {
