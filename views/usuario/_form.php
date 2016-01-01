@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
     'action' => ['usuario/create'],
     ]); ?>
     
-    <div class="col-md-4">
+    <div class="col-md-5">
         
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -24,32 +24,22 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?php 
-        if( $model->matricula != null ) 
-        {
-            echo $form->field($model, 'matricula')->textInput(['maxlength' => true]);
+    <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
+  
+    <?= $form->field($model, 'curso_id')
+                    ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
 
-            echo $form->field($model, 'perfil')->textInput([
-                'maxlength' => true, 
-                'value'=>'Aluno'
-            ]);
-        }
-    ?>
     <?php 
         if( $model->siape != null ) 
         {
             echo $form->field($model, 'siape')->textInput(['maxlength' => true]);
         }
     ?>
-
-
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-    
+   
     <?php
     
     if(isset(Yii::$app->user->identity))
     {
-        $form = ActiveForm::begin();
         
         if(Yii::$app->user->identity->isAdmin)
         {
@@ -58,17 +48,18 @@ use yii\helpers\ArrayHelper;
             
             echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'Selecione']);
             
-            echo $form->field($model, 'curso_id')
-                    ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
-
         }
         
-        ActiveForm::end(); 
+    }
+    //se não estiver logado o perfil do usuario será Aluno
+    else
+    {
+        echo $form->field($model, 'perfil')->hiddenInput(['value' => 'Aluno'])->label(false);
     }
 
-
-
     ?>    
+    
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
     
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

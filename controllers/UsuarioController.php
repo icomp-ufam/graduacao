@@ -85,8 +85,6 @@ class UsuarioController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
             $model->password = md5($model->password);
-
-            $model->curso_id = curso_id;
             
             $model->save(false);
             
@@ -161,17 +159,21 @@ class UsuarioController extends Controller
             }
 
             /* * pega os dados do webservice do cpd * */
-            $link = 'http://200.129.163.9:8080/ecampus/servicos/getPessoaValidaSIE?cpf=' ;
+            $link = 'http://200.129.163.9:80801/ecampus_teste/servicos/getPessoaValidaSIE?cpf=' ;
             
             $link = $link . Yii::$app->request->post('cpf');
 
             $webservice = @file_get_contents($link);
             
-            // Caso o webservice esteja indisponivel o
-            // sistema volta para a pagina inicial
+            // Verifica se o WS está disponivel
+            //Caso negativo ele exibe o formulario em branco
             if($webservice == null)
             {
-                return $this->render('novousuario', ['erro'=>'Não foi possível recuperar os dados do aluno']) ;  
+                //return $this->render('novousuario', ['erro'=>'Não foi possível recuperar os dados do aluno']) ;
+                $model->cpf = Yii::$app->request->post('cpf');
+                $model->isNewRecord = true;
+                //$model->save(false);
+                return $this->render('create', ['model' => $model ]);
             }
             
             $dados = json_decode($webservice, true);
@@ -221,11 +223,13 @@ class UsuarioController extends Controller
                 throw new NotFoundHttpException('O Curso não está cadastrado para este aluno');
             }
 
-            
+            $model->curso_id = $curso->id;
+
             $model->isNewRecord = false;
             
-            return $this->render('create', ['model' => $model, 'id_curso' => $curso->id ]);                 
+            return $this->render('create', ['model' => $model ]);                 
         }
+        // se a requisicao for do tipo GET
         else
         {
             return $this->render('novousuario') ;  
@@ -263,7 +267,7 @@ class UsuarioController extends Controller
 
                 $url = Url::to(['usuario/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
                 
-                $message->setHtml($this->render('enviar', ['usuario' => $usuario->name, 'url' => $url]), []);
+                $message->setHtml($this->renderPartial('email', ['usuario' => $usuario->name, 'url' => $url]), []);
 
                 $message->send();
 
