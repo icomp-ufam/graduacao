@@ -40,9 +40,12 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     }
 
     //RELACIONAMENTO com a tabela Solicitações
-    public function Solicitacoes()
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getSolicitacao()
     {
-        return $this->hasMany(Solicitacao::className(), ['id'=>'solicitante_id']);
+        return $this->hasOne(Solicitacao::className(), ['id' => 'solicitacao_id']);
     }
     
     //RELACIONAMENTO com a tabela Curso
