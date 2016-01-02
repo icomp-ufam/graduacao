@@ -66,6 +66,9 @@ AppAsset::register($this);
                             <?php } ?>
                             <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
                                 <li>
+                                    <a href="?r=dashboard/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                </li>
+                                <li>
                                     <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                                 </li>
                                 <li>
@@ -79,6 +82,9 @@ AppAsset::register($this);
                                 </li>
                             <?php } ?>
                             <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+                                <li>
+                                    <a href="?r=dashboard/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                </li>
                                 <li>
                                     <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
                                 </li>

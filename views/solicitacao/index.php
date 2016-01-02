@@ -39,9 +39,14 @@ $this->title = 'Solicitações';
             'columns' => [
                 ['class' => 'yii\grid\CheckboxColumn'],
                 'id',
+                'solicitante_id',
                 'descricao',
-                'dtInicio',
-                'dtTermino',
+                 [
+                    'attribute' => 'usuario',
+                    'value' => ''
+                ],
+                //'dtInicio',
+                //'dtTermino',
                 'horasComputadas',
                 'status',
                 ['class' => 'yii\grid\ActionColumn', 'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}']

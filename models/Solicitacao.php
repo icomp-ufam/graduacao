@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Usuario;
 
 /**
  * This is the model class for table "solicitacao".
@@ -31,9 +32,12 @@ class Solicitacao extends \yii\db\ActiveRecord
     }
 
     //RELACIONAMENTO com a tabela usuario
-    public function Solicitante()
+    /**
+    * @return \yii\db\ActiveQuery
+    */
+    public function getUsuario()
     {
-        return $this->hasOne(app\models\Usuario::className(), ['id' => 'solicitante_id']);
+        return $this->hasMany(Usuario::className(), ['id' => 'solicitante_id']);
     }
     
     
