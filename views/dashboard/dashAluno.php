@@ -3,6 +3,7 @@
 //use gietos\yii\ionicons\Ion;
 use scotthuangzl\googlechart\GoogleChart;
 use miloschuman\highcharts\Highcharts;
+use yii\helpers\Html; 
 
 ?>
 
@@ -55,9 +56,6 @@ use miloschuman\highcharts\Highcharts;
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-    
-    </div>
 
     <div class="col-md-6">
         <?php
@@ -80,5 +78,8 @@ use miloschuman\highcharts\Highcharts;
         ?>
     </div>  
 
+ <div class="col-md-6">
+
+    </div>
 </div>
 </section>
