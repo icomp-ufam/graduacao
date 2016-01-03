@@ -4,6 +4,8 @@ namespace app\models;
 
 use Yii;
 use app\models\Usuario;
+use app\models\Atividade;
+
 
 /**
  * This is the model class for table "solicitacao".
@@ -54,8 +56,20 @@ class Solicitacao extends \yii\db\ActiveRecord
             [['status'], 'string', 'max' => 20],
             ['horasComputadas', 'integer', 'min'=>1, 'max'=>120],
             [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf'],
+            [['horasComputadas'], 'horas_check', 'message'=>'As horas computadas não pode ser maior que a hora máxima por atividade']
         ];
     }
+    
+    
+     public function horas_check($attribute, $params) {
+         
+      //   $horasAtual = $this->horasComputadas;
+      //   $atividadeAtual = Atividade::findOne($this->atividade_id);
+         
+      //   if (4 < 10) {
+            $this->addError($attribute,'As horas computadas não pode ser maior que a hora máxima por atividade');
+      //   }
+     }
 
 
     /**
@@ -75,7 +89,7 @@ class Solicitacao extends \yii\db\ActiveRecord
             'solicitante_id' => 'Solicitante',
             'aprovador_id' => 'Aprovador',
             'anexo_id' => 'Anexo',
-            'anexoOriginalName' => 'Arquivo Anexo',
+            'anexoOriginalName' => 'Arquivo Anexo'
         ];
     }
 }

@@ -32,14 +32,24 @@ use yii\helpers\ArrayHelper;
         ]) ?>
 
         <!-- Atividades -->
-        <?= $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
-
+        <?= $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione',  'onchange'=>'
+                $.post( "'.Yii::$app->urlManager->createUrl('solicitacao/field').'&id=" + $(this).val(), function( data ) {
+                  $( "input#maxHoras" ).val( data );
+                });']); ?>
+       
+    
         <?= $form->field($model, 'horasComputadas')->textInput() ?>
+        
+        <div class="form-group">
+            <label id="maxHoras" class="control-label" >Máx. Horas</label>
+            <input type="text" class="form-control" disabled id="maxHoras" />
+        </div>
         
         <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>
 
         <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-             <?= $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->all(), 'id', 'name'), ['prompt'=>'Selecione']); ?>
+             <?= $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->where(['perfil' => 'Aluno'])
+                ->orderBy('id ASC')->all(), 'id', 'name'), ['prompt'=>'Selecione']); ?>
         
         <?php } ?>
         
