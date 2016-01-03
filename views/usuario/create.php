@@ -10,9 +10,17 @@ $this->title = 'Novo Usuário';
 $this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuario-create">
-
+<!-- Content Header (Page header) -->
+<section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Blank page</li>
+    </ol>
+</section>
+<section class="content">
+<div class="usuario-create">
 
    
         <?= $this->render('_form', [
@@ -22,3 +30,4 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+</section>

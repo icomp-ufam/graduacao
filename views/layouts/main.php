@@ -12,119 +12,183 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
     </head>
-    <body>
+    <body class="hold-transition skin-green sidebar-mini">
         <?php $this->beginBody() ?>
-        <header style="border-bottom:1px solid #e7e7e7; padding:5px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <img src="icomp.png" width="150px" />
-                    </div>
-                    <div class="col-md-8">
-                        <h2 style="text-align:center;">Sistema de Atividades Complementares</h2>
-                    </div>
-                    <div class="col-md-2">
-                        <img src="ufam.png" width="70px" />
-                    </div>
-                </div>
-            </div>
-        </header>
-        
-            <div id="wrapper">
-                <!-- /.navbar-top-links -->
+        <div class="wrapper">
 
-                <?php if(isset(Yii::$app->user->identity)){ ?>
-
-
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <div class="input-group">
-                                    Olá, 
-                                    <b><?= Yii::$app->user->identity->name ?></b>
-                                    , você está logado como: 
-                                    <b><?= Yii::$app->user->identity->perfil ?></b>
-                                </div>
-                                <!-- /input-group -->
-                            </li>
-                            <?php if(Yii::$app->user->identity->isAdmin == 1){ ?>
-                                <li>
-                                    <a href="?r=curso/index" ><i class="fa fa-check fa-fw"></i> Curso</a>
-                                </li>
-                                <li>
-                                    <a href="?r=periodo/index"><i class="fa fa-calendar fa-fw"></i> Período</a>
-                                </li>
-                                <li>
-                                    <a href="?r=usuario/index"><i class="fa fa-user fa-fw"></i> Usuários</a>
-                                </li>
-                            <?php } ?>
-                            <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-                                <li>
-                                    <a href="?r=dashboard/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
-                                </li>
-                                <li>
-                                    <a href="?r=grupo/index"><i class="fa fa-users fa-fw"></i> Grupos</a>
-                                </li>
-                                <li>
-                                    <a href="?r=atividade/index"><i class="fa fa-tasks fa-fw"></i> Atividades</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-line-chart fa-fw"></i> Relatório</a>
-                                </li>
-                            <?php } ?>
-                            <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-                                <li>
-                                    <a href="?r=dashboard/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
-                                </li>
-                            <?php } ?>
-                             <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-                                <li>
-                                    <a href="?r=dashboard/index"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="?r=solicitacao/index"><i class="fa fa-download fa-fw"></i> Solicitações</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-line-chart fa-fw"></i> Relatório</a>
-                                </li>
-                            <?php } ?>
-
-                           <!-- <li>
-                                <a href="?r=curso/index"><i class="fa fa-file-text fa-fw"></i> Relação de Atividades</a>
-                            </li>-->
-                             <li>
-                                <a href="?r=site/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
-                <!-- /.navbar-static-side -->
-                <?php } ?>
-
-                <div id="page-wrapper" style="padding:10px; overflow:auto;">
-                    <?= $content ?>
-                </div>
-            </div>
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini">ICOMP</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Icomp</b>UFAM</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
             
+          </div>
+        </nav>
+      </header>
+      <?php if(isset(Yii::$app->user->identity)){ ?>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel" style="height : 50px">
+             
+                <div class="input-group" style="color:white">
+                  Olá, 
+                  <b><?= Yii::$app->user->identity->name ?></b><br />
+                  , você está logado como:
+                  <b><?= Yii::$app->user->identity->perfil ?></b>
+                 </div>
+                                 <!-- /input-group -->
+             
+          </div>
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">PRINCIPAL</li>
+           
+            <?php if(Yii::$app->user->identity->isAdmin == 1){ ?>
+              <li class="treeview">
+                <a href="?r=curso/index">
+                  <i class="fa fa-check fa-fw"></i>
+                  <span>Curso</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=periodo/index">
+                  <i class="fa fa-calendar fa-fw"></i>
+                  <span>Período</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=usuario/index">
+                  <i class="fa fa-user fa-fw"></i>
+                  <span>Usuários</span> 
+                </a>
+              </li>
+            <?php } ?>
+            <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+               <li class="treeview">
+                <a href="?r=dashboard/index">
+                  <i class="fa fa-dashboard fa-fw"></i>
+                  <span>Dashboard</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=solicitacao/index">
+                  <i class="fa fa-download fa-fw"></i>
+                  <span>Solicitações</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=grupo/index">
+                  <i class="fa fa-users fa-fw"></i>
+                  <span>Grupos</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=atividade/index">
+                  <i class="fa fa-tasks fa-fw"></i>
+                  <span>Atividades</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-line-chart fa-fw"></i>
+                  <span>Relatório</span> 
+                </a>
+              </li>
+            <?php } ?>
+            <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+                <li class="treeview">
+                <a href="?r=dashboard/index">
+                  <i class="fa fa-dashboard fa-fw"></i>
+                  <span>Dashboard</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=solicitacao/index">
+                  <i class="fa fa-download fa-fw"></i>
+                  <span>Solicitações</span> 
+                </a>
+              </li>
+            <?php } ?>
+            <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+               <li class="treeview">
+                <a href="?r=dashboard/index">
+                  <i class="fa fa-dashboard fa-fw"></i>
+                  <span>Dashboard</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=solicitacao/index">
+                  <i class="fa fa-download fa-fw"></i>
+                  <span>Solicitações</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-line-chart fa-fw"></i>
+                  <span>Relatório</span> 
+                </a>
+              </li>
+            <?php } ?>
+            <li class="treeview">
+                <a href="?r=site/logout">
+                  <i class="fa fa-sign-out fa-fw"></i>
+                  <span>Logout</span> 
+                </a>
+              </li>         
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+      <?php } ?>
+
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+          <?= $content ?>
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versão</b> 1.0.0
+        </div>
+        Sistema Desenvolvido no Contexto da Disciplina ICC410 - ICOMP - UFAM
+      </footer>
+
+    </div><!-- ./wrapper -->
+
+    <script>
+      $(window).bind('load resize', function() {
+            var topOffset = 120;
+            var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+            height = height - topOffset;
+
+            if (height < 1){
+              height = 1;
+            }   
+            if (height > topOffset) {
+              $('.content-wrapper').css('min-height', (height) + 'px');
+            }
+        });
+       // $(window).trigger('load');
+    </script>
         
-        <footer style="text-align:center; border-top:1px solid #e7e7e7;">
-            <div class="col-md-12">
-                <h5>Sistema Desenvolvido no Contexto da Disciplina ICC410 - UFAM - ICOMP</h5>
-            </div>
-        </footer>
         <?php $this->endBody() ?>
     </body>
     <!-- Scripts -->

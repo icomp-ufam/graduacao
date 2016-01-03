@@ -9,9 +9,17 @@ use yii\grid\GridView;
 
 $this->title = 'Atividades';
 ?>
-<div class="atividade-index">
-
+<!-- Content Header (Page header) -->
+<section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Examples</a></li>
+        <li class="active">Blank page</li>
+    </ol>
+</section>
+<section class="content">
+<div class="atividade-index">
 
     <p>
         <?= Html::a('Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
@@ -31,3 +39,4 @@ $this->title = 'Atividades';
     ]); ?>
 
 </div>
+</section>

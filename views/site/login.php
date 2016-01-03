@@ -12,54 +12,32 @@ $this->params['breadcrumbs'][] = $this->title;
     $this->registerJsFile(Yii::$app->request->baseUrl.'/js/validaCPF.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
-<div class="site-login">
-    
-    <div class="navbar-default sidebar" role="navigation">
-        <?php $form = ActiveForm::begin([
+
+   <div class="login-box">
+      <div class="login-logo">
+         <a href="#"><b>ICOMP</b></a>
+      </div><!-- /.login-logo -->
+      <div class="login-box-body">
+          <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'options' => ['class' => 'form-horizontal'],
         'fieldConfig' => ['labelOptions' => ['class' => 'control-label'],
         ],
         ]); ?>
-        <div class="sidebar-nav navbar-collapse">
-            <div class="row">
-                <div class="col-md-1"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-9">
+         
+         <?= $form->field($model, 'cpf')->textInput()?>
 
-                    <?= $form->field($model, 'cpf')->label('CPF') ?>
-
-                    <?= $form->field($model, 'password')->passwordInput()->label('Senha') ?>
-
-                    <div class="form-group">
+         <?= $form->field($model, 'password')->passwordInput()?>
+           <div class="form-group">
                         <button type="submit" name="login-button" class="btn btn-success">Entrar</button>
                     </div>
-                    <div class="form-group">
-                        <a href="?r=usuario/recuperarsenha">Solicitar nova senha</a>
-                        <br>
-                        <a href="?r=usuario/novousuario">Registrar aluno</a>              
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">             
-                <div class="col-md-12">
-                    <p class="alert alert-danger" id="status" hidden="true"></p>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.sidebar-collapse -->
-    </div>
-    <!-- /.navbar-static-side -->
-    <?php ActiveForm::end(); ?>
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-md-4">
-            </div>
-        </div>
+          <?php ActiveForm::end(); ?>
         
-    </div>
-</div>
+
+        <a href="#">Recuperar a senha</a><br>
+        <a href="register.html" class="text-center">Registrar aluno</a>
+
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+
+  
