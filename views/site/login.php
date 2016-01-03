@@ -34,8 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
           <?php ActiveForm::end(); ?>
         
 
-        <a href="#">Recuperar a senha</a><br>
-        <a href="register.html" class="text-center">Registrar aluno</a>
+        <a href="?r=usuario/recuperarsenha">Recuperar a senha</a><br>
+        <a href="?r=usuario/novousuario" class="text-center">Registrar aluno</a>
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
