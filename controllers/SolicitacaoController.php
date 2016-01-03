@@ -105,15 +105,6 @@ class SolicitacaoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             
-            
-            
-          /*  $atividade = Atividade::findOne($model->atividade_id);
-            
-            if($model->horasComputadas < $atividade->max_horas){
-                $model->addError($model->horasComputadas  ,'Required ');
-                return;
-            }*/
-            
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
 
