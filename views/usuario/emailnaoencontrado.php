@@ -10,11 +10,13 @@ use yii\grid\GridView;
 $this->title = 'Email não encontrado!!!!';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuario-index">
+<section class="content">
+	<div class="usuario-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+	    <h1><?= Html::encode($this->title) ?></h1>
+	    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <h2>Usuário não cadastrado com este email...</h2>
+	    <h2>Usuário não cadastrado com este email...</h2>
 
-</div>
+	</div>
+</section>
