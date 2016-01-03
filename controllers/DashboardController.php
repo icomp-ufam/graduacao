@@ -43,6 +43,9 @@ class DashboardController extends \yii\web\Controller
         if(!Yii::$app->user->isGuest)
         {
 
+            /* *************************************************
+            *  Dashboard de ALUNO
+            *  ************************************************* */
             if(Yii::$app->user->identity->perfil == 'Aluno'){
                 
                 $id = Yii::$app->user->identity->id ;               
@@ -84,9 +87,32 @@ class DashboardController extends \yii\web\Controller
                     'horasEmExtensao'   =>  $hsExtensao
                 ]);
             }
+
+            /* *************************************************
+            *  Dashboard de COORDENADOR
+            *  ************************************************* */
             if(Yii::$app->user->identity->perfil == 'Coordenador'){
-                return $this->render('dashCoordenador');
+
+                $curso = Yii::$app->user->identity->curso_id;
+
+                $cmd = Yii::$app->db->createCommand("SELECT COUNT(*) AS contador 
+                    FROM solicitacao AS S WHERE S.solicitante_id 
+                    IN (SELECT id FROM usuario WHERE curso_id= $curso)
+                    AND S.status='Submetida' 
+                ");
+                
+                $enviadas = $cmd->queryScalar();
+                
+                if($enviadas==null)     $enviadas = 0 ;
+
+                return $this->render('dashCoordenador', [
+                    'enviadas' => $enviadas
+                ]);
+            
             }
+
+
+
             if(Yii::$app->user->identity->perfil == 'Secretaria'){
                 return $this->render('dashSecretaria');
             }            

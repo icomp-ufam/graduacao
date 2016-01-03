@@ -93,9 +93,6 @@ class SolicitacaoSearch extends Solicitacao
         * ****************************************** */
         if(Yii::$app->user->identity->perfil=='Coordenador')
         {
-            //$cmd = Yii::$app->db->createCommand("SELECT * FROM solicitacao AS S WHERE S.solicitante_id 
-            //        IN (SELECT id FROM usuario WHERE curso_id=1)
-            //")->queryAll();
                 
             $dataProvider = new SqlDataProvider([
                 'sql' => 'SELECT * FROM solicitacao AS s WHERE s.solicitante_id 
@@ -107,6 +104,23 @@ class SolicitacaoSearch extends Solicitacao
             return $dataProvider;
         }
 
+        /* ********************************************
+        * Filtra somente as Solicitacoes feitas
+        * por Alunos do Curso que o secretaria logado
+        * pertence
+        * ****************************************** */
+        if(Yii::$app->user->identity->perfil=='Secretaria')
+        {
+                
+            $dataProvider = new SqlDataProvider([
+                'sql' => 'SELECT * FROM solicitacao AS s WHERE s.solicitante_id 
+                            IN (SELECT id FROM usuario WHERE curso_id=:cid)',
+                'params' => [':cid' => Yii::$app->user->identity->curso_id],
+                'pagination' => ['pageSize' => 20],
+            ]);
+
+            return $dataProvider;
+        }
 
         return $dataProvider;
     }

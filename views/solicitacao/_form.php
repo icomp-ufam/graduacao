@@ -15,7 +15,11 @@ use yii\helpers\ArrayHelper;
 
 <div class="col-md-4">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin([
+            'options' => ['enctype' => 'multipart/form-data'],
+            'enableAjaxValidation' => true,
+            'validationUrl' => 'validation-rul',
+    ]); ?>
 
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
