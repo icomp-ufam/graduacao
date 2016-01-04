@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 
+<section class="content">
 <?php $form = ActiveForm::begin(); ?>
 
     <h2>Informe seu Email</h2>
@@ -15,3 +16,4 @@ use yii\widgets\ActiveForm;
     </div>
 
 <?php ActiveForm::end(); ?>
+</section>

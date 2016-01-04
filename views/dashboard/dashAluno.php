@@ -7,14 +7,14 @@ use yii\helpers\Html;
 
 ?>
 
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
+<section class="content">
 <div class="row">
 
     <div class="col-sm-4 col-md-4">
         <div class="thumbnail alert alert-success">
             <div class="inner">
-                <p><i class="fa fa-graduation-cap icon-4x pull-right"></i></p>
+                <p><i class="fa fa-graduation-cap fa-4x pull-right"></i></p>
                 <h3><?php echo $horasEmEnsino ?> Horas</h3>
                 <h4>Ensino</h4>
             </div>
@@ -26,7 +26,7 @@ use yii\helpers\Html;
     <div class="col-sm-4 col-md-4">
         <div class="thumbnail alert alert-warning">
             <div class="inner">
-                <p><i class="fa fa-object-ungroup icon-4x pull-right"></i></p>
+                <p><i class="fa fa-object-ungroup fa-4x pull-right"></i></p>
                 <h3><?php echo $horasEmPesquisa ?> Horas</h3>
                 <h4>Pesquisa</h4>
             </div>
@@ -38,7 +38,7 @@ use yii\helpers\Html;
     <div class="col-sm-4 col-md-4">
         <div class="thumbnail alert alert-info">
             <div class="inner">
-                <p><i class="fa fa-paper-plane icon-4x pull-right"></i></p>
+                <p><i class="fa fa-paper-plane fa-4x pull-right"></i></p>
                 <h3><?php echo $horasEmExtensao ?> Horas</h3>
                 <h4>Extensão</h4>
             </div>
@@ -78,9 +78,8 @@ use yii\helpers\Html;
         ?>
     </div>  
 
-    <div class="col-md-6">
+ <div class="col-md-6">
 
     </div>
-
-
 </div>
+</section>

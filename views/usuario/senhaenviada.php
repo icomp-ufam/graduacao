@@ -10,11 +10,14 @@ use yii\grid\GridView;
 $this->title = 'Nova senha enviada';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="usuario-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<section class="content">
+	<div class="usuario-index">
 
-    <h2>Verifique seu email!</h2>
+	    <h1><?= Html::encode($this->title) ?></h1>
+	    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-</div>
+	    <h2>Verifique seu email!</h2>
+
+	</div>
+</section>
