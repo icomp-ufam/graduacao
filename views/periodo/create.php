@@ -16,12 +16,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </ol>
 </section>
 <section class="content">
-<div class="periodo-create">
-  <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-success"> 
+<div class="periodo-create box-body">
   
   <?= $this->render('_form', [
   'model' => $model,
   ]) ?>
   
+</div>
 </div>
 </section>

@@ -20,11 +20,13 @@ $this->params['breadcrumbs'][] = 'Update';
     </ol>
 </section>
 <section class="content">
-<div class="atividade-update">
+<div class="box box-success">
+<div class="atividade-update box-body">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

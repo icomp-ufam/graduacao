@@ -21,30 +21,29 @@ $this->title = $model->nome;
 
 <!-- Main content -->
 <section class="content">
-    <div class="curso-view">
+    <div class="box box-success">   
+        <div class="curso-view box-body">
+            <p>
+                <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Você tem certeza que deseja deletar?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </p>
 
-       
-
-        <p>
-            <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Você tem certeza que deseja deletar?',
-                    'method' => 'post',
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'codigo',
+                    'nome',
+                    'max_horas',
                 ],
             ]) ?>
-        </p>
 
-        <?= DetailView::widget([
-            'model' => $model,
-            'attributes' => [
-                'id',
-                'codigo',
-                'nome',
-                'max_horas',
-            ],
-        ]) ?>
-
+        </div>
     </div>
 </section><!-- /.content -->

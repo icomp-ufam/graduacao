@@ -22,11 +22,13 @@ $this->params['breadcrumbs'][] = 'Atualizar Curso';
 </section>
 <!-- Main content -->
 <section class="content">
-	<div class="curso-update">
+	<div class="box box-success">
+	<div class="curso-update box-body">
 
 	    <?= $this->render('_form', [
 	        'model' => $model,
 	    ]) ?>
 
+	</div>
 	</div>
 </section><!-- /.content -->

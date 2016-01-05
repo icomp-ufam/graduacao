@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </ol>
 </section>
 <section class="content">
-<div class="periodo-view">
+<div class="box box-success"> 
+<div class="periodo-view box-body">
 
     <p>
         <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -49,5 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>
 </section>

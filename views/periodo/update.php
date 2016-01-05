@@ -17,11 +17,13 @@ $this->title = 'Atualizar Período: ' . ' ' . $model->codigo;
     </ol>
 </section>
 <section class="content">
-<div class="periodo-update">
+<div class="box box-success"> 
+<div class="periodo-update box-body">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

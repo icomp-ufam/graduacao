@@ -19,11 +19,13 @@ $this->title = 'Cadastro de Atividade';
     </ol>
 </section>
 <section class="content">
-<div class="atividade-create">
+<div class="box box-success">
+<div class="atividade-create box-body">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
  </section>
