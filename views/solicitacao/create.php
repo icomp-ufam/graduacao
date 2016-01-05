@@ -19,12 +19,14 @@ $this->title = 'Cadastro de Solicitação';
     </ol>
 </section>
 <section class="content">
-<div class="solicitacao-create">
+<div class="box box-success"> 
+<div class="solicitacao-create box-body">
 
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

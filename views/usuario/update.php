@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = 'Update';
     </ol>
 </section>
 <section class="content">
-<div class="usuario-update">
+<div class="box box-success"> 
+<div class="usuario-update box-body">
 
     <?= $model->isNewRecord = false ?>
     
@@ -28,5 +29,6 @@ $this->params['breadcrumbs'][] = 'Update';
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

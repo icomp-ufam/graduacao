@@ -19,11 +19,13 @@ $this->title = 'Cadastro de Grupo';
     </ol>
 </section>
 <section class="content">
-<div class="grupo-create">
+<div class="box box-success">
+<div class="grupo-create box-body">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

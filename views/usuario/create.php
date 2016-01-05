@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </ol>
 </section>
 <section class="content">
-<div class="usuario-create">
+<div class="box box-success"> 
+<div class="usuario-create box-body">
 
    
         <?= $this->render('_form', [
@@ -29,5 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
    
 
 
+</div>
 </div>
 </section>

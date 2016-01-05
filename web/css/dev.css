@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+
 /*!
  *   AdminLTE v2.3.0
  *   Author: Almsaeed Studio
@@ -490,6 +490,7 @@ object[type^="application/gas-events"] {
 }
 .user-panel > .info {
   padding: 0px;
+  font-size: 12px;
 }
 .user-panel > .info > p {
   font-weight: 600;

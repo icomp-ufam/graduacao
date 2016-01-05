@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </ol>
 </section>
 <section class="content">
-<div class="solicitacao-view">
+<div class="box box-success"> 
+<div class="solicitacao-view box-body">
 
 
     <p>
@@ -52,5 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>
 </section>

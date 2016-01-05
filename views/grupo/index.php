@@ -20,7 +20,8 @@ $this->title = 'Grupos';
     </ol>
 </section>
 <section class="content">
-<div class="grupo-index">
+<div class="box box-success">
+<div class="grupo-index box-body">
 
     <p>
         <?= Html::a('Novo Grupo', ['create'], ['class' => 'btn btn-success']) ?>
@@ -37,5 +38,6 @@ $this->title = 'Grupos';
         ],
     ]); ?>
 
+</div>
 </div>
 </section>

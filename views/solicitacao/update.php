@@ -19,12 +19,14 @@ $this->title = 'Editar Solicitação: ' . ' ' . $model->id;
     </ol>
 </section>
 <section class="content">
-<div class="solicitacao-update">
+<div class="box box-success"> 
+<div class="solicitacao-update box-body">
 
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

@@ -20,7 +20,8 @@ $this->params['breadcrumbs'][] = 'Update';
     </ol>
 </section>
 <section class="content">
-<div class="grupo-update">
+<div class="box box-success">
+<div class="grupo-update box-body">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,5 +29,6 @@ $this->params['breadcrumbs'][] = 'Update';
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
 </section>

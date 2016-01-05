@@ -19,26 +19,26 @@ $this->title = 'Atividades';
     </ol>
 </section>
 <section class="content">
- <div class="box box-success">
-<div class="atividade-index box-body">
+<div class="box box-success">
+    <div class="atividade-index box-body">
 
-    <p>
-        <?= Html::a('Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <p>
+            <?= Html::a('Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'summary'=>'',
-        'columns' => [
-            'nome',
-            'max_horas',
-            'curso_id',
-            'grupo_id',
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'summary'=>'',
+            'columns' => [
+                'nome',
+                'max_horas',
+                'curso_id',
+                'grupo_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
 
-</div>
+    </div>
 </div>
 </section>

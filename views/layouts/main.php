@@ -48,12 +48,12 @@ AppAsset::register($this);
           <!-- Sidebar user panel -->
           <div class="user-panel" style="height:60px">
             <div class="info">
-                  <p>Olá, <b><?= Yii::$app->user->identity->name ?></b> seu perfil atual é: <br/><b><?= Yii::$app->user->identity->perfil ?></b></p> 
+                  <p>Olá, <?= Yii::$app->user->identity->name ?><br/> Seu perfil atual é: <?= Yii::$app->user->identity->perfil ?></p> 
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="header">PRINCIPAL</li>
+            <li class="header">MENU</li>
            
             <?php if(Yii::$app->user->identity->isAdmin == 1){ ?>
               <li class="treeview">

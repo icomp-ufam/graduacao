@@ -17,9 +17,10 @@ $this->title = 'Lista de Cursos';
         </ol>
     </section>
 
-        <!-- Main content -->
+  
     <section class="content">
-        <div class="curso-index">
+        <div class="box box-success">
+        <div class="curso-index box-body">
     
             <p>
                 <?= Html::a('Novo Curso', ['create'], ['class' => 'btn btn-success']) ?>
@@ -37,5 +38,7 @@ $this->title = 'Lista de Cursos';
                 ],
             ]); ?>
         </div>
+        </div>
+      </section><!-- /.content -->
   
-    </section><!-- /.content -->
+    

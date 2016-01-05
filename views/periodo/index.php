@@ -21,7 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </ol>
 </section>
 <section class="content">
-<div class="periodo-index">
+<div class="box box-success">    
+<div class="periodo-index box-body">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -47,5 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
+</div>
 </div>
 </section>
