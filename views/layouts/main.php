@@ -46,16 +46,10 @@ AppAsset::register($this);
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
-          <div class="user-panel" style="height : 50px">
-             
-                <div class="input-group" style="color:white">
-                  Olá, 
-                  <b><?= Yii::$app->user->identity->name ?></b><br />
-                  , você está logado como:
-                  <b><?= Yii::$app->user->identity->perfil ?></b>
-                 </div>
-                                 <!-- /input-group -->
-             
+          <div class="user-panel" style="height:60px">
+            <div class="info">
+                  <p>Olá, <b><?= Yii::$app->user->identity->name ?></b> seu perfil atual é: <br/><b><?= Yii::$app->user->identity->perfil ?></b></p> 
+            </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -162,6 +156,7 @@ AppAsset::register($this);
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+         
           <?= $content ?>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
@@ -175,7 +170,7 @@ AppAsset::register($this);
 
     <script>
       $(window).bind('load resize', function() {
-            var topOffset = 120;
+            var topOffset = 100;
             var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
             height = height - topOffset;
 

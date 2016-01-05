@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
          <a href="#"><b>ICOMP</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
+      <p class="login-box-msg">Insira seu CPF e a Senha para entrar</p>
         <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'fieldConfig' => ['labelOptions' => ['class' => 'control-label'],
