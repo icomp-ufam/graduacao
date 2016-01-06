@@ -8,15 +8,13 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Lista de Usuários';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <section class="content-header">
         <h1><?= Html::encode($this->title) ?></h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Blank page</li>
+            <li><a href="?r=usuario/index"><i class="fa fa-user"></i> Usuários</a></li>
+        <li class="active"><a href="?r=usuario/index">Lista</a></li>
         </ol>
 </section>
 

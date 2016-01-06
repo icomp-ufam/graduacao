@@ -14,9 +14,8 @@ $this->title = 'Solicitações';
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=solicitacao/index"><i class="fa fa-download"></i> Solicitações</a></li>
+        <li class="active"><a href="?r=solicitacao/index">Lista</a></li>
     </ol>
 </section>
 <section class="content">
