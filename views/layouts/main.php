@@ -181,6 +181,15 @@ AppAsset::register($this);
               $('.content-wrapper').css('min-height', (height) + 'px');
             }
         });
+
+      $(function() {
+     var pgurl = window.location.href.substr(window.location.href.lastIndexOf("?"));
+     console.log(pgurl);
+       $("ul li a").each(function(){
+            if($(this).attr("href") == pgurl)
+            $(this).parent().addClass("active");
+       })
+      });
        // $(window).trigger('load');
     </script>
         
