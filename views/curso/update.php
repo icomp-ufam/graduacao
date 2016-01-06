@@ -6,18 +6,14 @@ use yii\helpers\Html;
 /* @var $model app\models\Curso */
 
 $this->title = 'Editar Curso';
-$this->params['breadcrumbs'][] = ['label' => 'Cursos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Atualizar Curso';
 ?>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-    	<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    	<li><a href="#">Examples</a></li>
-    	<li class="active">Blank page</li>
+    	<li><a href="?r=curso/index"><i class="fa fa-check"></i> Curso</a></li>
+        <li class="active"><a href="?r=curso/update">Editar</a></li>
     </ol>
 </section>
 <!-- Main content -->

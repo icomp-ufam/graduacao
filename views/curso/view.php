@@ -13,9 +13,8 @@ $this->title = $model->nome;
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=curso/index"><i class="fa fa-check"></i> Curso</a></li>
+        <li class="active"><a href="?r=curso/view">Visualizar</a></li>
     </ol>
 </section>
 
@@ -24,8 +23,8 @@ $this->title = $model->nome;
     <div class="box box-success">   
         <div class="curso-view box-body">
             <p>
-                <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
                     'data' => [
                         'confirm' => 'Você tem certeza que deseja deletar?',
