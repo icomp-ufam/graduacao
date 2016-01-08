@@ -36,8 +36,16 @@ $this->title = $model->descricao;
         'model' => $model,
         'attributes' => [
             'descricao',
-            'dtInicio',
-            'dtTermino',
+            [
+                'attribute' => 'dtInicio',
+                'format'    => 'raw',
+                'value'     => Yii::$app->formatter->asDate($model->dtInicio, 'php:d-m-Y')
+            ],
+            [
+                'attribute' => 'dtTermino',
+                'format'    => 'raw',
+                'value'     => Yii::$app->formatter->asDate($model->dtTermino, 'php:d-m-Y')
+            ],
             'horasComputadas',
             'status:html',
 

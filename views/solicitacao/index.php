@@ -44,19 +44,30 @@ $this->title = 'Solicitações';
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-             //   'filterModel' => $searchModel,
+                //'filterModel' => $searchModel,
                 'summary' => '',
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn'],
                     'id',
-                    'solicitante_id',
-                    'descricao',
-                     [
+                    [
                         'attribute' => 'usuario',
-                        'value' => ''
+                        'format'    => 'raw',
+                        'value'     => 'usuario.name'
                     ],
-                    //'dtInicio',
-                    //'dtTermino',
+                    'descricao',
+                    [
+                        'attribute' => 'dtInicio',
+                        'format'    => 'raw',
+                        'value'     => 'dtInicio'
+                    ],
+                    [
+                        'attribute' => 'dtTermino',
+                        'format'    => 'date',
+                        'value'     => 'dtTermino'
+                    ],
+                    [
+
+                    ],
                     'horasComputadas',
                     'status',
                     ['class' => 'yii\grid\ActionColumn', 'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}']

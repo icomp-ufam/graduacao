@@ -112,7 +112,6 @@ class DashboardController extends \yii\web\Controller
             }
 
 
-
             if(Yii::$app->user->identity->perfil == 'Secretaria'){
                 return $this->render('dashSecretaria');
             }            
