@@ -4,22 +4,21 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 
-$this->params['breadcrumbs'][] = ['label' => 'Cursos', 'url' => ['index']];
 $this->title = 'Lista de Cursos';
 ?>
  <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1><?= Html::encode($this->title) ?></h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Examples</a></li>
-            <li class="active">Blank page</li>
+            <li><a href="?r=curso/index"><i class="fa fa-check"></i> Curso</a></li>
+        <li class="active"><a href="?r=curso/index">Lista</a></li>
         </ol>
     </section>
 
-        <!-- Main content -->
+  
     <section class="content">
-        <div class="curso-index">
+        <div class="box box-success">
+        <div class="curso-index box-body">
     
             <p>
                 <?= Html::a('Novo Curso', ['create'], ['class' => 'btn btn-success']) ?>
@@ -37,5 +36,7 @@ $this->title = 'Lista de Cursos';
                 ],
             ]); ?>
         </div>
+        </div>
+      </section><!-- /.content -->
   
-    </section><!-- /.content -->
+    

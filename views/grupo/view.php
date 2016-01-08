@@ -6,28 +6,24 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Grupo */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Grupos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $model->nome;
 ?>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=grupo/index"><i class="fa fa-users"></i> Grupo</a></li>
+        <li class="active"><a href="?r=grupo/view">Visualizar</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="grupo-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-success">
+<div class="grupo-view box-body">
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -46,5 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>
 </section>

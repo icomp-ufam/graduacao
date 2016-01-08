@@ -101,10 +101,9 @@ class SolicitacaoController extends Controller
     {
 
         $model = new Solicitacao();
-        
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
+
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
 

@@ -13,30 +13,31 @@ $this->title = 'Atividades';
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=atividade/index"><i class="fa fa-tasks"></i> Atividades</a></li>
+        <li class="active"><a href="?r=atividade/index">Lista</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="atividade-index">
+<div class="box box-success">
+    <div class="atividade-index box-body">
 
-    <p>
-        <?= Html::a('Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <p>
+            <?= Html::a('Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'summary'=>'',
-        'columns' => [
-            'nome',
-            'max_horas',
-            'curso_id',
-            'grupo_id',
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'summary'=>'',
+            'columns' => [
+                'nome',
+                'max_horas',
+                'curso_id',
+                'grupo_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
 
+    </div>
 </div>
 </section>

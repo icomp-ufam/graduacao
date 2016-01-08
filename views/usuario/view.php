@@ -7,26 +7,22 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Usuario */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=usuario/index"><i class="fa fa-user"></i> Usuários</a></li>
+        <li class="active"><a href="?r=usuario/view">Visualizar</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="usuario-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="box box-success"> 
+<div class="usuario-view box-body">
 
     <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
+        <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Você deseja deletar este item?',
@@ -53,5 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>
 </section>

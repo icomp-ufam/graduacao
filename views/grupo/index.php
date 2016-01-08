@@ -14,13 +14,13 @@ $this->title = 'Grupos';
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=grupo/index"><i class="fa fa-users"></i> Grupo</a></li>
+        <li class="active"><a href="?r=grupo/create">Cadastro</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="grupo-index">
+<div class="box box-success">
+<div class="grupo-index box-body">
 
     <p>
         <?= Html::a('Novo Grupo', ['create'], ['class' => 'btn btn-success']) ?>
@@ -37,5 +37,6 @@ $this->title = 'Grupos';
         ],
     ]); ?>
 
+</div>
 </div>
 </section>

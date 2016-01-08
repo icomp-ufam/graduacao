@@ -46,20 +46,14 @@ AppAsset::register($this);
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
-          <div class="user-panel" style="height : 50px">
-             
-                <div class="input-group" style="color:white">
-                  Olá, 
-                  <b><?= Yii::$app->user->identity->name ?></b><br />
-                  , você está logado como:
-                  <b><?= Yii::$app->user->identity->perfil ?></b>
-                 </div>
-                                 <!-- /input-group -->
-             
+          <div class="user-panel" style="height:60px">
+            <div class="info">
+                  <p>Olá, <?= Yii::$app->user->identity->name ?><br/> Seu perfil atual é: <?= Yii::$app->user->identity->perfil ?></p> 
+            </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
-            <li class="header">PRINCIPAL</li>
+            <li class="header">MENU</li>
            
             <?php if(Yii::$app->user->identity->isAdmin == 1){ ?>
               <li class="treeview">
@@ -162,6 +156,7 @@ AppAsset::register($this);
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+         
           <?= $content ?>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
@@ -175,7 +170,7 @@ AppAsset::register($this);
 
     <script>
       $(window).bind('load resize', function() {
-            var topOffset = 120;
+            var topOffset = 100;
             var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
             height = height - topOffset;
 
@@ -186,6 +181,15 @@ AppAsset::register($this);
               $('.content-wrapper').css('min-height', (height) + 'px');
             }
         });
+
+      $(function() {
+     var pgurl = window.location.href.substr(window.location.href.lastIndexOf("?"));
+     console.log(pgurl);
+       $("ul li a").each(function(){
+            if($(this).attr("href") == pgurl)
+            $(this).parent().addClass("active");
+       })
+      });
        // $(window).trigger('load');
     </script>
         

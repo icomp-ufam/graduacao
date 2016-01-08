@@ -13,17 +13,18 @@ $this->title = 'Cadastro de Atividade';
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=atividade/index"><i class="fa fa-tasks"></i> Atividades</a></li>
+        <li class="active"><a href="?r=atividade/create">Cadastro</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="atividade-create">
+<div class="box box-success">
+<div class="atividade-create box-body">
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
 
+</div>
 </div>
  </section>

@@ -39,7 +39,7 @@ class Solicitacao extends \yii\db\ActiveRecord
     */
     public function getUsuario()
     {
-        return $this->hasMany(Usuario::className(), ['id' => 'solicitante_id']);
+        return $this->hasOne(Usuario::className(), ['id' => 'solicitante_id']);
     }
     
     

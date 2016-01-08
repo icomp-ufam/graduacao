@@ -8,20 +8,19 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Lista de Períodos';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=periodo/index"><i class="fa fa-calendar"></i> Período</a></li>
+        <li class="active"><a href="?r=periodo/index">Lista</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="periodo-index">
+<div class="box box-success">    
+<div class="periodo-index box-body">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -47,5 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
+</div>
 </div>
 </section>

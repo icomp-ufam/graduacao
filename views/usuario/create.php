@@ -7,20 +7,18 @@ use yii\helpers\Html;
 /* @var $model app\models\Usuario */
 
 $this->title = 'Novo Usuário';
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+       <li><a href="?r=usuario/index"><i class="fa fa-user"></i> Usuários</a></li>
+        <li class="active"><a href="?r=usuario/view">Cadastro</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="usuario-create">
+<div class="box box-success"> 
+<div class="usuario-create box-body">
 
    
         <?= $this->render('_form', [
@@ -29,5 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
    
 
 
+</div>
 </div>
 </section>

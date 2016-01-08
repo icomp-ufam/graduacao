@@ -7,7 +7,6 @@ use yii\helpers\Html;
 
 ?>
 
-
 <section class="content">
 <div class="row">
 
@@ -50,14 +49,14 @@ use yii\helpers\Html;
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <h3>Gráfico: </h3>
-    </div>
-</div>
-
-<div class="row">
 
     <div class="col-md-6">
+        <div class="box box-success">
+            <div class="box-header ui-sortable-handle">
+              <i class="fa fa-line-chart"></i>
+
+              <h3 class="box-title">Gráfico</h3>
+            </div>
         <?php
 
             echo Highcharts::widget([
@@ -76,6 +75,7 @@ use yii\helpers\Html;
                 ]
             ]);
         ?>
+    </div>  
     </div>  
 
  <div class="col-md-6">

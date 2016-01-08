@@ -4,6 +4,7 @@
 use scotthuangzl\googlechart\GoogleChart;
 ?>
 
+
 <section class="content">
 <div class="row">
 

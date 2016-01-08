@@ -6,25 +6,23 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Periodo */
 
-$this->title = 'Período:' . ' '.$model->codigo;
-$this->params['breadcrumbs'][] = ['label' => 'Periodos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = $model->codigo;
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li><a href="?r=periodo/index"><i class="fa fa-calendar"></i> Período</a></li>
+        <li class="active"><a href="?r=periodo/view">Visualizar</a></li>
     </ol>
 </section>
 <section class="content">
-<div class="periodo-view">
+<div class="box box-success"> 
+<div class="periodo-view box-body">
 
     <p>
-        <?= Html::a('Atualizar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Deletar', ['delete', 'id' => $model->id], [
+        <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Você deseja deletar este item?',
@@ -49,5 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>
 </section>
