@@ -20,7 +20,7 @@ class SolicitacaoSearch extends Solicitacao
     {
         return [
             [['id', 'horasComputadas', 'atividade_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
-            [['descricao', 'dtInicio', 'dtTermino', 'observacoes', 'status'], 'safe'],
+            [['descricao', 'dtInicio', 'dtTermino', 'observacoes', 'status', 'solicitante_id'], 'safe'],
         ];
     }
 
@@ -84,6 +84,7 @@ class SolicitacaoSearch extends Solicitacao
             $query->andFilterWhere([
                 'solicitante_id' => Yii::$app->user->identity->id,
             ]);
+
         }
 
         /* ********************************************
@@ -95,8 +96,10 @@ class SolicitacaoSearch extends Solicitacao
         {
                 
             $dataProvider = new SqlDataProvider([
-                'sql' => 'SELECT * FROM solicitacao AS s WHERE s.solicitante_id 
-                            IN (SELECT id FROM usuario WHERE curso_id=:cid)',
+                'sql' => 'SELECT solicitacao.*, usuario.name
+                          FROM solicitacao, usuario
+                          WHERE solicitante_id = usuario.id
+                          AND usuario.curso_id=:cid',
                 'params' => [':cid' => Yii::$app->user->identity->curso_id],
                 'pagination' => ['pageSize' => 20],
             ]);
@@ -111,13 +114,14 @@ class SolicitacaoSearch extends Solicitacao
         * ****************************************** */
         if(Yii::$app->user->identity->perfil=='Secretaria')
         {
-                
+
             $dataProvider = new SqlDataProvider([
-                'sql' => 'SELECT * FROM solicitacao AS s WHERE s.solicitante_id 
-                            IN (SELECT id FROM usuario WHERE curso_id=:cid)',
+                'sql' => 'SELECT * FROM solicitacao AS s, usuario AS u WHERE s.solicitante_id=u.id
+                            AND u.curso_id=:cid',
                 'params' => [':cid' => Yii::$app->user->identity->curso_id],
                 'pagination' => ['pageSize' => 20],
             ]);
+
 
             return $dataProvider;
         }
