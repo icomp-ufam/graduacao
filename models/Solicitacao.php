@@ -41,8 +41,7 @@ class Solicitacao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuario::className(), ['id' => 'solicitante_id']);
     }
-    
-    
+
     /**
      * @inheritdoc
      */
@@ -50,7 +49,7 @@ class Solicitacao extends \yii\db\ActiveRecord
     {
         return [
             [['descricao','horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id'], 'required', 'message'=>'Este campo é obrigatório'],
-            [['dtInicio', 'dtTermino'], 'safe'],
+            [['dtInicio', 'dtTermino', 'solicitante_id'], 'safe'],
             ['dtTermino', 'compare', 'compareAttribute' => 'dtInicio', 'operator' => '>=', 'message'=> 'A data de término deve ser igual ou maior que a data de início'],
             [['horasComputadas', 'atividade_id'], 'integer'],
             [['descricao', 'observacoes'], 'string', 'max' => 100],
@@ -80,11 +79,11 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'Número',
-            'descricao' => 'Descrição',
+            'id' => 'COD',
+            'descricao' => 'Descrição da Solicitação',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
-            'horasComputadas' => 'Horas Computadas',
+            'horasComputadas' => 'Horas',
             'observacoes' => 'Observações',
             'status' => 'Status',
             'atividade_id' => 'Atividade',

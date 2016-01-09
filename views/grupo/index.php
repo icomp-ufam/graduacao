@@ -28,6 +28,7 @@ $this->title = 'Grupos';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
         'summary'=>'',
         'columns' => [
             'nome',

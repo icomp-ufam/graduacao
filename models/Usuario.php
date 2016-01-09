@@ -45,7 +45,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     */
     public function getSolicitacao()
     {
-        return $this->hasOne(Solicitacao::className(), ['id' => 'solicitacao_id']);
+        return $this->hasMany(Solicitacao::className(), ['solicitante_id'=>'id']);
     }
     
     //RELACIONAMENTO com a tabela Curso
@@ -62,7 +62,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             [['name', 'cpf', 'email', 'perfil'], 'required', 'message'=> 'Este campo é obrigatório'],
-            [['dtEntrada', 'password'], 'safe'],
+            [['dtEntrada', 'password', 'name'], 'safe'],
             [['isAdmin', 'isAtivo', 'curso_id'], 'integer'],
             [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 255],
@@ -88,6 +88,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             'siape' => 'SIAPE',
             'perfil' => 'Perfil',
             'dtEntrada' => 'Data de Entrada',
+
             //'isAdmin' => 'Admin',
             //'isAtivo' => 'Ativo',
             //'auth_key' => 'Auth Key',

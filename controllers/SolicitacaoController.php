@@ -183,6 +183,7 @@ class SolicitacaoController extends Controller
     }
 
 
+
      public function actionSubmit()
     {
         $action = Yii::$app->request->post('action');
@@ -201,7 +202,7 @@ class SolicitacaoController extends Controller
             $status = 'Arquivada';
         } else if ($_POST['action'] == 'Deferir') {
             $status = 'Deferida';
-        }else if ($_POST['action'] == 'Indeferida'){
+        }else if ($_POST['action'] == 'Indeferir'){
             $status = 'Indeferida';
         }else{
             $status = 'Pré-Aprovada';
