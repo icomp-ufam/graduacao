@@ -8,8 +8,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Nova senha enviada';
-$this->params['breadcrumbs'][] = $this->title;
-?>
+
 
 <section class="content">
 	<div class="usuario-index">
