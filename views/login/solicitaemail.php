@@ -12,7 +12,8 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
+         <?= Html::a('Cancelar', ['login/login'], ['class' => 'btn btn-danger']) ?>
     </div>
 
 <?php ActiveForm::end(); ?>

@@ -142,7 +142,7 @@ AppAsset::register($this);
               </li>
             <?php } ?>
             <li class="treeview">
-                <a href="?r=site/logout">
+                <a href="?r=login/logout">
                   <i class="fa fa-sign-out fa-fw"></i>
                   <span>Logout</span> 
                 </a>
