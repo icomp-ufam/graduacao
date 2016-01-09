@@ -169,7 +169,7 @@ class UsuarioController extends Controller
             //Caso negativo ele exibe o formulario em branco
             if($webservice == null)
             {
-                //return $this->render('novousuario', ['erro'=>'Não foi possível recuperar os dados do aluno']) ;
+
                 $model->cpf = Yii::$app->request->post('cpf');
                 $model->isNewRecord = true;
                 //$model->save(false);
