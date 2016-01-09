@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
    <div class="login-box">
       <div class="login-logo">
-         <a href="#"><b>ICOMP</b></a>
+         <a href="#"><b>Atividades Acadêmicas</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
       <p class="login-box-msg">Insira seu CPF e a Senha para entrar</p>
@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
         
 
-        <a href="?r=usuario/recuperarsenha">Recuperar a senha</a><br>
-        <a href="?r=usuario/novousuario" class="text-center">Registrar aluno</a>
+        <a href="?r=login/recuperarsenha">Recuperar a senha</a><br>
+        <a href="?r=login/novousuario" class="text-center">Registrar aluno</a>
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
