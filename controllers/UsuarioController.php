@@ -240,7 +240,6 @@ class UsuarioController extends Controller
     public function actionRecuperarsenha()
     {
 
-        
         if ( Yii::$app->request->post()) 
         {
             $email = Yii::$app->request->post('email');
