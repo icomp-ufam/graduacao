@@ -18,6 +18,8 @@ AppAsset::register($this);
         <?php $this->head() ?>
     </head>
     <body class="hold-transition login-page">
+        <div classs="lockscreen">
+       
         <?php $this->beginBody() ?>
    
         <div id="container">
@@ -25,6 +27,10 @@ AppAsset::register($this);
         </div>
  
         <?php $this->endBody() ?>
+         </div>
+
+         <div class="backstretch" style="left: 0px; top: 0px; opacity:0.5; overflow: hidden; margin: 0px; padding: 0px; z-index: -999999; position: fixed; background-color: rgb(0, 166, 90);">
+            <img src="ufam1.jpg" width="1920"></div>
     </body>
     <!-- Scripts -->
 </html>

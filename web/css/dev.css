@@ -167,7 +167,7 @@ h6,
 }
 /* General Links */
 a {
-  color: #3c8dbc;
+  color: #FFF;
 }
 a:hover,
 a:active,
@@ -3180,12 +3180,13 @@ table.text-center th {
 }
 .login-logo a,
 .register-logo a {
-  color: #444;
+   color: white;
 }
 .login-page,
 .register-page {
-  background: #d2d6de;
+  background: rgb(0, 166, 90);
 }
+
 .login-box,
 .register-box {
   width: 360px;
@@ -3200,7 +3201,7 @@ table.text-center th {
 }
 .login-box-body,
 .register-box-body {
-  background: #fff;
+  background: rgba(0, 0, 0, 0.3);
   padding: 30px;
   border-top: 0;
   color: #666;
@@ -3214,6 +3215,7 @@ table.text-center th {
   margin: 0;
   text-align: center;
   padding: 0 20px 20px 20px;
+  color: white;
 }
 .social-auth-links {
   margin: 10px 0;
