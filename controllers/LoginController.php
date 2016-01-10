@@ -234,7 +234,7 @@ class LoginController extends Controller
                 $message->addTo( $usuario->email, $usuario->name); //destinatario...
                 $message->setSubject('Nova Senha');
 
-                $url = Url::to(['usuario/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
+                $url = Url::to(['login/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
                 
                 $message->setHtml($this->renderPartial('email', ['usuario' => $usuario->name, 'url' => $url]), []);
 
