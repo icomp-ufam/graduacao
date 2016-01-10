@@ -24,7 +24,7 @@ use yii\helpers\ArrayHelper;
         <?= $form->field($model, 'max_horas')->textInput() ?>
 
         <?php
-          echo $form->field($model, 'curso_id')->dropDownList(ArrayHelper::map(Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
+          //echo $form->field($model, 'curso_id')->dropDownList(ArrayHelper::map(Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']);
         ?>
 
         <?php

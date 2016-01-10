@@ -36,7 +36,13 @@ use yii\helpers\ArrayHelper;
         ]) ?>
 
         <!-- Atividades -->
-        <?= $form->field($model, 'atividade_id')->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione',  'onchange'=>'
+
+        <?php
+            $atividades = \app\models\Atividade::find()->where(['curso_id'=>Yii::$app->user->identity->curso_id]);
+        ?>
+
+        <?= $form->field($model, 'atividade_id')
+            ->dropDownList(ArrayHelper::map(\app\models\Atividade::find()->where(['curso_id'=>Yii::$app->user->identity->curso_id]), 'id', 'nome'), ['prompt'=>'Selecione',  'onchange'=>'
                 $.post( "'.Yii::$app->urlManager->createUrl('solicitacao/field').'&id=" + $(this).val(), function( data ) {
                   $( "input#maxHoras" ).val( data );
                 });']); ?>

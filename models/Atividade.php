@@ -49,6 +49,7 @@ class Atividade extends \yii\db\ActiveRecord
             'max_horas' => 'Máximo de Horas',
             'curso_id' => 'Curso',
             'grupo_id' => 'Grupo',
+
         ];
     }
 }

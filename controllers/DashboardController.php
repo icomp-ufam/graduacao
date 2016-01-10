@@ -53,7 +53,7 @@ class DashboardController extends \yii\web\Controller
                 $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
                     FROM solicitacao AS S WHERE S.atividade_id 
                     IN (SELECT id FROM atividade WHERE grupo_id=1)
-                    AND S.status='Submetida'
+                    AND S.status='Deferida'
                     AND solicitante_id = $id 
                 ");
                 
@@ -62,7 +62,7 @@ class DashboardController extends \yii\web\Controller
                 $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
                     FROM solicitacao AS S WHERE S.atividade_id 
                     IN (SELECT id FROM atividade WHERE grupo_id=2)
-                    AND S.status='Submetida'
+                    AND S.status='Deferida'
                     AND solicitante_id = $id 
                 ");
                 
@@ -71,7 +71,7 @@ class DashboardController extends \yii\web\Controller
                 $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
                     FROM solicitacao AS S WHERE S.atividade_id 
                     IN (SELECT id FROM atividade WHERE grupo_id=3)
-                    AND S.status='Submetida'
+                    AND S.status='Deferida'
                     AND solicitante_id = $id 
                 ");
                 
