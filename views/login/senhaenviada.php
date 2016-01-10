@@ -19,10 +19,7 @@ $this->title = 'Solicitar Nova Senha';
 <div class="box box-success">
 	<div class=" box-body">
 
-	    
-	    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-	    <h2>Verifique seu email!</h2>
+	<p class='col-sm-4 alert alert-success'>Nova senha enviada, verifique seu email!</p>
 
 	</div>
 	</div>
