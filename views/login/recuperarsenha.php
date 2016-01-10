@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 ?>
 <?php
-$this->title = 'Recuperar senha';
+$this->title = 'Solicitar Nova Senha';
 ?>
 <div class="col-md-4"></div>
 <div class="col-xs-12 col-md-4">

@@ -26,6 +26,11 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+body.login-page h1 {
+    color: white;
+}
+
 /* Layout */
 .wrapper {
   min-height: 100%;
