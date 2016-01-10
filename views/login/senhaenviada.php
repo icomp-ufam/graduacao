@@ -19,7 +19,7 @@ $this->title = 'Solicitar Nova Senha';
 <div class="box box-success">
 	<div class=" box-body">
 
-	<p class='col-sm-4 alert alert-success'>Nova senha enviada, verifique seu email!</p>
+	<p class='col-xs-12 alert alert-success'>Nova senha enviada, verifique seu email!</p>
 
 	</div>
 	</div>

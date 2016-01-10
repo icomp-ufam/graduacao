@@ -1,14 +1,12 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-?>
 
-<?php
-    $this->registerJsFile(Yii::$app->request->baseUrl.'/js/compara.js',['depends' => [\yii\web\JqueryAsset::className()]]);
-?>
+$this->registerJsFile(Yii::$app->request->baseUrl.'/js/compara.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $this->title = 'Alterar Senha';
 ?>
+
 <div class="col-md-4"></div>
 <div class="col-xs-12 col-md-4">
 <section class="content-header">
@@ -20,11 +18,15 @@ $this->title = 'Alterar Senha';
 
             <?php $form = ActiveForm::begin(); ?>
                 <div class="form-group">
-
-                    Informe a senha: <?= Html::input('password','senhanova','', ['id'=>'pw1']) ?>
-                    <br/><br/>
-                    Repetir a senha: <?= Html::input('password','senhanova2','',['id'=>'pw2']) ?>
-
+                    <div class="form-group">
+                        <label for="senhanova" class="control-label" >Senha</label>
+                        <input type="password" id="pw1" name="senhanova" class="form-control" placeholder="Informe a nova senha" />
+                    </div>
+                    <div class="form-group">
+                        <label for="senhanova2" class="control-label" >Confirmar Senha</label>
+                        <input type="password" id="pw2" name="senhanova2" class="form-control" placeholder="Repita sua nova senha" />
+                    </div>
+                    
                     <br/><br/>
                     <?= Html::input('hidden', 'token', $model->password_reset_token ) ?>
                     <?= Html::input('hidden', 'id', $model->id ) ?>
