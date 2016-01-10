@@ -76,6 +76,9 @@ class AtividadeController extends Controller
     public function actionCreate()
     {
         $model = new Atividade();
+
+        $model->curso_id = Yii::$app->user->identity->curso_id;
+
         $searchModel = new AtividadeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

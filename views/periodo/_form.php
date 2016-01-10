@@ -24,6 +24,7 @@ use yii\widgets\ActiveForm;
             'language' => 'pt-BR',
             'dateFormat' => 'dd-M-y',
     ]) ?>
+
     <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     <?= Html::a('Cancelar', ['periodo/index'], ['class' => 'btn btn-danger']) ?>
 </div>
