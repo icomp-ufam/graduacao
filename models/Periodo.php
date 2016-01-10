@@ -30,10 +30,12 @@ class Periodo extends \yii\db\ActiveRecord
         return [
             [['codigo', 'dtInicio', 'dtTermino'], 'required', 'message'=> 'Este campo é obrigatório'],
             [['dtInicio', 'dtTermino'], 'safe'],
+            ['dtTermino', 'compare', 'compareAttribute' => 'dtInicio', 'operator' => '>', 'message'=> 'A data de término deve ser maior que a data de início'],
             [['codigo'], 'string', 'max' => 10],
             
         ];
     }
+
 
     /**
      * @inheritdoc
@@ -45,6 +47,7 @@ class Periodo extends \yii\db\ActiveRecord
             'codigo' => 'Código',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
+            'isAtivo'  => 'Status do Período'
         ];
     }
     

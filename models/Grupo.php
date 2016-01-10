@@ -1,7 +1,6 @@
 <?php
 
 namespace app\models;
-use app\models\Grupo;
 
 use Yii;
 
@@ -33,6 +32,7 @@ class Grupo extends \yii\db\ActiveRecord
             [['max_horas'], 'integer', 'message'=>'Máximo de horas deve ser inteiro'],
             [['codigo'], 'string', 'max' => 20],
             [['nome'], 'string', 'max' => 100],
+            ['curso_id', 'safe'],
         ];
     }
 

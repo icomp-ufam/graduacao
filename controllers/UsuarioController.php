@@ -1,11 +1,8 @@
 <?php
-
 namespace app\controllers;
-
 use Yii;
 use app\models\Usuario;
 use app\models\Curso;
-
 use app\models\UsuarioSearch;
 use app\models\UsuarioForm;
 use yii\web\Controller;
@@ -31,12 +28,12 @@ class UsuarioController extends Controller
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
                             {
-                                return Yii::$app->user->identity->isAdmin == 1 ;    
-                            }                            
+                                return Yii::$app->user->identity->isAdmin == 1 ;
+                            }
                         }
                     ],
                 ],
-            ],            
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -45,7 +42,6 @@ class UsuarioController extends Controller
             ],
         ];
     }
-
     /**
      * Lists all Usuario models.
      * @return mixed
@@ -54,13 +50,11 @@ class UsuarioController extends Controller
     {
         $searchModel = new UsuarioSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
-
     /**
      * Displays a single Usuario model.
      * @param integer $id
@@ -72,7 +66,6 @@ class UsuarioController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-
     /**
      * Creates a new Usuario model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -81,22 +74,21 @@ class UsuarioController extends Controller
     public function actionCreate()
     {
         $model = new Usuario();
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            
+
             $model->password = md5($model->password);
-            
+
             $model->save(false);
-            
+
             return $this->redirect(['index']);
-            
+
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
     }
-
     /**
      * Updates an existing Usuario model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -105,9 +97,7 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
-
     }
-
     /**
      * Deletes an existing Usuario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -117,10 +107,8 @@ class UsuarioController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
-
     /**
      * Finds the Usuario model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -136,7 +124,7 @@ class UsuarioController extends Controller
             throw new NotFoundHttpException('A página procurada não existe.');
         }
     }
-    
-  
-    
+
+
+
 }

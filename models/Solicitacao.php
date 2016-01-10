@@ -56,21 +56,52 @@ class Solicitacao extends \yii\db\ActiveRecord
             [['status'], 'string', 'max' => 20],
             ['horasComputadas', 'integer', 'min'=>1, 'max'=>100], //Isto depende da atividade cadastrada.
             [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf'],
-            [['horasComputadas'], 'horas_check', 'message'=>'As horas computadas não pode ser maior que a hora máxima por atividade']
+            [['horasComputadas'], 'horas_check', 'message'=>'As horas computadas não pode ser maior que a hora máxima por atividade'],
+            [['horasComputadas'], 'horas_calc', 'message'=>'Quantidade maxima para atividade foi atingida']
         ];
     }
     
-    
-     public function horas_check($attribute, $params) {
-         
-      $horasAtual = $this->horasComputadas;
-      $atividadeAtual = Atividade::findOne($this->atividade_id);
-         
-      if ($horasAtual > $atividadeAtual->max_horas) {
-          $this->addError($attribute,'As horas computadas não pode ser maior que a hora máxima por atividade');
-      }
+    /*
+     * Verifica se a quantidade informada de horas computadas para a Atividade
+     * Não ultrapassou o limite daquela atividade
+     */
+    public function horas_check($attribute, $params) {
+        $horasAtual = $this->horasComputadas;
+        $atividadeAtual = Atividade::findOne($this->atividade_id);
 
-     }
+        if ($horasAtual > $atividadeAtual->max_horas) {
+            $this->addError($attribute,'As horas computadas não pode ser maior que a hora máxima por atividade');
+        }
+    }
+
+    public function horas_calc($attribute, $params){
+        $horasComputadas  = (int) $this->horasComputadas;
+
+        $solicitante_id = Yii::$app->user->identity->id ;
+
+        //calcula a quantidade de horas que o Aluno
+        //ja tem naquela atividade...
+        $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma
+                    FROM solicitacao AS S
+                    WHERE S.atividade_id = $this->atividade_id
+                    AND solicitante_id = $solicitante_id
+                ");
+
+        $hsProduzidas = (int) $cmd->queryScalar();
+
+        $Atividade = Atividade::findOne($this->atividade_id);
+
+        $MaxHorasAtividade = (int) $Atividade->max_horas;
+
+        if(($hsProduzidas+$horasComputadas) > $MaxHorasAtividade)
+        {
+            $diferenca = (int) ($MaxHorasAtividade - $hsProduzidas);
+
+            $this->addError($attribute,"As horas computadas não podem ser maior que $diferenca");
+        }
+
+
+    }
 
 
     /**
