@@ -170,9 +170,20 @@ h6,
 .h6 {
   font-family: 'Source Sans Pro', sans-serif;
 }
+
+body.login-page a {
+  color: #FFF;
+}
+body.login-page a:hover, 
+a:active,
+a:focus {
+  outline: none;
+  text-decoration: none;
+  color: #72afd2;
+}
 /* General Links */
 a {
-  color: #FFF;
+  color: #337ab7;
 }
 a:hover,
 a:active,
