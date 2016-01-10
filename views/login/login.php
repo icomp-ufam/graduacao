@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
          <a href="#"><b>Atividades Acadêmicas</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-      <p class="login-box-msg">Insira seu CPF e a Senha para entrar</p>
+      <p class="login-box-msg">Insira seu CPF e a senha para entrar</p>
         <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         'fieldConfig' => ['labelOptions' => ['class' => 'control-label'],
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php ActiveForm::end(); ?>
         
 
-        <a href="?r=login/recuperarsenha">Recuperar a senha</a><br>
+        <a href="?r=login/recuperarsenha">Solicitar Nova Senha</a><br>
         <a href="?r=login/novousuario" class="text-center">Registrar aluno</a>
 
       </div><!-- /.login-box-body -->
