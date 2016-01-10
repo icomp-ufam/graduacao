@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UsuarioSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-<?php
+
 $this->title = 'Recuperar senha';
 ?>
 <div class="col-md-4"></div>
