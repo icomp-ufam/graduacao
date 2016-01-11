@@ -22,6 +22,7 @@ use app\models\Atividade;
  * @property integer $periodo_id
  * @property integer $solicitante_id
  * @property integer $aprovador_id
+ * @property date $created_at
  */
 class Solicitacao extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,7 @@ class Solicitacao extends \yii\db\ActiveRecord
         return 'solicitacao';
     }
 
-    //RELACIONAMENTO com a tabela usuario
+    //RELACIONAMENTO com a tabela USUARIO
     /**
     * @return \yii\db\ActiveQuery
     */
@@ -41,6 +42,25 @@ class Solicitacao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuario::className(), ['id' => 'solicitante_id']);
     }
+
+    //RELACIONAMENTO com a tabela ATIVIDADE
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAtividade()
+    {
+        return $this->hasOne(Atividade::className(), ['id' => 'atividade_id']);
+    }
+
+    //RELACIONAMENTO com a tabela PERIODO
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPeriodo()
+    {
+        return $this->hasOne(Periodo::className(), ['id' => 'periodo_id']);
+    }
+
 
     /**
      * @inheritdoc
@@ -110,7 +130,7 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'COD',
+            'id' => 'Número',
             'descricao' => 'Descrição da Solicitação',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
@@ -121,7 +141,8 @@ class Solicitacao extends \yii\db\ActiveRecord
             'solicitante_id' => 'Solicitante',
             'aprovador_id' => 'Aprovador',
             'anexo_id' => 'Anexo',
-            'anexoOriginalName' => 'Arquivo Anexo'
+            'anexoOriginalName' => 'Arquivo Anexo',
+            'created_at' => 'Criado Em'
         ];
     }
 }

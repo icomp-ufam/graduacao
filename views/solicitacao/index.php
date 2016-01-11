@@ -64,30 +64,62 @@ $this->title = 'Solicitações';
                 'dataProvider' => $dataProvider,
                 'summary' => '',
                 'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '', 'dateFormat'=>'dd/MM/yyyy'],
-
+                'tableOptions' => ['class' => 'table  table-bordered table-hover'],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn',
                         'checkboxOptions' => function ($dataProvider, $key, $index, $column) {
                             return ['value' => $dataProvider['id']];
                         }
                     ],
-                    'id',
-                    Yii::$app->user->identity->perfil == 'Aluno' ? ['value'=>''] : 'name',
-                    'descricao',
+
+                    Yii::$app->user->identity->perfil == 'Aluno' ? 'id' : ['attribute'=>'Aluno', 'value'=>'name'],
+
+                    ['attribute'=>'Descricao', 'value'=>'descricao'],
                     [
-                        'attribute' => 'dtInicio',
+                        'attribute' => 'Inicio',
                         'format'    => 'date',
                         'value'     => 'dtInicio'
                     ],
                     [
-                        'attribute' => 'dtTermino',
+                        'attribute' => 'Termino',
                         'format'    => 'date',
                         'value'     => 'dtTermino'
                     ],
-                    'horasComputadas',
+                    ['attribute'=>'Horas Solicitadas', 'value'=>'horasComputadas'],
                     'status',
                     //
-                    ['class' => 'yii\grid\ActionColumn', 'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}']
+                    ['class' => 'yii\grid\ActionColumn',
+                        'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}',
+                        'buttons' => [
+                            'update' => function ($url, $model) {
+                                return \yii\helpers\Html::a('<span class="label label-warning">Editar</span>&nbsp;',
+                                    (new yii\grid\ActionColumn())->createUrl('solicitacao/update', $model, $model['id'], 1), [
+                                        'title' => Yii::t('yii', 'view'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '0',
+                                    ]);
+                            },
+                            'delete' => function ($url, $model) {
+                                return \yii\helpers\Html::a('<span class="label label-danger">Apagar</span>',
+                                    (new yii\grid\ActionColumn())->createUrl('solicitacao/delete', $model, $model['id'], 1), [
+                                        'title' => Yii::t('yii', 'view'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '0',
+                                    ]);
+                            },
+                            'view' => function ($url, $model) {
+                                return \yii\helpers\Html::a('<span class="label label-primary">Ver&nbsp;&nbsp;</span>&nbsp;',
+                                    (new yii\grid\ActionColumn())->createUrl('solicitacao/view', $model, $model['id'], 1), [
+                                        'title' => Yii::t('yii', 'view'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '0',
+                                    ]);
+                            },
+
+
+                        ]
+                    ],
+
                 ],
             ]); ?>
 
