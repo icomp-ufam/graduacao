@@ -140,10 +140,8 @@ class SolicitacaoController extends Controller
                 WHERE :fim
                 BETWEEN date(dtInicio) AND date(dtTermino)",[':fim' => $model->dtTermino]);
 
-
             $model->periodo_id = (int) $cmd->queryScalar();
 
-            
             $model->save();
             
             //redireciona para a view da solicitacao criada
