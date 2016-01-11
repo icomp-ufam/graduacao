@@ -44,6 +44,7 @@ $this->title = 'Solicitações';
             <?php } ?>
 
             <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+                <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
                 <?= Html::submitButton('Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar', 'style' => 'margin-bottom: 10px']) ?>
             <?php } ?>
                          
