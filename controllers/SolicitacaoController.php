@@ -197,17 +197,20 @@ class SolicitacaoController extends Controller
 
      public function actionSubmit()
     {
-        $action = Yii::$app->request->post('action');
+
         
         $selection = (array)Yii::$app->request->post('selection');//typecasting
 
+        $action = Yii::$app->request->post('action');
+
         $status = '';
+
 
         if(!$selection){
             return $this->redirect(['index']);
         }
 
-        if ($_POST['action'] == 'Submeter') {
+        if ($action == 'Submeter') {
             $status = 'Submetida';
         } else if ($_POST['action'] == 'Arquivar') {
             $status = 'Arquivada';
@@ -216,15 +219,44 @@ class SolicitacaoController extends Controller
         }else if ($_POST['action'] == 'Indeferir'){
             $status = 'Indeferida';
         }else{
-            $status = 'Pré-Aprovada';
+            $status = 'Pre-Aprovada';
         }
         
         foreach($selection as $id){
-            $s = Solicitacao::findOne((int)$id);//make a typecasting
-            
-            $s->status = $status;
-            
-            $s->save();
+
+            $s = Solicitacao::findOne((int)$id); //make a typecasting
+
+            if(Yii::$app->user->identity->perfil=='Aluno')
+            {
+                if($s->status=='Aberto' || $s->status=='Indeferida')
+                {
+                    $s->status = $status;
+                }
+            }
+
+            if(Yii::$app->user->identity->perfil=='Secretaria')
+            {
+                if($s->status=='Submetida')
+                {
+                    $s->status = $status;
+                }
+            }
+
+            if(Yii::$app->user->identity->perfil=='Coordenador')
+            {
+                if($s->status=='Pre-Aprovada')
+                {
+                    $s->status = $status;
+                    $s->save();
+                }
+                if($s->status=='Deferida')
+                {
+                    $s->status = $status;
+                    $s->save();
+                }
+            }
+
+            $s->save(false);
         }
         return $this->redirect(['index']);
     }
