@@ -21,7 +21,7 @@ $(function () {
         {
             busca = '';
         }
-        table.columns( 7 ).search( busca ).draw();
+        table.columns( 6 ).search( busca ).draw();
     });
 
 });
