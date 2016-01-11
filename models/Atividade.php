@@ -24,6 +24,11 @@ class Atividade extends \yii\db\ActiveRecord
         return 'atividade';
     }
 
+    public function getSolicitacoes()
+    {
+        return $this->hasMany(Solicitacao::className(), ['atividade_id' => 'id']);
+    }
+
     /**
      * @inheritdoc
      */

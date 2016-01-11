@@ -102,6 +102,8 @@ class SolicitacaoController extends Controller
 
         $model = new Solicitacao();
 
+        $model->created_at = date('Y-m-d');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
@@ -130,6 +132,17 @@ class SolicitacaoController extends Controller
             $model->anexoHashName = $file_name ;
             
             $model->arquivo = null ;     //estava dando erro na hora de salvar
+
+            //verifica em qual periodo deve lançar a solicitacao
+            //com base na data e nas datas de inicio e termino dos periodos cadastrados
+
+            $cmd = Yii::$app->db->createCommand("SELECT id FROM periodo
+                WHERE :fim
+                BETWEEN date(dtInicio) AND date(dtTermino)",[':fim' => $model->dtTermino]);
+
+
+            $model->periodo_id = (int) $cmd->queryScalar();
+
             
             $model->save();
             

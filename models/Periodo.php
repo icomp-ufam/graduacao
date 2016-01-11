@@ -22,6 +22,11 @@ class Periodo extends \yii\db\ActiveRecord
         return 'periodo';
     }
 
+    public function getSolicitacoes()
+    {
+        return $this->hasMany(Solicitacao::className(), ['periodo_id' => 'id']);
+    }
+
     /**
      * @inheritdoc
      */
