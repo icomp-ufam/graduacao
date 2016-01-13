@@ -50,32 +50,34 @@ use yii\helpers\Html;
 
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header ui-sortable-handle">
               <i class="fa fa-line-chart"></i>
 
               <h3 class="box-title">Gráfico</h3>
             </div>
-        <?php
+            <div class="box-body">
+                <?php
 
-            echo Highcharts::widget([
-                'options' => [               
-                    'title' => ['text' => 'Distribuição por Grupos'],
-               
-                    'series' => [[
-                        'type' => 'pie',
-                        'name' => 'Grupos',
-                        'data' => [
-                            ['name' => 'Ensino', 'y' => (float) $horasEmEnsino ],
-                            ['name' => 'Pesquisa', 'y' => (float) $horasEmPesquisa],
-                            ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]                            
+                    echo Highcharts::widget([
+                        'options' => [               
+                            'title' => ['text' => 'Distribuição por Grupos'],
+                       
+                            'series' => [[
+                                'type' => 'pie',
+                                'name' => 'Grupos',
+                                'data' => [
+                                    ['name' => 'Ensino', 'y' => (float) $horasEmEnsino ],
+                                    ['name' => 'Pesquisa', 'y' => (float) $horasEmPesquisa],
+                                    ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]                            
+                                ]
+                            ]]               
                         ]
-                    ]]               
-                ]
-            ]);
-        ?>
-    </div>  
+                    ]);
+                ?>
+            </div>  
+        </div>  
     </div>  
 
  <div class="col-md-6">
