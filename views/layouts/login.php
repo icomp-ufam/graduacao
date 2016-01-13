@@ -22,6 +22,21 @@ AppAsset::register($this);
         <?php $this->beginBody() ?>
    
         <div id="container">
+            <div class="navbar-header" >
+                 <div class="nav navbar-nav navbar-right">
+                    <a class="brand-icomp" href="#" style=" position: fixed; top:0px; left:55px">
+                    <img id="logo-icomp" src="icomp-logo.png" width="150"></div>
+                </a>
+                </div>
+
+                <div class="nav navbar-nav navbar-right">
+                    <a class="brand-ufam" href="#" style="position: fixed; top:0px; left:85%;">
+                        <img id="logo-ufam" src="ufam-logo.png" width="90"></div>
+                    </a>
+                </div>
+                
+            </div>
+
             <?= $content ?>
         </div>
  
@@ -29,7 +44,17 @@ AppAsset::register($this);
          
 
          <div class="backstretch" style="left: 0px; top: 0px; opacity:0.5; overflow: hidden; margin: 0px; padding: 0px; z-index: -999999; position: fixed; background-color: rgb(0, 166, 90);">
-            <img src="ufam1.jpg" width="1920"></div>
+            <img id="imgbg" src="ufam1.jpg" width="1920"></div>
+
+        <script type="text/javascript">
+            
+            $(window).bind('load resize', function() {
+                
+                  $('#imgbg').attr('width', this.window.innerWidth + 'px');
+                  $('#imgbg').attr('height', this.window.innerHeight + 'px');
+                    
+            });
+        </script>
     </body>
     <!-- Scripts -->
 </html>

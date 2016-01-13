@@ -29,6 +29,7 @@ body {
 
 body.login-page h1 {
     color: white;
+    font-weight: bold;
 }
 
 /* Layout */
@@ -173,6 +174,7 @@ h6,
 
 body.login-page a {
   color: #FFF;
+  font-weight: bold;
 }
 body.login-page a:hover, 
 a:active,
@@ -3232,6 +3234,7 @@ table.text-center th {
   text-align: center;
   padding: 0 20px 20px 20px;
   color: white;
+  font-weight: bold;
 }
 .social-auth-links {
   margin: 10px 0;
