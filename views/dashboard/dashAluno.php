@@ -68,13 +68,21 @@ use yii\helpers\Html;
                     echo Highcharts::widget([
                         'options' => [
                             'title' => ['text' => 'Distribuição por Grupos'],
-
                             'series' => [[
                                 'type' => 'pie',
                                 'name' => 'Grupos',
                                 'data' => [
                                     ['name' => 'Ensino', 'y' => (float) $horasEmEnsino ],
                                     ['name' => 'Pesquisa', 'y' => (float) $horasEmPesquisa],
+                                    ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]                            
+                                ]
+                            ]]               
+                        ]
+                    ]);
+                ?>
+            </div>  
+        </div>  
+=======
                                     ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]
                                 ]
                             ]]
@@ -85,6 +93,7 @@ use yii\helpers\Html;
 
             </div>
         </div>
+>>>>>>> 869396b5440c1c54fc9df3fb81e0b12cc2f84908
     </div>  
 
 </div><!--fim div row-->

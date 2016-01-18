@@ -10,6 +10,7 @@
             "zeroRecords": "Nenhum item encontrado.",
             "info": "Mostrando _PAGE_ de _PAGES_",
             "infoEmpty": "Nenhum item encontrado.",
+            "infoFiltered": "(filtrado de _MAX_  resultado(s) no total)"
         }
 
 
