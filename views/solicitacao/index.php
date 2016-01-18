@@ -32,32 +32,48 @@ $this->title = 'Solicitações';
      <div class="solicitacao-index box-body">
 
         <?=Html::beginForm(['solicitacao/submit'],'post');?>
-             
-        <?php if(Yii::$app->user->identity->perfil == 'Coordenador' || Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-             <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
-        <div class="pull-right">       
-            <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-                <?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>
-                <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
-                <?= Html::submitButton('Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
-            <?php } ?>
+        <div class="row">
+            <div class="col-xs-4">     
+                <?php if(Yii::$app->user->identity->perfil == 'Coordenador' || Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+                     <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
+                <?php } ?>
+            </div>
 
-            <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-                <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
-                <?= Html::submitButton('Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar', 'style' => 'margin-bottom: 10px']) ?>
-            <?php } ?>
-                         
-            <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-                <?= Html::submitButton('Submeter', ['class' => 'btn btn-info', 'name' => 'action', 'value' => 'Submeter']);?>
-            <?php } ?>
+            <div class="col-xs-8"> 
+                <div class="pull-right">       
+                    <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+                        <?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>
+                        <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
+                        <?= Html::submitButton('Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
+                    <?php } ?>
+
+                    <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+                        <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
+                        <?= Html::submitButton('Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar']) ?>
+                    <?php } ?>
+                                 
+                    <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+                        <?= Html::submitButton('Submeter', ['class' => 'btn btn-info', 'name' => 'action', 'value' => 'Submeter']);?>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
+        
         <hr/>
 
         <label>Selecione o filtro:</label>  
             
-        <?= Html::activeDropDownList($searchModel, 'id', ['Todas', 'Aberto','Submetida', 'Deferida', 'Indeferida', 'Arquivada'] ) ?>
-        
+       <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Pre-aprovada','Submetida', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+       <?php } ?>
+
+       <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Submetida','Pre-aprovada', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+       <?php } ?>
+       
+       <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Aberto','Submetida', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+       <?php } ?> 
 
          <hr/>
 

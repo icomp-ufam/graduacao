@@ -82,18 +82,6 @@ use yii\helpers\Html;
                 ?>
             </div>  
         </div>  
-=======
-                                    ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]
-                                ]
-                            ]]
-                        ]
-                    ]);
-                    ?>
-                </div>
-
-            </div>
-        </div>
->>>>>>> 869396b5440c1c54fc9df3fb81e0b12cc2f84908
     </div>  
 
 </div><!--fim div row-->

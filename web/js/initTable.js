@@ -16,9 +16,10 @@
 
     });
 
-    $('#solicitacaosearch-id').bind('load change', function () {
+    $('#solicitacaosearch-id').on('load change', function () {
 
         var busca = $( "#solicitacaosearch-id option:selected" ).text();
+        console.log(busca);
 
         var COLUNA = 6 ; //coluna do status na tabela
 
@@ -33,6 +34,8 @@
         }
 
     });
+
+    $("#solicitacaosearch-id").trigger('load');
 
 });
 
