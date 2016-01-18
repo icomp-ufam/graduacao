@@ -41,6 +41,7 @@ $this->title = $model->name;
             //'password',
             'matricula',
             'siape',
+            'curso_id',
             //'dtEntrada',
             //'isAdmin',
             //'isAtivo',

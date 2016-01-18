@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Grupo;
 use Yii;
 use app\models\Solicitacao;
 use app\models\SolicitacaoSearch;
@@ -277,6 +278,59 @@ class SolicitacaoController extends Controller
         }
     }
 
+    public function actionRelatorio()
+    {
+        $cmd = Yii::$app->db->createCommand("SELECT usuario.id, usuario.name, usuario.matricula
+                    FROM usuario
+                    WHERE usuario.curso_id = :curso
+                    AND usuario.perfil = 'Aluno'
+                ",[':curso' => Yii::$app->user->identity->curso_id]);
 
+        //array com todos os alunos do curso do coord logado
+        $alunos = $cmd->queryAll();
+
+        // array com todos os grupos
+        $grupos = Grupo::find()->all();
+
+        // array com o resultado da consulta para a construcao da view
+        $resultado = [];
+        $resultadoCount = 0;
+
+        foreach($alunos as $aluno)
+        {
+            //echo 'Nome: '. $aluno['name'] . ' Matrícula: ' . $aluno['matricula'] . '<br/>';
+            $resultado[$resultadoCount]['nome']         = $aluno['name'];
+            $resultado[$resultadoCount]['matricula']    = $aluno['matricula'];
+
+            $grupoCount = 0;
+
+            foreach($grupos as $grupo)
+            {
+                $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma
+                    FROM solicitacao AS S WHERE S.atividade_id
+                    IN (SELECT id FROM atividade WHERE grupo_id = :grupoID)
+                    AND S.status='Deferida'
+                    AND S.solicitante_id = :alunoID
+                ", ['grupoID' => $grupo->id, 'alunoID' => $aluno['id']
+                ]);
+
+                $soma = $cmd->queryScalar();
+
+                if($soma==null) $soma=0;
+
+                $resultado[$resultadoCount]['grupo'][$grupoCount]['descricao'] = $grupo->nome;
+                $resultado[$resultadoCount]['grupo'][$grupoCount]['soma'] = $soma;
+
+                $grupoCount++;
+
+            }//Fim do ForEach Grupos
+
+            $resultadoCount++;
+
+        }//Fim do ForEach Alunos
+
+        return $this->render('relatorio', ['resultado' => $resultado]);
+
+    }
 
 }

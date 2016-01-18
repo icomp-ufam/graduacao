@@ -52,7 +52,7 @@ $this->title = $model->descricao;
             [
             'attribute'=>'anexoOriginalName',
             'format'=>'raw',
-            'value'=>Html::a($model->anexoOriginalName, 'uploads/' . $model->anexoHashName ),
+            'value'=>Html::a($model->anexoOriginalName, 'uploads/' . $model->anexoHashName, ['target'=>'_blank'] ),
             ],
 
         ],

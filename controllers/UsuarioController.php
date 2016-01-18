@@ -20,10 +20,10 @@ class UsuarioController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index', 'delete'],
+                'only' => ['create','index', 'update', 'view', 'delete'],
                 'rules' => [
                     [
-                        'actions' => ['index', 'delete'],
+                        'actions' => ['create','index', 'update', 'view', 'delete'],
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
@@ -75,8 +75,27 @@ class UsuarioController extends Controller
     {
         $model = new Usuario();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ){//&& $model->save()) {
 
+            //verifica se o CPF já está cadastrado
+            $usuario = Usuario::find()->where(['cpf' => $model->cpf ])->one();
+
+            if( $usuario != null )
+            {
+                $model->addError('cpf','O CPF informado já está cadastrado');
+                return $this->render('create', ['model' => $model]);
+            }
+
+            //verifica se o EMAIL já está cadastrado
+            $usuario = Usuario::find()->where(['email' => $model->email ])->one();
+
+            if( $usuario != null )
+            {
+                $model->addError('email','O EMAIL informado já está cadastrado');
+                return $this->render('create', ['model' => $model]);
+            }
+
+            // criptografa a senha...
             $model->password = md5($model->password);
 
             $model->save(false);
@@ -97,6 +116,16 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
+
+         $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
     }
     /**
      * Deletes an existing Usuario model.

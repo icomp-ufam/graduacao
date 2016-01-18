@@ -63,7 +63,7 @@ class DashboardController extends \yii\web\Controller
                     FROM solicitacao AS S WHERE S.atividade_id 
                     IN (SELECT id FROM atividade WHERE grupo_id=2)
                     AND S.status='Deferida'
-                    AND solicitante_id = $id 
+                    AND solicitante_id = $id
                 ");
                 
                 $hsPesquisa = $cmd->queryScalar();
@@ -95,18 +95,38 @@ class DashboardController extends \yii\web\Controller
 
                 $curso = Yii::$app->user->identity->curso_id;
 
-                $cmd = Yii::$app->db->createCommand("SELECT COUNT(*) AS contador 
+                $query1 = Yii::$app->db->createCommand("SELECT COUNT(*) AS contador 
                     FROM solicitacao AS S WHERE S.solicitante_id 
                     IN (SELECT id FROM usuario WHERE curso_id= $curso)
                     AND S.status='Submetida' 
                 ");
                 
-                $enviadas = $cmd->queryScalar();
+                $enviadas = $query1->queryScalar();
                 
-                if($enviadas==null)     $enviadas = 0 ;
+                $query2 = Yii::$app->db->createCommand("SELECT COUNT(*) AS contador 
+                    FROM solicitacao AS S WHERE S.solicitante_id 
+                    IN (SELECT id FROM usuario WHERE curso_id= $curso)
+                    AND S.status='Pre-Aprovada' 
+                ");
+
+                $aberto = $query2->queryScalar();
+
+                $query3 = Yii::$app->db->createCommand("SELECT COUNT(*) AS contador 
+                    FROM solicitacao AS S WHERE S.solicitante_id 
+                    IN (SELECT id FROM usuario WHERE curso_id= $curso)
+                    AND S.status='Arquivada' 
+                ");
+
+                $arquivadas = $query3->queryScalar();
+
+                if($enviadas==null)  $enviadas = 0 ;
+                if($aberto==null)  $aberto = 0 ;
+                if($arquivadas==null)  $arquivadas = 0 ;
 
                 return $this->render('dashCoordenador', [
-                    'enviadas' => $enviadas
+                    'enviadas' => $enviadas,
+                    'aberto' => $aberto,
+                    'arquivadas' => $arquivadas
                 ]);
             
             }
