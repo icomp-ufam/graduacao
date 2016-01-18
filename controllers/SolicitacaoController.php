@@ -292,6 +292,17 @@ class SolicitacaoController extends Controller
         // array com todos os grupos
         $grupos = Grupo::find()->all();
 
+        if($grupos==null)
+        {
+            //- Caso nao tenha grupo é redirec para a pagina index
+            $searchModel = new UsuarioSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }
         // array com o resultado da consulta para a construcao da view
         $resultado = [];
         $resultadoCount = 0;
