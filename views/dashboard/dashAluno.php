@@ -57,13 +57,17 @@ use yii\helpers\Html;
 
               <h3 class="box-title">Gráfico</h3>
             </div>
-            <div class="box-body">
-                <?php
+
+            <div class=" box-body">
+                <div class="col-xs-2">
+
+                </div>
+                <div class="col-xs-8">
+                    <?php
 
                     echo Highcharts::widget([
-                        'options' => [               
+                        'options' => [
                             'title' => ['text' => 'Distribuição por Grupos'],
-                       
                             'series' => [[
                                 'type' => 'pie',
                                 'name' => 'Grupos',
@@ -78,10 +82,20 @@ use yii\helpers\Html;
                 ?>
             </div>  
         </div>  
+=======
+                                    ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]
+                                ]
+                            ]]
+                        ]
+                    ]);
+                    ?>
+                </div>
+
+            </div>
+        </div>
+>>>>>>> 869396b5440c1c54fc9df3fb81e0b12cc2f84908
     </div>  
 
- <div class="col-md-6">
+</div><!--fim div row-->
 
-    </div>
-</div>
 </section>
