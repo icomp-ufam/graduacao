@@ -108,7 +108,7 @@ class LoginController extends Controller
 
       /* **** ***************************
     * Novo usuario via Webservice
-    * ult.mod: 09/12/2015
+    * ult.mod: 17/01/2016
     * *** ************************** */
     public function actionNovousuario()
     {
@@ -123,7 +123,9 @@ class LoginController extends Controller
 
             if( $usuario != null )
             {
+
                 return $this->render('novousuario', ['erro'=>'Usuário já cadastrado']);
+
             }
 
             //verifica se o EMAIL já está cadastrado
