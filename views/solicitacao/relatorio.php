@@ -36,7 +36,11 @@ $this->title = 'Relatório';
                 <?php foreach($resultado as $res) {?>
                 <tr>
                     <td><?= $res['nome'] ?></td>
-                    <td onclick="copyToClipboard(this)"><?= $res['matricula'] ?></td>
+                    <td>
+                        <a href="#">
+                            <span class="fa fa-clipboard" onclick="copyToClipboard(this)"><?= $res['matricula'] ?></span>
+                        </a>
+                    </td>
 
                     <td>
                         <?php foreach($res['grupo'] as $grupo) {?>
@@ -60,6 +64,7 @@ $this->title = 'Relatório';
         var $temp = $("<input>");
         $("body").append($temp);
         $temp.val($(element).text()).select();
+
         document.execCommand("copy");
 
         $temp.remove();
