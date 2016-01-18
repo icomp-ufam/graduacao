@@ -23,9 +23,9 @@ AppAsset::register($this);
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">ICOMP</span>
+          <span class="logo-mini"><small>ICOMP</small></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>Icomp</b>UFAM</span>
         </a>
@@ -101,7 +101,7 @@ AppAsset::register($this);
                 </a>
               </li>
               <li class="treeview">
-                <a href="#">
+                <a href="?r=solicitacao/relatorio">
                   <i class="fa fa-line-chart fa-fw"></i>
                   <span>Relatório</span> 
                 </a>
