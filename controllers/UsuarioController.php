@@ -82,7 +82,7 @@ class UsuarioController extends Controller
 
             if( $usuario != null )
             {
-                $model->addError('cpf','O CPF informado já está cadastrado');
+                $model->addError('cpf','O CPF informado já está cadastrado...');
                 return $this->render('create', ['model' => $model]);
             }
 
@@ -91,7 +91,7 @@ class UsuarioController extends Controller
 
             if( $usuario != null )
             {
-                $model->addError('email','O EMAIL informado já está cadastrado');
+                $model->addError('email','O EMAIL informado já está cadastrado...');
                 return $this->render('create', ['model' => $model]);
             }
 
