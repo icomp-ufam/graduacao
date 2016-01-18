@@ -38,7 +38,7 @@ use scotthuangzl\googlechart\GoogleChart;
         <div class="thumbnail alert alert-info">
             <div class="inner">
                 <p><i class="fa fa-thumbs-up fa-4x pull-right"></i></p>
-                <h3>99<?php $horasEmPesquisa ?></h3>
+                <h3>0<?php $horasEmPesquisa ?></h3>
                 <h4>Solicitações Arquivadas</h4>
             </div>
 

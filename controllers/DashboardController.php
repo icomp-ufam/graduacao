@@ -63,7 +63,7 @@ class DashboardController extends \yii\web\Controller
                     FROM solicitacao AS S WHERE S.atividade_id 
                     IN (SELECT id FROM atividade WHERE grupo_id=2)
                     AND S.status='Deferida'
-                    AND solicitante_id = $id 
+                    AND solicitante_id = $id
                 ");
                 
                 $hsPesquisa = $cmd->queryScalar();

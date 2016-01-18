@@ -118,13 +118,20 @@ class LoginController extends Controller
             
             $model = new Usuario();
 
-            //verifica se o aluno já está cadastrado
-            //com o cpf informado...
+            //verifica se o CPF já está cadastrado
             $usuario = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();
 
             if( $usuario != null )
             {
                 return $this->render('novousuario', ['erro'=>'Usuário já cadastrado']);
+            }
+
+            //verifica se o EMAIL já está cadastrado
+            $usuario = Usuario::find()->where(['email' => Yii::$app->request->post('email') ])->one();
+
+            if( $usuario != null )
+            {
+                return $this->render('novousuario', ['erro'=>'EMAIL já cadastrado']);
             }
 
             /* * pega os dados do webservice do cpd * */

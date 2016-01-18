@@ -93,25 +93,25 @@ $this->title = 'Solicitações';
                         'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}',
                         'buttons' => [
                             'update' => function ($url, $model) {
-                                return \yii\helpers\Html::a('<span class="label label-warning">Editar</span>&nbsp;',
+                                return \yii\helpers\Html::a('<span class="label label-primary"><i class=" fa fa-pencil"></i></span>&nbsp;',
                                     (new yii\grid\ActionColumn())->createUrl('solicitacao/update', $model, $model['id'], 1), [
-                                        'title' => Yii::t('yii', 'view'),
+                                        'title' => Yii::t('yii', 'Editar'),
                                         'data-method' => 'post',
                                         'data-pjax' => '0',
                                     ]);
                             },
                             'delete' => function ($url, $model) {
-                                return \yii\helpers\Html::a('<span class="label label-danger">Apagar</span>',
+                                return \yii\helpers\Html::a('<span class="label label-danger"><i class=" fa fa-trash"></i></span>',
                                     (new yii\grid\ActionColumn())->createUrl('solicitacao/delete', $model, $model['id'], 1), [
-                                        'title' => Yii::t('yii', 'view'),
+                                        'title' => Yii::t('yii', 'Apagar'),
                                         'data-method' => 'post',
                                         'data-pjax' => '0',
                                     ]);
                             },
                             'view' => function ($url, $model) {
-                                return \yii\helpers\Html::a('<span class="label label-primary">Ver&nbsp;&nbsp;</span>&nbsp;',
+                                return \yii\helpers\Html::a('<span class="label label-success"><i class=" fa fa-search"></i>&nbsp;</span>&nbsp;',
                                     (new yii\grid\ActionColumn())->createUrl('solicitacao/view', $model, $model['id'], 1), [
-                                        'title' => Yii::t('yii', 'view'),
+                                        'title' => Yii::t('yii', 'Ver'),
                                         'data-method' => 'post',
                                         'data-pjax' => '0',
                                     ]);
