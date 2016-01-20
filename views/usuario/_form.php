@@ -44,7 +44,7 @@ use yii\helpers\ArrayHelper;
         if(Yii::$app->user->identity->isAdmin)
         {
             
-            $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin'];
+            $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin', 'Aluno'=>'Aluno'];
             
             echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'Selecione']);
             
@@ -58,9 +58,16 @@ use yii\helpers\ArrayHelper;
     }
 
     ?>    
-    
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-    
+    <?php 
+        if( $model->isNewRecord ) 
+        {
+    ?>
+            <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?php 
+        }
+    ?>
+   
+ 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a('Cancelar', ['usuario/index'], ['class' => 'btn btn-danger']) ?>

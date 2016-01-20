@@ -78,6 +78,7 @@ use yii\helpers\Html;
                             ]]               
                         ]
                     ]);
+
                     ?>
                 </div>
 
@@ -87,6 +88,7 @@ use yii\helpers\Html;
         </div><!-- fim div box -->
 
     </div><!-- fim div col-md-12 -->
+
 
 </div><!--fim div row-->
 

@@ -39,12 +39,12 @@ $this->title = $model->descricao;
             [
                 'attribute' => 'dtInicio',
                 'format'    => 'raw',
-                'value'     => Yii::$app->formatter->asDate($model->dtInicio, 'php:d-m-Y')
+                'value'     => Yii::$app->formatter->asDate($model->dtInicio, 'php:d/m/Y')
             ],
             [
                 'attribute' => 'dtTermino',
                 'format'    => 'raw',
-                'value'     => Yii::$app->formatter->asDate($model->dtTermino, 'php:d-m-Y')
+                'value'     => Yii::$app->formatter->asDate($model->dtTermino, 'php:d/m/Y')
             ],
             'horasComputadas',
             'status:html',
@@ -52,7 +52,7 @@ $this->title = $model->descricao;
             [
             'attribute'=>'anexoOriginalName',
             'format'=>'raw',
-            'value'=>Html::a($model->anexoOriginalName, 'uploads/' . $model->anexoHashName ),
+            'value'=>Html::a($model->anexoOriginalName, 'uploads/' . $model->anexoHashName, ['target'=>'_blank'] ),
             ],
 
         ],

@@ -2,12 +2,15 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SolicitacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Solicitações';
+
 ?>
 
 <?php
@@ -16,8 +19,6 @@ $this->title = 'Solicitações';
     $this->registerJsFile(Yii::$app->request->baseUrl.'/js/initTable.js');
     $this->registerCssFile(Yii::$app->request->baseUrl.'/css/dataTables.bootstrap.css');
 ?>
-
-
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -29,48 +30,73 @@ $this->title = 'Solicitações';
 </section>
 <section class="content">
  <div class="box box-success">
+   
+ 
      <div class="solicitacao-index box-body">
+         <?php if(Yii::$app->request->get('error')){?>
+           <p id="alerta" class='col-xs-12 alert alert-danger'><?php echo Yii::$app->request->get('error') ?></p>
+           <script>
+               setTimeout(function(){ $('#alerta').fadeOut(); }, 3000);
+                
+           </script>
+         <?php } ?>
 
         <?=Html::beginForm(['solicitacao/submit'],'post');?>
-             
-        <?php if(Yii::$app->user->identity->perfil == 'Coordenador' || Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-             <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
-        <div class="pull-right">       
-            <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-                <?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>
-                <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
-                <?= Html::submitButton('Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
-            <?php } ?>
+        <div class="row">
+            <div class="col-xs-4">     
+                <?php if(Yii::$app->user->identity->perfil == 'Coordenador' || Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+                     <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
+                <?php } ?>
+            </div>
 
-            <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-                <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
-                <?= Html::submitButton('Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar', 'style' => 'margin-bottom: 10px']) ?>
-            <?php } ?>
-                         
-            <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-                <?= Html::submitButton('Submeter', ['class' => 'btn btn-info', 'name' => 'action', 'value' => 'Submeter']);?>
-            <?php } ?>
+            <div class="col-xs-8"> 
+                <div class="pull-right">       
+                    <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+                        <?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>
+                        <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
+                        <?= Html::submitButton('Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
+                    <?php } ?>
+
+                    <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+                        <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
+                        <?= Html::submitButton('Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar']) ?>
+                    <?php } ?>
+                                 
+                    <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+                        <?= Html::submitButton('Submeter', ['class' => 'btn btn-info', 'name' => 'action', 'value' => 'Submeter']);?>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
+        
         <hr/>
 
         <label>Selecione o filtro:</label>  
             
-        <?= Html::activeDropDownList($searchModel, 'id', ['Todas', 'Aberto','Submetida', 'Deferida', 'Indeferida', 'Arquivada'] ) ?>
-        
+       <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Pre-aprovada','Submetida', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+       <?php } ?>
+
+       <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Submetida','Pre-aprovada', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+       <?php } ?>
+       
+       <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Aberto','Submetida', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+       <?php } ?> 
 
          <hr/>
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'summary' => '',
-                'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '', 'dateFormat'=>'dd/MM/yyyy'],
                 'tableOptions' => ['class' => 'table  table-bordered table-hover'],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn',
                         'checkboxOptions' => function ($dataProvider, $key, $index, $column) {
                             return ['value' => $dataProvider['id']];
-                        }
+                        },
+                        'multiple' => false
                     ],
 
                     Yii::$app->user->identity->perfil == 'Aluno' ? 'id' : ['attribute'=>'Aluno', 'value'=>'name'],
@@ -78,12 +104,12 @@ $this->title = 'Solicitações';
                     ['attribute'=>'Descricao', 'value'=>'descricao'],
                     [
                         'attribute' => 'Inicio',
-                        'format'    => 'date',
+                        'format'    => ['date', 'php:d/m/Y'],
                         'value'     => 'dtInicio'
                     ],
                     [
                         'attribute' => 'Termino',
-                        'format'    => 'date',
+                        'format'    => ['date', 'php:d/m/Y'],
                         'value'     => 'dtTermino'
                     ],
                     ['attribute'=>'Horas Solicitadas', 'value'=>'horasComputadas'],

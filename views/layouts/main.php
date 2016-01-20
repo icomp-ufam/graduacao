@@ -57,19 +57,19 @@ AppAsset::register($this);
            
             <?php if(Yii::$app->user->identity->isAdmin == 1){ ?>
               <li class="treeview">
-                <a href="?r=curso/index">
+                <a href="?r=curso%2Findex">
                   <i class="fa fa-check fa-fw"></i>
                   <span>Curso</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=periodo/index">
+                <a href="?r=periodo%2Findex">
                   <i class="fa fa-calendar fa-fw"></i>
                   <span>Período</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=usuario/index">
+                <a href="?r=usuario%2Findex">
                   <i class="fa fa-user fa-fw"></i>
                   <span>Usuários</span> 
                 </a>
@@ -77,31 +77,31 @@ AppAsset::register($this);
             <?php } ?>
             <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
                <li class="treeview">
-                <a href="?r=dashboard/index">
+                <a href="?r=dashboard%2Findex">
                   <i class="fa fa-dashboard fa-fw"></i>
                   <span>Dashboard</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=solicitacao/index">
+                <a href="?r=solicitacao%2Findex">
                   <i class="fa fa-download fa-fw"></i>
                   <span>Solicitações</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=grupo/index">
+                <a href="?r=grupo%2Findex">
                   <i class="fa fa-users fa-fw"></i>
                   <span>Grupos</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=atividade/index">
+                <a href="?r=atividade%2Findex">
                   <i class="fa fa-tasks fa-fw"></i>
                   <span>Atividades</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=solicitacao/relatorio">
+                <a href="?r=solicitacao%2Frelatorio">
                   <i class="fa fa-line-chart fa-fw"></i>
                   <span>Relatório</span> 
                 </a>
@@ -109,14 +109,8 @@ AppAsset::register($this);
 
             <?php } ?>
             <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-                <li class="treeview">
-                <a href="?r=dashboard/index">
-                  <i class="fa fa-dashboard fa-fw"></i>
-                  <span>Dashboard</span> 
-                </a>
-              </li>
               <li class="treeview">
-                <a href="?r=solicitacao/index">
+                <a href="?r=solicitacao%2Findex">
                   <i class="fa fa-download fa-fw"></i>
                   <span>Solicitações</span> 
                 </a>
@@ -124,13 +118,13 @@ AppAsset::register($this);
             <?php } ?>
             <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
                <li class="treeview">
-                <a href="?r=dashboard/index">
+                <a href="?r=dashboard%2Findex">
                   <i class="fa fa-dashboard fa-fw"></i>
                   <span>Dashboard</span> 
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=solicitacao/index">
+                <a href="?r=solicitacao%2Findex">
                   <i class="fa fa-download fa-fw"></i>
                   <span>Solicitações</span> 
                 </a>
@@ -190,14 +184,16 @@ AppAsset::register($this);
         });
 
       $(function() {
-     var pgurl = window.location.href.substr(window.location.href.lastIndexOf("?"));
+        var start = window.location.href.lastIndexOf("?");
+
+     var pgurl = window.location.href.substr(start);
      console.log(pgurl);
        $("ul li a").each(function(){
-            if($(this).attr("href") == pgurl)
+            if($(this).attr("href") === pgurl)
             $(this).parent().addClass("active");
        })
       });
-       // $(window).trigger('load');
+        
     </script>
         
         <?php $this->endBody() ?>
