@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+use app\models\Grupo;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -81,10 +82,25 @@ class DashboardController extends \yii\web\Controller
                 if($hsPesquisa==null)   $hsPesquisa = 0 ;
                 if($hsExtensao==null)   $hsExtensao = 0 ;
 
+                //POG-temporariamente
+                //pega o valor total por grupo
+                $grupos = [0=>0,
+                    1=>Grupo::findOne(1)->getAttribute('max_horas'),
+                    2=>Grupo::findOne(2)->getAttribute('max_horas'),
+                    3=>Grupo::findOne(3)->getAttribute('max_horas'),
+
+                ];
+
+                $totalConcluido = $hsEnsino+$hsPesquisa+$hsExtensao;
+                $totalGrupos = $grupos[1] + $grupos[2] + $grupos[3];
+
                 return $this->render('dashAluno', [
                     'horasEmEnsino'     =>  $hsEnsino, 
                     'horasEmPesquisa'   =>  $hsPesquisa,
-                    'horasEmExtensao'   =>  $hsExtensao
+                    'horasEmExtensao'   =>  $hsExtensao,
+                    'maxHrsGrupos'      =>  $grupos,
+                    'totalGrupos'       => $totalGrupos,
+                    'totalConcluido'    =>  $totalConcluido
                 ]);
             }
 
