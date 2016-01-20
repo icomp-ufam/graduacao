@@ -108,12 +108,6 @@ AppAsset::register($this);
               </li>
             <?php } ?>
             <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-                <li class="treeview">
-                <a href="?r=dashboard%2Findex">
-                  <i class="fa fa-dashboard fa-fw"></i>
-                  <span>Dashboard</span> 
-                </a>
-              </li>
               <li class="treeview">
                 <a href="?r=solicitacao%2Findex">
                   <i class="fa fa-download fa-fw"></i>

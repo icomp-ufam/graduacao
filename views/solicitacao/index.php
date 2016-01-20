@@ -2,12 +2,15 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SolicitacaoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Solicitações';
+
 ?>
 
 <?php
@@ -16,8 +19,6 @@ $this->title = 'Solicitações';
     $this->registerJsFile(Yii::$app->request->baseUrl.'/js/initTable.js');
     $this->registerCssFile(Yii::$app->request->baseUrl.'/css/dataTables.bootstrap.css');
 ?>
-
-
 
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -29,7 +30,16 @@ $this->title = 'Solicitações';
 </section>
 <section class="content">
  <div class="box box-success">
+   
+ 
      <div class="solicitacao-index box-body">
+         <?php if(Yii::$app->request->get('error')){?>
+           <p id="alerta" class='col-xs-12 alert alert-danger'><?php echo Yii::$app->request->get('error') ?></p>
+           <script>
+               setTimeout(function(){ $('#alerta').fadeOut(); }, 3000);
+                
+           </script>
+         <?php } ?>
 
         <?=Html::beginForm(['solicitacao/submit'],'post');?>
         <div class="row">
@@ -80,13 +90,13 @@ $this->title = 'Solicitações';
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 'summary' => '',
-                'formatter' => ['class' => 'yii\i18n\Formatter','nullDisplay' => '', 'dateFormat'=>'dd/MM/yyyy'],
                 'tableOptions' => ['class' => 'table  table-bordered table-hover'],
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn',
                         'checkboxOptions' => function ($dataProvider, $key, $index, $column) {
                             return ['value' => $dataProvider['id']];
-                        }
+                        },
+                        'multiple' => false
                     ],
 
                     Yii::$app->user->identity->perfil == 'Aluno' ? 'id' : ['attribute'=>'Aluno', 'value'=>'name'],
@@ -94,12 +104,12 @@ $this->title = 'Solicitações';
                     ['attribute'=>'Descricao', 'value'=>'descricao'],
                     [
                         'attribute' => 'Inicio',
-                        'format'    => 'date',
+                        'format'    => ['date', 'php:d/m/Y'],
                         'value'     => 'dtInicio'
                     ],
                     [
                         'attribute' => 'Termino',
-                        'format'    => 'date',
+                        'format'    => ['date', 'php:d/m/Y'],
                         'value'     => 'dtTermino'
                     ],
                     ['attribute'=>'Horas Solicitadas', 'value'=>'horasComputadas'],
