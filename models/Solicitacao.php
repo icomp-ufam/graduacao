@@ -75,7 +75,7 @@ class Solicitacao extends \yii\db\ActiveRecord
             [['descricao', 'observacoes'], 'string', 'max' => 100],
             [['status'], 'string', 'max' => 20],
             ['horasComputadas', 'integer', 'min'=>1, 'max'=>100], //Isto depende da atividade cadastrada.
-            [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf'],
+            [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'wrongExtension'=>'Formato incorreto: Aceito somente: png, jpeg e PDF'],
             [['horasComputadas'], 'horas_check', 'message'=>'As horas computadas não pode ser maior que a hora máxima por atividade'],
             [['horasComputadas'], 'horas_calc', 'message'=>'Quantidade maxima para atividade foi atingida']
         ];

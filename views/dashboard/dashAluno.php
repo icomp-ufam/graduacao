@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <div class="thumbnail alert alert-success">
             <div class="inner">
                 <p><i class="fa fa-graduation-cap fa-4x pull-right"></i></p>
-                <h3><?php echo $horasEmEnsino ?> Horas</h3>
+                <h3><?php echo $horasEmEnsino ?> / <?php if(isset($maxHrsGrupos[1])) echo $maxHrsGrupos[1] ?> Horas</h3>
                 <h4>Ensino</h4>
             </div>
 
@@ -26,7 +26,7 @@ use yii\helpers\Html;
         <div class="thumbnail alert alert-warning">
             <div class="inner">
                 <p><i class="fa fa-object-ungroup fa-4x pull-right"></i></p>
-                <h3><?php echo $horasEmPesquisa ?> Horas</h3>
+                <h3><?php echo $horasEmPesquisa ?> / <?php if(isset($maxHrsGrupos[2])) echo $maxHrsGrupos[2] ?> Horas</h3>
                 <h4>Pesquisa</h4>
             </div>
 
@@ -38,7 +38,7 @@ use yii\helpers\Html;
         <div class="thumbnail alert alert-info">
             <div class="inner">
                 <p><i class="fa fa-paper-plane fa-4x pull-right"></i></p>
-                <h3><?php echo $horasEmExtensao ?> Horas</h3>
+                <h3><?php echo $horasEmExtensao ?> / <?php if(isset($maxHrsGrupos[3])) echo $maxHrsGrupos[3] ?> Horas</h3>
                 <h4>Extensão</h4>
             </div>
 
@@ -67,34 +67,26 @@ use yii\helpers\Html;
 
                     echo Highcharts::widget([
                         'options' => [
-                            'title' => ['text' => 'Distribuição por Grupos'],
+                            'title' => ['text' => 'Total de Horas Concluídas X Total de Horas do Curso'],
                             'series' => [[
                                 'type' => 'pie',
-                                'name' => 'Grupos',
+                                'name' => 'Horas',
                                 'data' => [
-                                    ['name' => 'Ensino', 'y' => (float) $horasEmEnsino ],
-                                    ['name' => 'Pesquisa', 'y' => (float) $horasEmPesquisa],
-                                    ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]                            
+                                    ['name' => 'Concluido', 'y' => (float) $totalConcluido ],
+                                    ['name' => 'Total', 'y' => (float) $totalGrupos]
                                 ]
                             ]]               
-                        ]
-                    ]);
-                ?>
-            </div>  
-        </div>  
-=======
-                                    ['name' => 'Extensão', 'y' => (float) $horasEmExtensao]
-                                ]
-                            ]]
                         ]
                     ]);
                     ?>
                 </div>
 
             </div>
-        </div>
->>>>>>> 869396b5440c1c54fc9df3fb81e0b12cc2f84908
-    </div>  
+
+
+        </div><!-- fim div box -->
+
+    </div><!-- fim div col-md-12 -->
 
 </div><!--fim div row-->
 

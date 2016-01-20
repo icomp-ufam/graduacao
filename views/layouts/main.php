@@ -106,6 +106,7 @@ AppAsset::register($this);
                   <span>Relatório</span> 
                 </a>
               </li>
+
             <?php } ?>
             <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
                 <li class="treeview">
@@ -141,10 +142,16 @@ AppAsset::register($this);
                 </a>
               </li>
             <?php } ?>
-            <li class="treeview">
+              <li class="treeview">
+                  <a href="?r=login/trocasenha">
+                      <i class="fa fa-key fa-fw"></i>
+                      <span>Troca Senha</span>
+                  </a>
+              </li>
+              <li class="treeview">
                 <a href="?r=login/logout">
                   <i class="fa fa-sign-out fa-fw"></i>
-                  <span>Logout</span> 
+                  <span>Logout</span>
                 </a>
               </li>         
           </ul>
