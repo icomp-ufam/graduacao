@@ -17,12 +17,12 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
             'options' => ['class' => 'form-control'],
             'language' => 'pt-BR',
-            'dateFormat' => 'dd/MM/y',
+            'dateFormat' => 'dd-MM-y',
     ]) ?>
     <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
             'options' => ['class' => 'form-control'],
             'language' => 'pt-BR',
-            'dateFormat' => 'dd/MM/y',
+            'dateFormat' => 'dd-MM-y',
     ]) ?>
 
     <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -104,12 +104,12 @@ $this->title = 'Solicitações';
                     ['attribute'=>'Descricao', 'value'=>'descricao'],
                     [
                         'attribute' => 'Inicio',
-                        'format'    => ['date', 'php:d/m/Y'],
+                        'format'    => ['date', 'php:d-m-Y'],
                         'value'     => 'dtInicio'
                     ],
                     [
                         'attribute' => 'Termino',
-                        'format'    => ['date', 'php:d/m/Y'],
+                        'format'    => ['date', 'php:d-m-Y'],
                         'value'     => 'dtTermino'
                     ],
                     ['attribute'=>'Horas Solicitadas', 'value'=>'horasComputadas'],
