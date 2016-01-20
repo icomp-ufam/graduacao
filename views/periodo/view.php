@@ -38,11 +38,11 @@ $this->title = $model->codigo;
             'codigo',
             [
             'attribute' => 'dtInicio',
-            'format' => ['date', 'php:d-m-Y']
+            'format' => ['date', 'php:d/m/Y']
             ],
             [
             'attribute' => 'dtTermino',
-            'format' => ['date', 'php:d-m-Y']
+            'format' => ['date', 'php:d/m/Y']
             ],
         ],
     ]) ?>

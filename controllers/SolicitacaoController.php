@@ -74,7 +74,6 @@ class SolicitacaoController extends Controller
     {
         $searchModel = new SolicitacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -167,6 +166,9 @@ class SolicitacaoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
+            $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -208,7 +210,8 @@ class SolicitacaoController extends Controller
 
 
         if(!$selection){
-            return $this->redirect(['index']);
+           
+            return $this->redirect(['index','error' => 'Selecione uma solicitação']);
         }
 
         if ($action == 'Submeter') {
