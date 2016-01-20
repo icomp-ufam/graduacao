@@ -28,7 +28,7 @@ $this->title = 'Alterar Senha';
                     
                 <div class="form-group">
                     <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
-                     <?= Html::a('Cancelar', ['login/login'], ['class' => 'btn btn-danger']) ?>
+                     <?= Html::a('Cancelar', ['dashboard/index'], ['class' => 'btn btn-danger']) ?>
                 </div>
 
                 <div class="col-md-6">

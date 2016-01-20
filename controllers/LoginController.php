@@ -257,7 +257,7 @@ class LoginController extends Controller
             }
         }
         else
-        {
+        {   //se for metodo GET chama a view para informar o email
             return $this->render('recuperarsenha');
         }
     }
@@ -267,7 +267,6 @@ class LoginController extends Controller
      */
     public function actionResetpassword()
     {
-
 
         if ( Yii::$app->request->post() ) 
         {
@@ -301,8 +300,43 @@ class LoginController extends Controller
             
             return $this->render('novasenha', ['model' => $model]);             
         }
-      
 
+    }
+
+    public function actionTrocasenha()
+    {
+        if ( Yii::$app->request->post() )
+        {
+
+            $model = new Usuario();
+
+            //busca o usuario pelo ID
+            $id = Yii::$app->user->identity->id;
+
+            $model = Usuario::find()->where(['id'=>$id])->one();
+
+            $model->password = md5(Yii::$app->request->post('senhanova'));
+
+            $model->save(false);
+
+            return $this->redirect(['dashboard/index']);
+        }
+        else
+        {
+            $model = new Usuario();
+
+            //busca o usuario pelo ID
+            $id = Yii::$app->user->identity->id;
+
+            $model = Usuario::find()->where(['id'=>$id])->one();
+
+            if($model==null)
+            {
+                throw new NotFoundHttpException('A página procurada não existe.');
+            }
+
+            return $this->render('novasenha', ['model' => $model]);
+        }
     }
     
 }
