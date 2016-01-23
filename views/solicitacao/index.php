@@ -95,8 +95,7 @@ $this->title = 'Solicitações';
                     ['class' => 'yii\grid\CheckboxColumn',
                         'checkboxOptions' => function ($dataProvider, $key, $index, $column) {
                             return ['value' => $dataProvider['id']];
-                        },
-                        'multiple' => false
+                        }
                     ],
 
                     Yii::$app->user->identity->perfil == 'Aluno' ? 'id' : ['attribute'=>'Aluno', 'value'=>'name'],

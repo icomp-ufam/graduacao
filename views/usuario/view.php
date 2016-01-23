@@ -40,7 +40,6 @@ $this->title = $model->name;
             'email:email',
             //'password',
             'matricula',
-            'siape',
             'curso_id',
             //'dtEntrada',
             //'isAdmin',
