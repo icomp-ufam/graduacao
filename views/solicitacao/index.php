@@ -100,14 +100,14 @@ $this->title = 'Solicitações';
 
                     Yii::$app->user->identity->perfil == 'Aluno' ? 'id' : ['attribute'=>'Aluno', 'value'=>'name'],
 
-                    ['attribute'=>'Descricao', 'value'=>'descricao'],
+                    ['attribute'=>'Descrição', 'value'=>'descricao'],
                     [
-                        'attribute' => 'Inicio',
+                        'attribute' => 'Início',
                         'format'    => ['date', 'php:d-m-Y'],
                         'value'     => 'dtInicio'
                     ],
                     [
-                        'attribute' => 'Termino',
+                        'attribute' => 'Término',
                         'format'    => ['date', 'php:d-m-Y'],
                         'value'     => 'dtTermino'
                     ],
