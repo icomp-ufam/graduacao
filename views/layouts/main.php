@@ -129,12 +129,6 @@ AppAsset::register($this);
                   <span>Solicitações</span> 
                 </a>
               </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-line-chart fa-fw"></i>
-                  <span>Relatório</span> 
-                </a>
-              </li>
             <?php } ?>
               <li class="treeview">
                   <a href="?r=login/trocasenha">

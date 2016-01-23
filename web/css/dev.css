@@ -4749,3 +4749,7 @@ table.text-center th {
     white-space: normal!important;
   }
 }
+
+.ui-datepicker table{
+ font-size: .8em;
+}

@@ -18,7 +18,7 @@ $this->title = 'Alterar Senha';
 
             <?php $form = ActiveForm::begin(); ?>
                 <div class="form-group">
-                    <label for="senhanova" class="control-label" >Senha</label>
+                    <label for="senhanova" class="control-label" >Nova Senha</label>
                     <input type="password" id="pw1" name="senhanova" class="form-control" placeholder="Informe a nova senha" />
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@ $this->title = 'Alterar Senha';
                      <?= Html::a('Cancelar', ['dashboard/index'], ['class' => 'btn btn-danger']) ?>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-xs-12">
                     <p class="alert alert-danger" id="status" hidden="true"></p>
                 </div>
                 <?= Html::input('hidden', 'token', $model->password_reset_token ) ?>

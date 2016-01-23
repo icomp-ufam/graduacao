@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin([
     'method' => 'post',
-    'action' => ['usuario/create'],
+    'action' => ['login/create'],
     ]); ?>
     
     <div class="col-md-12">

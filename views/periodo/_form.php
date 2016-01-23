@@ -32,3 +32,14 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+        $('#periodo-dtinicio').on('change', function () {
+        var test = $(this).datepicker('getDate');
+        var testm = new Date(test.getTime());
+        testm.setDate(testm.getDate() + 1);
+
+        $("#periodo-dttermino").datepicker("option", "minDate", testm);
+
+    });
+</script>

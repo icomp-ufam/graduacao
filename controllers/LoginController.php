@@ -214,6 +214,25 @@ class LoginController extends Controller
         }
 
     }
+
+    public function actionCreate()
+    {
+           $model = new Usuario();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            $model->password = md5($model->password);
+            
+            $model->save(false);
+            
+            return $this->redirect(['login']);
+            
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
     
     public function actionRecuperarsenha()
     {
@@ -305,7 +324,7 @@ class LoginController extends Controller
 
     public function actionTrocasenha()
     {
-        if ( Yii::$app->request->post() )
+        if ( Yii::$app->request->post())
         {
 
             $model = new Usuario();
