@@ -29,12 +29,6 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'curso_id')
                     ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
 
-    <?php 
-        if( $model->siape != null ) 
-        {
-            echo $form->field($model, 'siape')->textInput(['maxlength' => true]);
-        }
-    ?>
    
     <?php
     
