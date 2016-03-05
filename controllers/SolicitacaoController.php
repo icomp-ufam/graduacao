@@ -136,9 +136,7 @@ class SolicitacaoController extends Controller
             //verifica em qual periodo deve lançar a solicitacao
             //com base na data e nas datas de inicio e termino dos periodos cadastrados
 
-            $cmd = Yii::$app->db->createCommand("SELECT id FROM periodo
-                WHERE :fim
-                BETWEEN date(dtInicio) AND date(dtTermino)",[':fim' => $model->dtTermino]);
+            $cmd = Yii::$app->db->createCommand("SELECT id FROM periodo WHERE :fim BETWEEN date(dtInicio) AND date(dtTermino)",[':fim' => $model->dtTermino]);
 
             $model->periodo_id = (int) $cmd->queryScalar();
 
@@ -283,67 +281,47 @@ class SolicitacaoController extends Controller
 
     public function actionRelatorio()
     {
-        $cmd = Yii::$app->db->createCommand("SELECT usuario.id, usuario.name, usuario.matricula
-                    FROM usuario
-                    WHERE usuario.curso_id = :curso
-                    AND usuario.perfil = 'Aluno'
-                ",[':curso' => Yii::$app->user->identity->curso_id]);
+        $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula, periodo.codigo as periodo,
+                                                    (
+                                                        SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
+                                                        FROM solicitacao 
+                                                        JOIN atividade on solicitacao.atividade_id = atividade.id
+                                                        JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Ensino'
+                                                        WHERE solicitacao.status = 'Deferida'
+                                                        AND usuario.id = solicitacao.solicitante_id
+                                                        AND solicitacao.periodo_id = periodo.id
+                                                    ) as ensino,
+                                                    (
+                                                        SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
+                                                        FROM solicitacao 
+                                                        JOIN atividade on solicitacao.atividade_id = atividade.id
+                                                        JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Pesquisa'
+                                                        WHERE solicitacao.status = 'Deferida'
+                                                        AND usuario.id = solicitacao.solicitante_id
+                                                        AND solicitacao.periodo_id = periodo.id
+                                                    ) as pesquisa,
+                                                    (
+                                                        SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
+                                                        FROM solicitacao 
+                                                        JOIN atividade on solicitacao.atividade_id = atividade.id
+                                                        JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Extensão'
+                                                        WHERE solicitacao.status = 'Deferida'
+                                                        AND usuario.id = solicitacao.solicitante_id
+                                                        AND solicitacao.periodo_id = periodo.id
 
-        //array com todos os alunos do curso do coord logado
-        $alunos = $cmd->queryAll();
+                                                    ) as extensao
 
-        // array com todos os grupos
-        $grupos = Grupo::find()->all();
+                                             FROM usuario
+                                             JOIN solicitacao on usuario.id = solicitacao.solicitante_id
+                                             JOIN periodo on solicitacao.periodo_id = periodo.id
+                                             WHERE usuario.curso_id = :curso
+                                             AND usuario.perfil = 'Aluno'
+                                             GROUP BY usuario.name, periodo.codigo",[':curso' => Yii::$app->user->identity->curso_id]);
 
-        if($grupos==null)
-        {
-            //- Caso nao tenha grupo é redirec para a pagina index
-            $searchModel = new UsuarioSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+        $dados = $cmd->queryAll();
+       
 
-        }
-        // array com o resultado da consulta para a construcao da view
-        $resultado = [];
-        $resultadoCount = 0;
-
-        foreach($alunos as $aluno)
-        {
-            //echo 'Nome: '. $aluno['name'] . ' Matrícula: ' . $aluno['matricula'] . '<br/>';
-            $resultado[$resultadoCount]['nome']         = $aluno['name'];
-            $resultado[$resultadoCount]['matricula']    = $aluno['matricula'];
-
-            $grupoCount = 0;
-
-            foreach($grupos as $grupo)
-            {
-                $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma
-                    FROM solicitacao AS S WHERE S.atividade_id
-                    IN (SELECT id FROM atividade WHERE grupo_id = :grupoID)
-                    AND S.status='Deferida'
-                    AND S.solicitante_id = :alunoID
-                ", ['grupoID' => $grupo->id, 'alunoID' => $aluno['id']
-                ]);
-
-                $soma = $cmd->queryScalar();
-
-                if($soma==null) $soma=0;
-
-                $resultado[$resultadoCount]['grupo'][$grupoCount]['descricao'] = $grupo->nome;
-                $resultado[$resultadoCount]['grupo'][$grupoCount]['soma'] = $soma;
-
-                $grupoCount++;
-
-            }//Fim do ForEach Grupos
-
-            $resultadoCount++;
-
-        }//Fim do ForEach Alunos
-
-        return $this->render('relatorio', ['resultado' => $resultado]);
+        return $this->render('relatorio', ['resultado' => $dados]);
 
     }
 

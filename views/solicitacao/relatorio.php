@@ -21,7 +21,7 @@ $this->title = 'Relatório';
 
     <div class="box box-success">
         <div class="box-header">
-            <h4>Click em cima da matricula para copiar para a àrea de transferencia...</h4>
+            <h4>Clique em cima da matricula para copiar para a àrea de transferencia.</h4>
         </div>
         <div class="solicitacao-view box-body">
 
@@ -29,8 +29,10 @@ $this->title = 'Relatório';
                 <thead>
                     <th>Aluno</th>
                     <th>Matricula</th>
-                    <th>Grupo</th>
-                    <th>Horas</th>
+                    <th>Período</th>
+                    <th>Ensino</th>
+                    <th>Pesquisa</th>
+                    <th>Extensão</th>
                 </thead>
 
                 <?php foreach($resultado as $res) {?>
@@ -41,15 +43,11 @@ $this->title = 'Relatório';
                             <span class="fa fa-clipboard" onclick="copyToClipboard(this)"><?= $res['matricula'] ?></span>
                         </a>
                     </td>
-
-                    <td>
-                        <?php foreach($res['grupo'] as $grupo) {?>
-                            <tr>
-                                <td></td><td></td>
-                                <td><?= $grupo['descricao'] ?></td><td><?= $grupo['soma'] ?></td>
-                            </tr>
-                        <?php } ?>
-                    </td>
+                    <td><?= $res['periodo'] ?></td>
+                    <td><?= $res['ensino'] ?></td>
+                    <td><?= $res['pesquisa'] ?></td>
+                    <td><?= $res['extensao'] ?></td>
+                    
                 </tr>
                 <?php } ?>
             </table>
