@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Atividade;
+use app\models\Curso;
+use app\models\Grupo;
 use app\models\AtividadeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -63,8 +65,19 @@ class AtividadeController extends Controller
      */
     public function actionView($id)
     {
+		
+		$model = $this->findModel($id);
+		
+		$curso = Curso::findOne($model->curso_id);
+        if ($curso != null)
+            $model->curso_id = $curso->codigo."-".$curso->nome;
+		
+		$grupo = Grupo::findOne($model->grupo_id);
+        if ($grupo != null)
+            $model->grupo_id = $grupo->codigo."-".$grupo->nome;
+		
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         ]); ?>
          
-        <?= $form->field($model, 'cpf',['template' => "{label}\n{input}\n{hint}\n{error}"])->textInput(array('placeholder' => 'CPF','class'=>'form-control'))->label(false)?>
+        <?= $form->field($model, 'cpf',['template' => "{label}\n{input}\n{hint}\n{error}"])->textInput(array('placeholder' => 'CPF: XXX.XXX.XXX-XX','class'=>'form-control'))->label(false)?>
 
         <?= $form->field($model, 'password')->passwordInput(array('placeholder' => 'Senha'))->label(false)?>
         

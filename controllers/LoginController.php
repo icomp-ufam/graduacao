@@ -86,6 +86,10 @@ class LoginController extends Controller
                 $route = $this->redirect(["dashboard/index"]);
             }
 
+            if (Yii::$app->user->identity->perfil == "Professor") {
+                $route = $this->redirect(["monitoria/professor"]);
+            }
+
             return $route;
 
         }
@@ -137,11 +141,20 @@ class LoginController extends Controller
             }
 
             /* * pega os dados do webservice do cpd * */
-            $link = 'http://200.129.163.9:80801/ecampus_teste/servicos/getPessoaValidaSIE?cpf=' ;
-            
-            $link = $link . Yii::$app->request->post('cpf');
+            $cpf = Yii::$app->request->post('cpf');
+
+            //$link = 'http://200.129.163.9:80801/ecampus_teste/servicos/getPessoaValidaSIE?cpf=' ;
+			$token = "98df1b3e0103f57a9817d675071504ba-".date("Y-m-d");
+			$tokenMD5 = MD5($token);
+			$link = 'http://200.129.163.42:8080/ws/rest/sie/json/sieJSON/icomp?cpf='.$cpf.'&hshtkn='.$tokenMD5;
+
+           // $link = $link . Yii::$app->request->post('cpf');
 
             $webservice = @file_get_contents($link);
+
+//var_dump($link);
+//var_dump($webservice);
+
             
             // Verifica se o WS está disponivel
             //Caso negativo ele exibe o formulario em branco
@@ -169,12 +182,13 @@ class LoginController extends Controller
             
             foreach($dados as $aluno)
             {
-                if($aluno["ATIVO"]=="true")
+                if($aluno["ativo"]=="true" && isset($aluno["matriculaAluno"]))
                 {
                     $atual = $aluno;
                 }
             }
 
+//var_dump($atual);
             if($atual==null)
             {
                 return $this->render('novousuario', ['erro'=>'O aluno não está ativo']);
@@ -182,15 +196,15 @@ class LoginController extends Controller
             
             // Adiciona os dados do aluno no model e redireciona p 
             // tela de cadastro...
-            $model->name        = $atual['NOME_PESSOA'] ;
+            $model->name        = $atual['nome'] ;
             
             $model->cpf         = Yii::$app->request->post('cpf');
             
-            $model->email       = $atual['EMAIL'];
+            $model->email       = $atual['email'];
             
-            $model->matricula   = $atual['MATR_ALUNO'];
+            $model->matricula   = $atual['matriculaAluno'];
             
-            $curso_sigla = $atual['CURSO'];
+            $curso_sigla = $atual['curso'];
             
             //Verifica se o curso pertence aos cursos
             //cadastrados
@@ -206,6 +220,7 @@ class LoginController extends Controller
             $model->isNewRecord = false;
             
             return $this->render('create', ['model' => $model ]);                 
+
         }
         // se a requisicao for do tipo GET
         else
@@ -258,7 +273,7 @@ class LoginController extends Controller
                 
                 $message = $mailgun->newMessage();
                 
-                $message->setFrom('admin@icomp.ufam.edu.br', 'Admin-Atv Complementares');
+                $message->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares');
                 $message->addTo( $usuario->email, $usuario->name); //destinatario...
                 $message->setSubject('Nova Senha');
 
@@ -337,8 +352,13 @@ class LoginController extends Controller
             $model->password = md5(Yii::$app->request->post('senhanova'));
 
             $model->save(false);
-
-            return $this->redirect(['dashboard/index']);
+			
+			$this->mensagens('success', 'Alteração de Senha', 'A senha foi alterada com sucesso.');
+			
+			if(Yii::$app->user->identity->perfil == "admin")
+				return $this->redirect(['login/trocasenha']);	
+			else
+				return $this->redirect(['dashboard/index']);				
         }
         else
         {
@@ -357,5 +377,20 @@ class LoginController extends Controller
             return $this->render('novasenha', ['model' => $model]);
         }
     }
+	
+        /* Envio de mensagens para views
+       Tipo: success, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'icon' => 'home',
+            'duration' => 5000,
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'top',
+            'positonX' => 'center',
+            'showProgressbar' => true,
+        ]);
+    }	
     
 }

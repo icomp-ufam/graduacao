@@ -62,9 +62,17 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+
+		$model = $this->findModel($id);
+		
+		$curso = Curso::findOne($model->curso_id);
+        if ($curso != null)
+            $model->curso_id = $curso->codigo."-".$curso->nome;
+		
+		return $this->render('view', [
+            'model' => $model,
         ]);
+		
     }
     /**
      * Creates a new Usuario model.

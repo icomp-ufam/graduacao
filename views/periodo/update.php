@@ -12,7 +12,7 @@ $this->title = $model->codigo;
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
         <li><a href="?r=periodo/index"><i class="fa fa-calendar"></i> Período</a></li>
-        <li class="active"><a href="?r=periodo/update">Editar</a></li>
+        <li class="active"><a href="?r=periodo/index">Lista</a></li>
     </ol>
 </section>
 <section class="content">

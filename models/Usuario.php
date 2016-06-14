@@ -49,7 +49,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     }
     
     //RELACIONAMENTO com a tabela Curso
-    public function Curso()
+    public function getCurso()
     {
         return $this->hasOne(Curso::className(), ['id' => 'curso_id']);
     }

@@ -28,7 +28,12 @@ $this->title = 'Alterar Senha';
                     
                 <div class="form-group">
                     <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
-                     <?= Html::a('Cancelar', ['dashboard/index'], ['class' => 'btn btn-danger']) ?>
+                     <?php
+						if(Yii::$app->user->identity->perfil == "admin")
+							echo Html::a('Cancelar', ['curso/index'], ['class' => 'btn btn-danger']);
+						else
+							echo Html::a('Cancelar', ['dashboard/index'], ['class' => 'btn btn-danger']);
+					?>
                 </div>
 
                 <div class="col-xs-12">

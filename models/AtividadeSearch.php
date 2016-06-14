@@ -19,7 +19,7 @@ class AtividadeSearch extends Atividade
     {
         return [
             [['id', 'max_horas', 'curso_id', 'grupo_id'], 'integer'],
-            [['codigo', 'nome'], 'safe'],
+            [['codigo', 'nome', 'curso', 'grupo'], 'safe'],
         ];
     }
 
@@ -41,7 +41,13 @@ class AtividadeSearch extends Atividade
      */
     public function search($params)
     {
-        $query = Atividade::find();
+        $idUsuario = Yii::$app->user->identity->id;
+		
+		$usuario = Usuario::findOne($idUsuario);
+		
+		$query = Atividade::find()->select("atividade.*, curso.nome as curso, grupo.nome as grupo")
+        ->leftJoin("curso","atividade.curso_id = curso.id")->leftJoin("grupo","atividade.grupo_id = grupo.id")
+		->where('atividade.curso_id = '.$usuario->curso_id);
 
         // add conditions that should always apply here
 
@@ -56,6 +62,16 @@ class AtividadeSearch extends Atividade
             // $query->where('0=1');
             return $dataProvider;
         }
+		
+		$dataProvider->sort->attributes['curso'] = [
+            'asc' => ['curso' => SORT_ASC],
+            'desc' => ['curso' => SORT_DESC],
+        ];
+		
+		$dataProvider->sort->attributes['grupo'] = [
+            'asc' => ['grupo' => SORT_ASC],
+            'desc' => ['grupo' => SORT_DESC],
+        ];
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -66,6 +82,8 @@ class AtividadeSearch extends Atividade
         ]);
 
         $query->andFilterWhere(['like', 'codigo', $this->codigo])
+			->andFilterWhere(['like', 'curso', $this->curso])
+			->andFilterWhere(['like', 'grupo', $this->grupo])
             ->andFilterWhere(['like', 'nome', $this->nome]);
 
         return $dataProvider;

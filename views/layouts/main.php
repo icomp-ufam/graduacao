@@ -4,6 +4,12 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 use kartik\icons\Icon;
+use app\models\Usuario;
+use app\models\Comissao;
+use app\models\Curso;
+
+$this->registerJsFile(Yii::$app->request->baseUrl.'/js/main.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 Icon::map($this);
 AppAsset::register($this);
 ?>
@@ -48,7 +54,16 @@ AppAsset::register($this);
           <!-- Sidebar user panel -->
           <div class="user-panel" style="height:60px">
             <div class="info">
-                  <p>Olá, <?= Yii::$app->user->identity->name ?><br/> Seu perfil atual é: <?= Yii::$app->user->identity->perfil ?></p> 
+                  <p>Olá, <?= Yii::$app->user->identity->name ?><br/> Seu perfil atual é: <?= Yii::$app->user->identity->perfil ?>
+				  <?php if(Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Aluno" ){
+							$idUsuario = Yii::$app->user->identity->id;
+							$usuario = Usuario::findOne($idUsuario);
+							$curso = Curso::findOne($usuario->curso_id);
+							echo "<br/>de ".$curso->nome;
+						}
+
+				  ?>
+				  </p> 
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
@@ -74,47 +89,146 @@ AppAsset::register($this);
                   <span>Usuários</span> 
                 </a>
               </li>
-            <?php } ?>
-            <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-               <li class="treeview">
-                <a href="?r=dashboard%2Findex">
-                  <i class="fa fa-dashboard fa-fw"></i>
-                  <span>Dashboard</span> 
+			        <li class="treeview">
+                <a href="?r=disciplina%2Findex">
+                  <i class="fa fa-book fa-fw"></i>
+                  <span>Disciplinas</span> 
                 </a>
               </li>
-              <li class="treeview">
-                <a href="?r=solicitacao%2Findex">
-                  <i class="fa fa-download fa-fw"></i>
-                  <span>Solicitações</span> 
+			        <li class="treeview">
+                <a href="?r=disciplina-periodo%2Findex">
+                  <i class="fa fa-folder-open fa-fw"></i>
+                  <span>Oferta Monitoria</span> 
                 </a>
               </li>
-              <li class="treeview">
-                <a href="?r=grupo%2Findex">
+			        <li class="treeview">
+                <a href="?r=comissao%2Findex">
                   <i class="fa fa-users fa-fw"></i>
-                  <span>Grupos</span> 
+                  <span>Comissão Monitoria</span> 
                 </a>
-              </li>
+              </li>	
               <li class="treeview">
-                <a href="?r=atividade%2Findex">
-                  <i class="fa fa-tasks fa-fw"></i>
-                  <span>Atividades</span> 
+                <a href="?r=monitoria%2Fsecretaria">
+                  <i class="fa fa-clone fa-fw"></i>
+                  <span>Gerenciar Monitorias</span> 
                 </a>
               </li>
-              <li class="treeview">
-                <a href="?r=solicitacao%2Frelatorio">
-                  <i class="fa fa-line-chart fa-fw"></i>
-                  <span>Relatório</span> 
-                </a>
-              </li>
-
+			  
             <?php } ?>
-            <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+			
+			
+			 <?php if(Yii::$app->user->identity->perfil == 'Professor'){ ?>
+
+					<?php 
+          $professor = Usuario::findOne(['CPF' => Yii::$app->user->identity->cpf]);
+          $comissao = Comissao::findOne(['idProfessor' => $professor->id]);
+          if ($comissao != null && $comissao->idProfessor != null) { ?>
+          <li class="treeview">
+  					<a href="?r=monitoria%2Favaliador">
+  					<i class="fa fa-check fa-fw"></i>
+  					<span>Julgar Monitorias</span> 
+  					</a>
+  				</li>
+  				<?php } ?>
+
+  				<li class="treeview">
+  					<a href="?r=monitoria%2Fprofessor">
+  					<i class="fa fa-clone fa-fw"></i>
+  					<span>Gerenciar Monitorias</span> 
+  					</a>
+  				</li>
+        <?php } ?>
+		
+        <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
+
+          <?php 
+          $professor = Usuario::findOne(['CPF' => Yii::$app->user->identity->cpf]);
+          $comissao = Comissao::findOne(['idProfessor' => $professor->id]);
+          if ($comissao != null && $comissao->idProfessor != null) { ?>
+          <li class="treeview">
+            <a href="?r=monitoria%2Favaliador">
+            <i class="fa fa-check fa-fw"></i>
+            <span>Julgar Monitorias</span> 
+            </a>
+          </li>
+          <?php } ?>
+
+          <li class="treeview">
+            <a href="?r=monitoria%2Fprofessor">
+            <i class="fa fa-clone fa-fw"></i>
+            <span>Gerenciar Monitorias</span> 
+            </a>
+          </li>
+           <li class="treeview">
+            <a href="?r=dashboard%2Findex">
+              <i class="fa fa-dashboard fa-fw"></i>
+              <span>Dashboard</span> 
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="?r=solicitacao%2Findex">
+              <i class="fa fa-download fa-fw"></i>
+              <span>Solicitações</span> 
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="?r=grupo%2Findex">
+              <i class="fa fa-users fa-fw"></i>
+              <span>Grupos</span> 
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="?r=atividade%2Findex">
+              <i class="fa fa-tasks fa-fw"></i>
+              <span>Atividades</span> 
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="?r=solicitacao%2Frelatorio">
+              <i class="fa fa-line-chart fa-fw"></i>
+              <span>Relatório</span> 
+            </a>
+          </li>
+        <?php } ?>
+
+        <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
+              <li class="treeview">
+                <a href="?r=periodo%2Findex">
+                  <i class="fa fa-calendar fa-fw"></i>
+                  <span>Período</span> 
+                </a>
+              </li>
               <li class="treeview">
                 <a href="?r=solicitacao%2Findex">
                   <i class="fa fa-download fa-fw"></i>
                   <span>Solicitações</span> 
                 </a>
               </li>
+			        <li class="treeview">
+                <a href="?r=disciplina%2Findex">
+                  <i class="fa fa-book fa-fw"></i>
+                  <span>Disciplinas</span> 
+                </a>
+              </li>
+			        <li class="treeview">
+                <a href="?r=disciplina-periodo%2Findex">
+                  <i class="fa fa-folder-open fa-fw"></i>
+                  <span>Oferta Monitoria</span> 
+                </a>
+              </li>
+			        <li class="treeview">
+                <a href="?r=comissao%2Findex">
+                  <i class="fa fa-users fa-fw"></i>
+                  <span>Comissão Monitoria</span> 
+                </a>
+              </li>			  
+              <li class="treeview">
+                <a href="?r=monitoria%2Fsecretaria">
+                  <i class="fa fa-clone fa-fw"></i>
+                  <span>Gerenciar Monitorias</span> 
+                </a>
+              </li>
+			  
             <?php } ?>
             <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
                <li class="treeview">
@@ -129,6 +243,19 @@ AppAsset::register($this);
                   <span>Solicitações</span> 
                 </a>
               </li>
+              <li class="treeview">
+                <a href="?r=monitoria%2Fcreate">
+                  <i class="fa fa-pencil fa-fw"></i>
+                  <span>Inscrever Monitoria</span> 
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="?r=monitoria%2Faluno">
+                  <i class="fa fa-database fa-fw"></i>
+                  <span>Minhas Monitorias</span> 
+                </a>
+              </li>
+			  
             <?php } ?>
               <li class="treeview">
                   <a href="?r=login/trocasenha">
@@ -164,6 +291,7 @@ AppAsset::register($this);
     </div><!-- ./wrapper -->
 
     <script>
+
       $(window).bind('load resize', function() {
             var topOffset = 100;
             var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
@@ -175,17 +303,16 @@ AppAsset::register($this);
             if (height > topOffset) {
               $('.content-wrapper').css('min-height', (height) + 'px');
             }
-        });
+      });
 
       $(function() {
         var start = window.location.href.lastIndexOf("?");
-
-     var pgurl = window.location.href.substr(start);
-     console.log(pgurl);
-       $("ul li a").each(function(){
+        var pgurl = window.location.href.substr(start);
+        console.log(pgurl);
+        $("ul li a").each(function(){
             if($(this).attr("href") === pgurl)
             $(this).parent().addClass("active");
-       })
+        })
       });
         
     </script>

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Periodo;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PeriodoSearch */
@@ -22,7 +23,12 @@ $this->title = 'Lista de Períodos';
 <div class="box box-success">    
 <div class="periodo-index box-body">
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php if(isset($erro) && $erro == 1) { ?>
+        <p id="alerta" class='col-xs-12 alert alert-danger'><?php echo "<strong>Atenção!</strong><br>"; echo "Não existe período ativo no sistema. Ative ou cadastre o período corrente."; ?></p>
+        <script>
+           setTimeout(function(){ $('#alerta').fadeOut(); }, 10000);
+        </script>
+    <?php } ?>
 
     <p>
         <?= Html::a('Novo Período', ['create'], ['class' => 'btn btn-success']) ?>
@@ -41,7 +47,23 @@ $this->title = 'Lista de Períodos';
             'attribute' => 'dtTermino',
             'format' => ['date', 'php:d-m-Y']
             ],
-
+            [
+            'attribute' => 'dtInicioInscMonitoria',
+            'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+            'attribute' => 'dtTerminoInscMonitoria',
+            'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+                'attribute' => 'isAtivo',
+                'label'=>'Período Corrente', 
+                'format' => 'raw',
+                'value' => function ($model) {
+                        if ($model->isAtivo == 1)
+                            return '<div style="text-align:center"> <span class="glyphicon glyphicon-ok"></span> </div>';
+                },
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

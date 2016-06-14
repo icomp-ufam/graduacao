@@ -19,7 +19,7 @@ class PeriodoSearch extends Periodo
     {
         return [
             [['id'], 'integer'],
-            [['codigo', 'dtInicio', 'dtTermino'], 'safe'],
+            [['codigo', 'dtInicio', 'dtTermino', 'dtInicioInscMonitoria', 'dtTerminoInscMonitoria'], 'safe'],
         ];
     }
 
@@ -62,9 +62,14 @@ class PeriodoSearch extends Periodo
             'id' => $this->id,
             'dtInicio' => $this->dtInicio,
             'dtTermino' => $this->dtTermino,
+            'dtInicioInscMonitoria' => $this->dtInicioInscMonitoria,
+            'dtTerminoInscMonitoria' => $this->dtTerminoInscMonitoria,
+            'isAtivo' => $this->isAtivo,
         ]);
 
         $query->andFilterWhere(['like', 'codigo', $this->codigo]);
+
+        $query->orderBy(['codigo' => SORT_DESC]);
 
         return $dataProvider;
     }

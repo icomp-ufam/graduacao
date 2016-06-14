@@ -14,6 +14,8 @@ use Yii;
  */
 class Periodo extends \yii\db\ActiveRecord
 {
+    public $traducao_isAtivo;
+    
     /**
      * @inheritdoc
      */
@@ -34,9 +36,11 @@ class Periodo extends \yii\db\ActiveRecord
     {
         return [
             [['codigo', 'dtInicio', 'dtTermino'], 'required', 'message'=> 'Este campo é obrigatório'],
-            [['dtInicio', 'dtTermino'], 'safe'],
+            [['dtInicio', 'dtTermino', 'dtInicioInscMonitoria', 'dtTerminoInscMonitoria'], 'safe'],
+            [['justificativaPlanoSemestral'], 'string'],
+            [['isAtivo'], 'integer'],
             [['codigo'], 'string', 'max' => 10],
-            
+            [['codigo'], 'unique', 'message'=>'Código de período já cadastrado'],
         ];
     }
 
@@ -51,9 +55,23 @@ class Periodo extends \yii\db\ActiveRecord
             'codigo' => 'Código',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
-            'isAtivo'  => 'Status do Período'
+            'isAtivo'  => 'Período Corrente',
+            'dtInicioInscMonitoria' => 'Início da Inscrição para Monitoria',
+            'dtTerminoInscMonitoria' => 'Término da Inscrição para Monitoria',
+            'justificativaPlanoSemestral' => 'Justificativas do Plano Semestral'
         ];
     }
     
-
+    public function afterFind()
+    {
+        switch ($this->isAtivo)
+        {
+            case 0:
+                $this->traducao_isAtivo = 'Não';
+                break;
+            case 1:
+                $this->traducao_isAtivo = 'Sim';
+                break;
+        }
+    }
 }

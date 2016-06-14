@@ -23,6 +23,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'dtTermino') ?>
 
+    <?= $form->field($model, 'dtInicioInscMonitoria') ?>
+
+    <?= $form->field($model, 'dtTerminoInscMonitoria') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

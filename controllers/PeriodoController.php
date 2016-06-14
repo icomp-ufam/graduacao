@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\db\Command;
 
 /**
  * PeriodoController implements the CRUD actions for Periodo model.
@@ -28,8 +29,20 @@ class PeriodoController extends Controller
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
                             {
+                                if ( Yii::$app->user->identity->perfil === 'Secretaria' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Secretaria'; 
+                                }
+                                elseif ( Yii::$app->user->identity->perfil === 'Coordenador' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'Coordenador'; 
+                                }
+                                elseif ( Yii::$app->user->identity->perfil === 'admin' ) 
+                                {
+                                    return Yii::$app->user->identity->perfil == 'admin'; 
+                                }
                                 return Yii::$app->user->identity->isAdmin == 1 ;    
-                            }                            
+                            }
                         }
                     ], 
                 ],
@@ -55,6 +68,7 @@ class PeriodoController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'erro' => ($this->getPeriodoAtivo() == null ? 1 : 0),
         ]);
     }
 
@@ -81,9 +95,19 @@ class PeriodoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            // Quando marcado como o período corrente, então o demais não podem ser o corrente.
+            if ($model->isAtivo == 1)
+            {
+                Yii::$app->db->createCommand()->update('periodo', ['isAtivo' => 0], 'id<>'.$model->id)->execute();
+            }
+
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
 
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+
+            $model->dtInicioInscMonitoria = Yii::$app->formatter->asDate($model->dtInicioInscMonitoria, 'php:Y-m-d');
+
+            $model->dtTerminoInscMonitoria = Yii::$app->formatter->asDate($model->dtTerminoInscMonitoria, 'php:Y-m-d');
 
             $model->save();
             
@@ -108,9 +132,19 @@ class PeriodoController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+            // Quando marcado como o período corrente, então o demais não podem ser o corrente.
+            if ($model->isAtivo == 1)
+            {
+                Yii::$app->db->createCommand()->update('periodo', ['isAtivo' => 0], 'id<>'.$id)->execute();
+            }
+
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
 
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+
+            $model->dtInicioInscMonitoria = Yii::$app->formatter->asDate($model->dtInicioInscMonitoria, 'php:Y-m-d');
+            
+            $model->dtTerminoInscMonitoria = Yii::$app->formatter->asDate($model->dtTerminoInscMonitoria, 'php:Y-m-d');
 
             $model->save(false);
 
@@ -149,5 +183,10 @@ class PeriodoController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function getPeriodoAtivo()
+    {
+        return Periodo::findOne(['isAtivo' => 1]);
     }
 }

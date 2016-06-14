@@ -21,7 +21,8 @@ $this->title = $model->name;
 <div class="usuario-view box-body">
 
     <p>
-        <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar', ['index'], ['class' => 'btn btn-warning']) ?>
+		<?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -34,18 +35,11 @@ $this->title = $model->name;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            //'id',
             'name',
             'cpf',
             'email:email',
-            //'password',
             'matricula',
             'curso_id',
-            //'dtEntrada',
-            //'isAdmin',
-            //'isAtivo',
-            //'auth_key',
-            //'password_reset_token',
         ],
     ]) ?>
 

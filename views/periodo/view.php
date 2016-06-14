@@ -13,7 +13,7 @@ $this->title = $model->codigo;
     <h1><?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
         <li><a href="?r=periodo/index"><i class="fa fa-calendar"></i> Período</a></li>
-        <li class="active"><a href="?r=periodo/view">Visualizar</a></li>
+        <li class="active"><a href="?r=periodo/index">Lista</a></li>
     </ol>
 </section>
 <section class="content">
@@ -43,6 +43,18 @@ $this->title = $model->codigo;
             [
             'attribute' => 'dtTermino',
             'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+            'attribute' => 'dtInicioInscMonitoria',
+            'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+            'attribute' => 'dtTerminoInscMonitoria',
+            'format' => ['date', 'php:d-m-Y']
+            ],
+            [
+                'label' => 'Período Corrente',
+                'value' => $model->traducao_isAtivo
             ],
         ],
     ]) ?>

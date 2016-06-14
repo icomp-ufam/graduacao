@@ -32,9 +32,6 @@ $this->title = 'Lista de Usuários';
             'dataProvider' => $dataProvider,
             'summary'=>'',
             'columns' => [
-        
-
-               
                 'name',
                 'cpf',
                 'email:email',

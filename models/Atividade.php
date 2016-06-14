@@ -16,7 +16,11 @@ use Yii;
  */
 class Atividade extends \yii\db\ActiveRecord
 {
-    /**
+ 
+	public $curso;
+	public $grupo;
+	
+	/**
      * @inheritdoc
      */
     public static function tableName()
