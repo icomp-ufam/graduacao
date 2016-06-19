@@ -4,6 +4,7 @@
 /* @var $model app\models\LoginForm */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\widgets\MaskedInput;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         ]); ?>
          
-        <?= $form->field($model, 'cpf',['template' => "{label}\n{input}\n{hint}\n{error}"])->textInput(array('placeholder' => 'CPF: XXX.XXX.XXX-XX','class'=>'form-control'))->label(false)?>
+        <?= $form->field($model, 'cpf',['template' => "{label}\n{input}\n{hint}\n{error}"])->widget(\yii\widgets\MaskedInput::className(), [
+    'mask' => '999.999.999-99',])->textInput(array('placeholder' => 'CPF','class'=>'form-control'))->label(false)?>
 
         <?= $form->field($model, 'password')->passwordInput(array('placeholder' => 'Senha'))->label(false)?>
         
@@ -35,7 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
             </div><!-- /.col -->
         </div>
         
-        <?php ActiveForm::end(); ?>
+        <?php
+
+    ActiveForm::end(); ?>
         
 
         <a href="?r=login/recuperarsenha">Solicitar Nova Senha</a><br>

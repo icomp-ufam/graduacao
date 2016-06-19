@@ -24,13 +24,13 @@ AppAsset::register($this);
         <div id="container">
             <div class="navbar-header" >
                  <div class="nav navbar-nav navbar-right">
-                    <a class="brand-icomp" href="#" style=" position: fixed; top:0px; left:55px">
+                    <a class="brand-icomp" href="#">
                     <img id="logo-icomp" src="icomp-logo.png" width="150"></div>
                 </a>
                 </div>
 
                 <div class="nav navbar-nav navbar-right">
-                    <a class="brand-ufam" href="#" style="position: fixed; top:0px; left:85%;">
+                    <a class="brand-ufam" href="#">
                         <img id="logo-ufam" src="ufam-logo.png" width="90"></div>
                     </a>
                 </div>

@@ -4753,3 +4753,76 @@ table.text-center th {
 .ui-datepicker table{
  font-size: .8em;
 }
+
+/*a.brand-ufam{
+  position: fixed;
+  top: 0px;
+  left: 85%;
+}
+
+a.brand-icomp{
+  position: fixed;
+  top: 0px;
+  left: 55px;
+}*/
+
+
+@media screen and (min-width: 320px){
+  a.brand-ufam{
+    position: fixed;
+    top: 380px;
+    left: 270px;
+  }
+
+  a.brand-icomp{
+    position: fixed;
+    top: 390px;
+    left: 40px;
+  }
+}
+
+
+@media screen and (min-width: 480px){
+  a.brand-ufam{
+    position: fixed;
+    top: 440px;
+    left: 290px;
+  }
+
+  a.brand-icomp{
+    position: fixed;
+    top: 450px;
+    left: 70px;
+  }
+}
+
+@media screen and (min-width: 768px){
+  a.brand-ufam{
+    position: fixed;
+    top: 459px;
+    left: 450px;
+  }
+
+  a.brand-icomp{
+    position: fixed;
+    top: 470px;
+    left: 230px;
+  }
+}
+
+@media screen and (min-width: 1024px){
+  a.brand-ufam{
+  position: fixed;
+  top: 0px;
+  left: 85%;
+}
+
+a.brand-icomp{
+  position: fixed;
+  top: 0px;
+  left: 55px;
+}
+}
+
+
+

@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
         
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '999.999.999-99',]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 

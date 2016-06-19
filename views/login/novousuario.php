@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 ?>
 
 <div class="col-md-4"></div>
@@ -17,7 +18,12 @@ use yii\widgets\ActiveForm;
                    <div class="col-xs-12">
                          <div class="form-group">
                              <label for="cpf" class="control-label" >CPF</label>
-                             <input type="text" name="cpf" class="form-control" id="cpf" placeholder="Digite seu CPF"/>
+                             
+                             <?php echo MaskedInput::widget([
+                                'name' => 'cpf',
+                                'mask' => ['999.999.999-99']
+                            ]); ?>
+                             <!--<input type="text" name="cpf" class="form-control" id="cpf" placeholder="Digite seu CPF"/>-->
                          </div>
 
                         <div class="form-group">
@@ -28,12 +34,12 @@ use yii\widgets\ActiveForm;
 
                         <?php 
 
-                        	if(isset($erro))
-                        	{
-                        		echo "<p class='col-sm-4 alert alert-danger'>";
-                        		echo $erro ;
-                        		echo "</p>";
-                        	}
+                            if(isset($erro))
+                            {
+                                echo "<p class='col-sm-4 alert alert-danger'>";
+                                echo $erro ;
+                                echo "</p>";
+                            }
                         ?>
                         </p>
                     </div>
