@@ -4,17 +4,19 @@ use yii\widgets\ActiveForm;
 
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/compara.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
-$this->title = 'Alterar Senha';
+$this->title = 'Trocar Senha';
 ?>
-
-<div class="col-md-4"></div>
-<div class="col-xs-12 col-md-4">
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
+    <ol class="breadcrumb">
+       <li><a href="?r=usuario/index"><i class="fa fa-user"></i> Usuários</a></li>
+        <li class="active"><a href="?r=usuario/view">Trocar Senha</a></li>
+    </ol>
 </section>
 <section class="content">
-    <div class="box box-success">
-        <div class="box-body">
+<div class="box box-success"> 
+<div class="box-body">
 
             <?php $form = ActiveForm::begin(); ?>
                 <div class="form-group">
@@ -28,7 +30,12 @@ $this->title = 'Alterar Senha';
                     
                 <div class="form-group">
                     <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
-                     
+                    <?php
+                        if(Yii::$app->user->identity->perfil == "admin")
+                            echo Html::a('Cancelar', ['curso/index'], ['class' => 'btn btn-danger']);
+                        else
+                            echo Html::a('Cancelar', ['dashboard/index'], ['class' => 'btn btn-danger']);
+                    ?>
                 </div>
 
                 <div class="col-xs-12">
@@ -38,9 +45,8 @@ $this->title = 'Alterar Senha';
                 <?= Html::input('hidden', 'id', $model->id ) ?>
             <?php ActiveForm::end(); ?>
         </div>
-    </div>
+</div>
 </section>
-
 
 
 

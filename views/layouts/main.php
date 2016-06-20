@@ -258,7 +258,7 @@ AppAsset::register($this);
 			  
             <?php } ?>
               <li class="treeview">
-                  <a href="?r=login/trocasenha">
+                  <a href="?r=usuario/trocasenha">
                       <i class="fa fa-key fa-fw"></i>
                       <span>Troca Senha</span>
                   </a>

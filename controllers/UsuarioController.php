@@ -162,6 +162,59 @@ class UsuarioController extends Controller
         }
     }
 
+    public function actionTrocasenha()
+    {
+        if ( Yii::$app->request->post())
+        {
+
+            $model = new Usuario();
+
+            //busca o usuario pelo ID
+            $id = Yii::$app->user->identity->id;
+
+            $model = Usuario::find()->where(['id'=>$id])->one();
+
+            $model->password = md5(Yii::$app->request->post('senhanova'));
+
+            $model->save(false);
+            
+            $this->mensagens('success', 'Alteração de Senha', 'A senha foi alterada com sucesso.');
+            
+            if(Yii::$app->user->identity->perfil == "admin")
+                return $this->redirect(['login/trocasenha']);   
+            else
+                return $this->redirect(['dashboard/index']);                
+        }
+        else
+        {
+            $model = new Usuario();
+
+            //busca o usuario pelo ID
+            $id = Yii::$app->user->identity->id;
+
+            $model = Usuario::find()->where(['id'=>$id])->one();
+
+            if($model==null)
+            {
+                throw new NotFoundHttpException('A página procurada não existe.');
+            }
+
+            return $this->render('novasenha', ['model' => $model]);
+        }
+    }
+
+        protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'icon' => 'home',
+            'duration' => 5000,
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'top',
+            'positonX' => 'center',
+            'showProgressbar' => true,
+        ]);
+    }
 
 
 }
