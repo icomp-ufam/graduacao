@@ -28,7 +28,7 @@ $this->title = 'Alterar Senha';
                     
                 <div class="form-group">
                     <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
-                     
+                    
                 </div>
 
                 <div class="col-xs-12">
