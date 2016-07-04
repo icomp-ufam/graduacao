@@ -113,32 +113,27 @@ class SolicitacaoController extends Controller
                 $model->solicitante_id = Yii::$app->user->identity->id;
             }
 
-            $model->save();
-            
             $file = UploadedFile::getInstance($model, 'arquivo');
-            
-            $file_name = Yii::$app->user->identity->id . '_' . rand(1, 999999);
 
-            $file_name = $file_name . '.' . $file->extension;
+            if(isset($file)){
+                
+                
+                $file_name = Yii::$app->user->identity->id . '_' . rand(1, 999999);
 
-            $model->arquivo = $file;
+                $file_name = $file_name . '.' . $file->extension;     
 
-            $file->saveAs('uploads/' . $file_name);
-            
-            //atualiza os dados do nome no model solicitacao
-            
-            $model->anexoOriginalName = $file->baseName . '.' . $file->extension ;
-            
-            $model->anexoHashName = $file_name ;
-            
-            $model->arquivo = null ;     //estava dando erro na hora de salvar
-
-            //verifica em qual periodo deve lançar a solicitacao
-            //com base na data e nas datas de inicio e termino dos periodos cadastrados
-
-            $cmd = Yii::$app->db->createCommand("SELECT id FROM periodo WHERE :fim BETWEEN date(dtInicio) AND date(dtTermino)",[':fim' => $model->dtTermino]);
-
-            $model->periodo_id = (int) $cmd->queryScalar();
+                $file->saveAs('uploads/' . $file_name);
+                
+                $model->arquivo = $file;
+                
+                //atualiza os dados do nome no model solicitacao
+                
+                $model->anexoOriginalName = $file->baseName . '.' . $file->extension ;
+                
+                $model->anexoHashName = $file_name ;
+                
+                $model->arquivo = null ;     //estava dando erro na hora de salvar  
+            }
 
             $model->save();
             
