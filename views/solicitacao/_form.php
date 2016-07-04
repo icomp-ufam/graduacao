@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
 <div class="col-md-4">
 
     <?php $form = ActiveForm::begin([
-            'options' => ['enctype' => 'multipart/form-data'],
+            'options' => ['enctype' => 'multipart/form-data', 'autocomplete'=>'off'],
             //'enableAjaxValidation' => true,
             //'validationUrl' => 'validation-rul',
     ]); ?>
@@ -24,15 +24,21 @@ use yii\helpers\ArrayHelper;
         <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
-            'options' => ['class' => 'form-control'],
+            'options' => ['class' => 'form-control', 'disable'=>'disabled'],
             'language' => 'pt-BR',
             'dateFormat' => 'dd-MM-y',
+            'clientOptions' => [
+                'maxDate' => 0,
+            ],
         ]) ?>
 
         <?= $form->field($model, 'dtTermino')->widget(\yii\jui\DatePicker::classname(), [
             'options' => ['class' => 'form-control'],
             'language' => 'pt-BR',
             'dateFormat' => 'dd-MM-y',
+            'clientOptions' => [
+                'maxDate' => 0,
+            ],
         ]) ?>
 
         <!-- Atividades -->
