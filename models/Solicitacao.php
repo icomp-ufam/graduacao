@@ -113,11 +113,14 @@ class Solicitacao extends \yii\db\ActiveRecord
 
         $MaxHorasAtividade = (int) $Atividade->max_horas;
 
-        if(($hsProduzidas+$horasComputadas) > $MaxHorasAtividade)
+        if($hsProduzidas == $MaxHorasAtividade)
         {
+            $this->addError($attribute,"As horas para esse tipo de atividade já chegaram no máximo.");
+
+        }else if(($hsProduzidas + $horasComputadas) > $MaxHorasAtividade){
             $diferenca = (int) ($MaxHorasAtividade - $hsProduzidas);
 
-            $this->addError($attribute,"As horas computadas não podem ser maior que $diferenca");
+            $this->addError($attribute,"As horas computadas não podem ultrapassar $diferenca horas que faltam para alcançar o limite desse tipo de atividade.");
         }
 
 

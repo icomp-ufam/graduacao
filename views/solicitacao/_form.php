@@ -45,12 +45,13 @@ use yii\helpers\ArrayHelper;
                 ['prompt'=>'Selecione',  'onchange'=>'
                 $.post( "'.Yii::$app->urlManager->createUrl('solicitacao/field').'&id=" + $(this).val(), function( data ) {
                   $( "input#maxHoras" ).val( data );
+                  $( "#divMaxHours" ).show();
                 });']); ?>
        
     
         <?= $form->field($model, 'horasComputadas')->textInput() ?>
         
-        <div class="form-group">
+        <div id="divMaxHours" class="form-group">
             <label id="maxHoras" class="control-label" >Máx. Horas</label>
             <input type="text" class="form-control" disabled id="maxHoras" />
         </div>
@@ -82,7 +83,8 @@ use yii\helpers\ArrayHelper;
 </div>
 
 <script>
-
+    $( "#divMaxHours" ).hide();
+    $( "#solicitacao-atividade_id" ).trigger( "change" );
     $('#solicitacao-dtinicio').on('change', function () {
         var test = $(this).datepicker('getDate');
         var testm = new Date(test.getTime());
