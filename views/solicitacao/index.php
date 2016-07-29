@@ -33,8 +33,15 @@ $this->title = 'Solicitações';
    
  
      <div class="solicitacao-index box-body">
+	 
          <?php if(Yii::$app->request->get('error')){?>
-           <p id="alerta" class='col-xs-12 alert alert-danger'><?php echo Yii::$app->request->get('error') ?></p>
+		   <div id="alerta" class="alert alert-danger" role="alert"><?php echo Yii::$app->request->get('error') ?></div>
+           <script>
+               setTimeout(function(){ $('#alerta').fadeOut(); }, 3000);
+           </script>
+         <?php } ?>
+		 <?php if(Yii::$app->request->get('success')){?>
+		   <div id="alerta" class="alert alert-success" role="alert"><?php echo Yii::$app->request->get('success') ?></div>
            <script>
                setTimeout(function(){ $('#alerta').fadeOut(); }, 3000);
                 
@@ -74,7 +81,7 @@ $this->title = 'Solicitações';
         <label>Selecione o filtro:</label>  
             
        <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-        <?= Html::activeDropDownList($searchModel, 'id', ['Pre-aprovada','Submetida', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
+        <?= Html::activeDropDownList($searchModel, 'id', ['Submetida', 'Pre-aprovada','Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
        <?php } ?>
 
        <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>

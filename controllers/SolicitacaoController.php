@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Grupo;
+use app\models\Periodo;
 use Yii;
 use app\models\Solicitacao;
 use app\models\SolicitacaoSearch;
@@ -103,8 +104,12 @@ class SolicitacaoController extends Controller
         $model = new Solicitacao();
 
         $model->created_at = date('Y-m-d');
+		
+		$periodo = Periodo::findOne(['isAtivo' => 1]); //Periodo::getPeriodoAtivo();
+		$model->periodo_id = $periodo->id;
+		
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+       if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
             $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
@@ -229,6 +234,9 @@ class SolicitacaoController extends Controller
                 {
                     $s->status = $status;
                 }
+				else{
+					return $this->redirect(['index','error' => 'Apenas solicitações com status ABERTA ou INDEFERIDA podem ser submetidas']);
+				}
             }
 
             if(Yii::$app->user->identity->perfil=='Secretaria')
@@ -237,6 +245,10 @@ class SolicitacaoController extends Controller
                 {
                     $s->status = $status;
                 }
+				else{
+					return $this->redirect(['index','error' => 'Apenas solicitações com status SUBMETIDA podem ser Avaliadas']);
+				}
+				
             }
 
             if(Yii::$app->user->identity->perfil=='Coordenador')
@@ -246,16 +258,21 @@ class SolicitacaoController extends Controller
                     $s->status = $status;
                     $s->save();
                 }
-                if($s->status=='Deferida')
+                else if($s->status=='Deferida')
                 {
                     $s->status = $status;
                     $s->save();
                 }
+				else{
+					return $this->redirect(['index','error' => 'Apenas solicitações com status PRÉ-APROVADAS ou DEFERIDAS podem ser Avaliadas']);
+				}
             }
 
             $s->save(false);
         }
-        return $this->redirect(['index']);
+		//$this->mensagens('success', 'Sucesso', 'Solicitação pré-aprovada com sucesso.');
+		//Yii::$app->session->setFlash('success', "Your message to display");
+        return $this->redirect(['index','success' => 'Solicitação(ões) encaminhadas com sucesso']);
     }
 
     /**
@@ -319,5 +336,21 @@ class SolicitacaoController extends Controller
         return $this->render('relatorio', ['resultado' => $dados]);
 
     }
+	
+            /* Envio de mensagens para views
+       Tipo: success, danger, warning*/
+    protected function mensagens($tipo, $titulo, $mensagem){
+        Yii::$app->session->setFlash($tipo, [
+            'type' => $tipo,
+            'icon' => 'home',
+            'duration' => 5000,
+            'message' => $mensagem,
+            'title' => $titulo,
+            'positonY' => 'top',
+            'positonX' => 'center',
+            'showProgressbar' => true,
+        ]);
+    }
+	
 
 }

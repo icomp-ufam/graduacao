@@ -188,7 +188,6 @@ class LoginController extends Controller
                 }
             }
 
-//var_dump($atual);
             if($atual==null)
             {
                 return $this->render('novousuario', ['erro'=>'O aluno não está ativo']);
@@ -354,9 +353,12 @@ class LoginController extends Controller
             $model->save(false);
 			
 			$this->mensagens('success', 'Alteração de Senha', 'A senha foi alterada com sucesso.');
+			var_dump(Yii::$app->user->identity->perfil);
 			
 			if(Yii::$app->user->identity->perfil == "admin")
 				return $this->redirect(['login/trocasenha']);	
+			else if(Yii::$app->user->identity->perfil == "Secretaria")
+				return $this->redirect(['solicitacao/index']);	
 			else
 				return $this->redirect(['dashboard/index']);				
         }

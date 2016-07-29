@@ -11,14 +11,19 @@ use yii\helpers\ArrayHelper;
 
 <div class="usuario-form">
 
-    <?php $form = ActiveForm::begin([
+    <?php 
+	
+	/*$form = ActiveForm::begin([
     'method' => 'post',
     'action' => ['usuario/create'],
-    ]); ?>
-    
+    ]); */
+
+	$form = ActiveForm::begin();
+	?>
+	
     <div class="col-md-5">
         
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
 
@@ -39,7 +44,6 @@ use yii\helpers\ArrayHelper;
         {
             
             $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin', 'Aluno'=>'Aluno'];
-            
             echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'Selecione']);
             
         }

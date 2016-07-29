@@ -81,7 +81,8 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Usuario();
+        
+		$model = new Usuario();
 
         if ($model->load(Yii::$app->request->post()) ){//&& $model->save()) {
 
@@ -124,12 +125,14 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
-
          $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())){
+			$model->save(false);
+			return $this->redirect(['view', 'id' => $model->id]);
+			
         } else {
+			
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -178,12 +181,11 @@ class UsuarioController extends Controller
 
             $model->save(false);
             
-            $this->mensagens('success', 'Alteração de Senha', 'A senha foi alterada com sucesso.');
-            
-            if(Yii::$app->user->identity->perfil == "admin")
-                return $this->redirect(['login/trocasenha']);   
-            else
-                return $this->redirect(['dashboard/index']);                
+            if((Yii::$app->user->identity->perfil == "admin") || (Yii::$app->user->identity->perfil == "Secretaria"))
+				return $this->redirect(['usuario/trocasenha','success' => 'Senha alterada com sucesso!']);
+				//return $this->redirect(['login/trocasenha']);
+         //   else
+				//return $this->redirect(['dashboard/index','success' => 'Senha alterada com sucesso!']);							
         }
         else
         {

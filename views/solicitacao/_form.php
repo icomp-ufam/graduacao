@@ -71,7 +71,14 @@ use yii\helpers\ArrayHelper;
         <?php } ?>
         
         
-        <?= $form->field($model, 'status')->hiddenInput(['value' => 'Aberto'])->label(false) ?>
+		<?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>	
+			<?= $form->field($model, 'status')->hiddenInput(['value' => 'Aberto'])->label(false) ?>		
+		<?php }
+			else if(Yii::$app->user->identity->perfil == 'Coordenador'){ 
+		?>
+			<?= $form->field($model, 'status')->hiddenInput(['value' => 'Submetida'])->label(false) ?>
+		<?php }
+		?>
         
         <?= $form->field($model, 'anexo_id')->hiddenInput(['value' => 0])->label(false) ?>
 

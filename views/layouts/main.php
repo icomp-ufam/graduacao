@@ -7,6 +7,7 @@ use kartik\icons\Icon;
 use app\models\Usuario;
 use app\models\Comissao;
 use app\models\Curso;
+use yii\bootstrap\Alert;
 
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/main.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -278,7 +279,7 @@ AppAsset::register($this);
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-         
+          <!--<?= Alert::widget() ?>-->
           <?= $content ?>
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">

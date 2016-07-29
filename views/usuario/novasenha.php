@@ -16,6 +16,12 @@ $this->title = 'Trocar Senha';
 </section>
 <section class="content">
 <div class="box box-success"> 
+	 <?php if(Yii::$app->request->get('success')){?>
+	   <div id="alerta" class="alert alert-success" role="alert"><?php echo Yii::$app->request->get('success') ?></div>
+       <script>
+           setTimeout(function(){ $('#alerta').fadeOut(); }, 3000);
+       </script>
+     <?php } ?>
 <div class="box-body">
 
             <?php $form = ActiveForm::begin(); ?>
@@ -33,6 +39,8 @@ $this->title = 'Trocar Senha';
                     <?php
                         if(Yii::$app->user->identity->perfil == "admin")
                             echo Html::a('Cancelar', ['curso/index'], ['class' => 'btn btn-danger']);
+						if(Yii::$app->user->identity->perfil == "Secretaria")
+                            echo Html::a('Cancelar', ['solicitacao/index'], ['class' => 'btn btn-danger']);
                         else
                             echo Html::a('Cancelar', ['dashboard/index'], ['class' => 'btn btn-danger']);
                     ?>

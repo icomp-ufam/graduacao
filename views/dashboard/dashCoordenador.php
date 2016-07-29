@@ -16,7 +16,7 @@ use scotthuangzl\googlechart\GoogleChart;
                 <h4>Aguardando a Secretaria</h4>
             </div>
 
-            <a href="#" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao%2Findex" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -29,7 +29,7 @@ use scotthuangzl\googlechart\GoogleChart;
                 <h4>Solicitações em aberto</h4>
             </div>
 
-            <a href="#" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao%2Findex" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -42,7 +42,7 @@ use scotthuangzl\googlechart\GoogleChart;
                 <h4>Solicitações Arquivadas</h4>
             </div>
 
-            <a href="#" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao%2Findex" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 

@@ -77,6 +77,12 @@ class DashboardController extends \yii\web\Controller
                 ");
                 
                 $hsExtensao = $cmd->queryScalar();
+				
+				$cmd = Yii::$app->db->createCommand("SELECT max_horas AS soma 
+                    FROM curso AS C WHERE C.id IN (SELECT curso_id FROM usuario WHERE id = $id)
+                ");
+                
+                $totalGrupos = $cmd->queryScalar();
                 
                 if($hsEnsino==null)     $hsEnsino   = 0 ;
                 if($hsPesquisa==null)   $hsPesquisa = 0 ;
@@ -92,7 +98,7 @@ class DashboardController extends \yii\web\Controller
                 ];
 
                 $totalConcluido = $hsEnsino+$hsPesquisa+$hsExtensao;
-                $totalGrupos = $grupos[1] + $grupos[2] + $grupos[3];
+                //$totalGrupos = $grupos[1] + $grupos[2] + $grupos[3];
 
                 return $this->render('dashAluno', [
                     'horasEmEnsino'     =>  $hsEnsino, 
