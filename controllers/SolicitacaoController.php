@@ -258,13 +258,13 @@ class SolicitacaoController extends Controller
                     $s->status = $status;
                     $s->save();
                 }
-                else if($s->status=='Deferida')
+                else if($s->status=='Submetida')
                 {
                     $s->status = $status;
                     $s->save();
                 }
 				else{
-					return $this->redirect(['index','error' => 'Apenas solicitações com status PRÉ-APROVADAS ou DEFERIDAS podem ser Avaliadas']);
+					return $this->redirect(['index','error' => 'Apenas solicitações com status SUBMETIDAS ou PRÉ-APROVADAS podem ser Avaliadas']);
 				}
             }
 
