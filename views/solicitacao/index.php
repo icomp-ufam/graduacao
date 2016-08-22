@@ -104,9 +104,7 @@ $this->title = 'Solicitações';
                             return ['value' => $dataProvider['id']];
                         }
                     ],
-
-                    Yii::$app->user->identity->perfil == 'Aluno' ? 'id' : ['attribute'=>'Aluno', 'value'=>'name'],
-
+					Yii::$app->user->identity->perfil <> 'Aluno' ? ['attribute'=>'Aluno', 'value'=>'name']: 'id',					
                     'descricao',
                     [
                         'attribute' => 'Inicio',

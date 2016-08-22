@@ -20,11 +20,11 @@
 
         var busca = $( "#solicitacaosearch-id option:selected" ).text();
         console.log(busca);
-
-        var COLUNA = 6 ; //coluna do status na tabela
+		
+        var COLUNA =  $('table thead th').length -2;  //coluna do status na tabela
 
         if( busca == "Todas")
-        {
+        {	
             busca = '';
             table.columns(COLUNA).search( busca ).draw();
         }

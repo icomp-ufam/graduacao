@@ -92,7 +92,7 @@ class SolicitacaoSearch extends Solicitacao
         * por Alunos do Curso que o Coordenador logado
         * pertence
         * ****************************************** */
-        if(Yii::$app->user->identity->perfil=='Coordenador')
+        if(Yii::$app->user->identity->perfil=='Coordenador' || Yii::$app->user->identity->perfil=='Secretaria')
         {
                 
             $dataProvider = new SqlDataProvider([
@@ -101,10 +101,9 @@ class SolicitacaoSearch extends Solicitacao
                           WHERE solicitante_id = usuario.id
                           AND usuario.curso_id=:cid',
                 'params' => [':cid' => Yii::$app->user->identity->curso_id],
-                'pagination' => ['pageSize' => 20],
+                'pagination' => ['pageSize' => -1],
             ]);
 
-            return $dataProvider;
         }
 
         /* ********************************************
@@ -112,21 +111,6 @@ class SolicitacaoSearch extends Solicitacao
         * por Alunos do Curso que o secretaria logado
         * pertence
         * ****************************************** */
-        if(Yii::$app->user->identity->perfil=='Secretaria')
-        {
-
-            $dataProvider = new SqlDataProvider([
-                'sql' => 'SELECT solicitacao.*, usuario.name
-                          FROM solicitacao, usuario
-                          WHERE solicitante_id = usuario.id
-                          AND usuario.curso_id=:cid',
-                'params' => [':cid' => Yii::$app->user->identity->curso_id],
-                'pagination' => ['pageSize' => 20],
-            ]);
-
-
-            return $dataProvider;
-        }
 
         return $dataProvider;
     }

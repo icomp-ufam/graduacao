@@ -57,11 +57,11 @@ class ProfessorMonitoriaSearch extends ProfessorMonitoria
         }
 
         //Pega o id do usuario baseando-se no CPF do usuário logado
-        $usuario = Usuario::findOne(['CPF' => Yii::$app->user->identity->cpf]);
+      //  $usuario = Usuario::findOne(['CPF' => Yii::$app->user->identity->cpf]);
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'idProfessor' => $usuario->id,
+         //   'idProfessor' => $usuario->id,
         ]);
 
         $query->andFilterWhere(['like', 'aluno', $this->aluno]);
