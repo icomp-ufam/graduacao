@@ -36,7 +36,7 @@ use yii\widgets\MaskedInput;
 
                             if(isset($erro))
                             {
-                                echo "<p class='col-sm-4 alert alert-danger'>";
+                                echo "<p class='col-sm-12 alert alert-danger'>";
                                 echo $erro ;
                                 echo "</p>";
                             }

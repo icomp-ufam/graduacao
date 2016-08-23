@@ -60,6 +60,7 @@ use yii\helpers\ArrayHelper;
     ?>    
     
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'password_repeat')->passwordInput()->label("Repetir Senha:")  ?>
     
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

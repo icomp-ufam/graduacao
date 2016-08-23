@@ -181,11 +181,7 @@ class UsuarioController extends Controller
 
             $model->save(false);
             
-            if((Yii::$app->user->identity->perfil == "admin") || (Yii::$app->user->identity->perfil == "Secretaria"))
-				return $this->redirect(['usuario/trocasenha','success' => 'Senha alterada com sucesso!']);
-				//return $this->redirect(['login/trocasenha']);
-         //   else
-				//return $this->redirect(['dashboard/index','success' => 'Senha alterada com sucesso!']);							
+            return $this->redirect(['usuario/trocasenha','success' => 'Senha alterada com sucesso!']);
         }
         else
         {
@@ -205,7 +201,7 @@ class UsuarioController extends Controller
         }
     }
 
-        protected function mensagens($tipo, $titulo, $mensagem){
+    protected function mensagens($tipo, $titulo, $mensagem){
         Yii::$app->session->setFlash($tipo, [
             'type' => $tipo,
             'icon' => 'home',

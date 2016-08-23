@@ -34,6 +34,9 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     /**
      * @inheritdoc
      */
+	 
+	 public $password_repeat;
+	 
     public static function tableName()
     {
         return 'usuario';
@@ -61,7 +64,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'cpf', 'email', 'perfil','matricula'], 'required', 'message'=> 'Este campo é obrigatório'],
+            [['name', 'cpf', 'email', 'perfil','matricula', 'curso_id'], 'required', 'message'=> 'Este campo é obrigatório'],
             [['dtEntrada', 'password', 'name'], 'safe'],
             [['isAdmin', 'isAtivo', 'curso_id'], 'integer'],
             [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
@@ -69,6 +72,10 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             // cpf validator
             ['cpf', CpfValidator::className()],
             ['password', 'string', 'length' => [6, 10], 'message'=> 'A senha deve ter entre 6 e 10 caracteres'],
+			[['password_repeat'], 'required', 'when' => function($model){ return $model->password != "";}, 'whenClient' => "function (attribute, value) {
+                return $('#user-password').val() != '';}"],
+			['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Esta senha não é igual à anterior", 'when' => function($model){ return $model->password != "";}, 'whenClient' => "function (attribute, value) {
+                return $('#user-password').val() != '';}"],
 			
         ];
     }

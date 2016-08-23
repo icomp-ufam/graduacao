@@ -137,7 +137,7 @@ class LoginController extends Controller
 
             if( $usuario != null )
             {
-                return $this->render('novousuario', ['erro'=>'EMAIL já cadastrado']);
+                return $this->render('novousuario', ['erro'=>'E-mail já cadastrado']);
             }
 
             /* * pega os dados do webservice do cpd * */
@@ -152,10 +152,6 @@ class LoginController extends Controller
 
             $webservice = @file_get_contents($link);
 
-//var_dump($link);
-//var_dump($webservice);
-
-            
             // Verifica se o WS está disponivel
             //Caso negativo ele exibe o formulario em branco
             if($webservice == null)
@@ -190,7 +186,7 @@ class LoginController extends Controller
 
             if($atual==null)
             {
-                return $this->render('novousuario', ['erro'=>'O aluno não está ativo']);
+                return $this->render('novousuario', ['erro'=>'O CPF não conrresponde a um aluno ativo na UFAM']);
             }
             
             // Adiciona os dados do aluno no model e redireciona p 
@@ -208,17 +204,18 @@ class LoginController extends Controller
             //Verifica se o curso pertence aos cursos
             //cadastrados
             $curso = Curso::find()->where(['codigo' => $curso_sigla])->one();
-            
-            if($curso==null)
+			
+            if($curso == null)
             {
-                throw new NotFoundHttpException('O Curso não está cadastrado para este aluno');
+               // throw new NotFoundHttpException('O Curso não está cadastrado para este aluno');
+			   return $this->render('create', ['erro' => 'O curso associado ao aluno identificado não foi encontrado. Escolha o curso na lista acima.', 'model' => $model ]);                 
             }
 
             $model->curso_id = $curso->id;
 
             $model->isNewRecord = false;
             
-            return $this->render('create', ['model' => $model ]);                 
+			return $this->render('create', ['model' => $model ]);                 
 
         }
         // se a requisicao for do tipo GET

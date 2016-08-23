@@ -21,8 +21,15 @@ $this->title = 'Novo Usuário';
         <?= $this->render('_form', [
             'model' => $model,
         ]) ?>        
-   
+		<?php 
 
+            if(isset($erro))
+            {
+                echo "<p class='col-sm-12 alert alert-danger'>";
+                echo $erro ;
+                echo "</p>";
+            }
+        ?>
 
 </div>
 </div>

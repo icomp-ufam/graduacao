@@ -8,14 +8,21 @@ $(document).ready(function() {
 function validate() {
     var password1 = $("#pw1").val();
     var password2 = $("#pw2").val();
-
-    if(password1 == password2) {
-        //$("#status").text("valid");
-        $("#status").hide();
-    }
-    else {
+	
+	if(password1.length < 6 || password1.length > 10)
+	{
         $("#status").show();
-        $("#status").text("A senha não confere!!");
+        $("#status").text("O tamanho da senha deve ser entre 6 e 10 caracteres!!");
     }
+	else{
+		if(password1 == password2) {
+			//$("#status").text("valid");
+			$("#status").hide();
+		}
+		else {
+			$("#status").show();
+			$("#status").text("A senha não confere!!");
+		}
+	}
 
 }
