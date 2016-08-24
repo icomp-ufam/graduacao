@@ -25,7 +25,7 @@ use yii\helpers\ArrayHelper;
         
 	<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cpf')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'cpf')->textInput(['maxlength' => true])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '999.999.999-99',]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
@@ -43,7 +43,7 @@ use yii\helpers\ArrayHelper;
         if(Yii::$app->user->identity->isAdmin)
         {
             
-            $items = ['Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin', 'Aluno'=>'Aluno'];
+            $items = ['Professor'=>'Professor','Secretaria'=>'Secretaria', 'Coordenador'=>'Coordenador', 'admin'=>'Admin', 'Aluno'=>'Aluno'];
             echo $form->field($model, 'perfil')->dropDownList($items, ['prompt'=>'Selecione']);
             
         }
@@ -56,14 +56,8 @@ use yii\helpers\ArrayHelper;
     }
 
     ?>    
-    <?php 
-        if( $model->isNewRecord ) 
-        {
-    ?>
-            <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-    <?php 
-        }
-    ?>
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+		<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
    
  
     <div class="form-group">

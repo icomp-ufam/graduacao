@@ -91,6 +91,7 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
             'cpf' => 'CPF',
             'email' => 'Email',
             'password' => 'Senha',
+			'password_repeat' => 'Confirmar Senha',
             'matricula' => 'Matrícula',
             'siape' => 'SIAPE',
             'perfil' => 'Perfil',

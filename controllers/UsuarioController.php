@@ -128,6 +128,7 @@ class UsuarioController extends Controller
          $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())){
+			$model->password = md5($model->password);
 			$model->save(false);
 			return $this->redirect(['view', 'id' => $model->id]);
 			
@@ -167,7 +168,23 @@ class UsuarioController extends Controller
 
     public function actionTrocasenha()
     {
-        if ( Yii::$app->request->post())
+
+         $id = Yii::$app->user->identity->id;
+		 $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())){
+			$model->password = md5($model->password);
+			$model->save(false);
+			return $this->redirect(['usuario/trocasenha','success' => 'Dados alterados com sucesso!']);
+			
+        } else {
+			
+            //return $this->render('update', ['model' => $model,]);
+			return $this->render('novasenha', ['model' => $model,]);
+        }
+
+		
+	/*if ( Yii::$app->request->post())
         {
 
             $model = new Usuario();
@@ -198,7 +215,7 @@ class UsuarioController extends Controller
             }
 
             return $this->render('novasenha', ['model' => $model]);
-        }
+        }*/
     }
 
     protected function mensagens($tipo, $titulo, $mensagem){

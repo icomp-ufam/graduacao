@@ -261,7 +261,7 @@ AppAsset::register($this);
               <li class="treeview">
                   <a href="?r=usuario/trocasenha">
                       <i class="fa fa-key fa-fw"></i>
-                      <span>Troca Senha</span>
+                      <span>Alterar Dados da Conta</span>
                   </a>
               </li>
               <li class="treeview">
