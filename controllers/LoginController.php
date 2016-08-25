@@ -121,6 +121,7 @@ class LoginController extends Controller
         {
             
             $model = new Usuario();
+			$model->scenario = 'insert';
 
             //verifica se o CPF já está cadastrado
             $usuario = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();

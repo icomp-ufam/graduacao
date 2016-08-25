@@ -8,6 +8,7 @@ use yii\db\ActiveRecord;
 use yii\base\Security;
 use yii\web\IdentityInterface;
 use yiibr\brvalidator\CpfValidator;
+use yiibr\brvalidator\YiiConditionalValidator;
 use app\models\Curso;
 use app\models\Solicitacao;
 
@@ -64,22 +65,23 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'cpf', 'email', 'perfil','matricula', 'curso_id'], 'required', 'message'=> 'Este campo é obrigatório'],
-            [['dtEntrada', 'password', 'name'], 'safe'],
+            [['name', 'curso_id', 'cpf', 'email', 'perfil','matricula'], 'required', 'message'=> 'Este campo é obrigatório'],
+			
+			//['curso_id', 'required', 'when' => function($model) { return $model->perfil == 'Aluno';}, 'whenClient' => "function (attribute, value) {
+				//return $('#perfil').val() == 'Aluno'; }", 'message'=> 'Este campo é obrigatório'],
+		
+            [['dtEntrada', 'name'], 'safe'],
             [['isAdmin', 'isAtivo', 'curso_id'], 'integer'],
-            [['name', 'cpf', 'email', 'password', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
+			[['password'], 'required', 'on' => 'insert', 'message'=> 'Este campo é obrigatório'],
+            [['name', 'cpf', 'email', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
             [['auth_key'], 'string', 'max' => 255],
             // cpf validator
-            ['cpf', CpfValidator::className()],
+            ['cpf', CpfValidator::className(), 'message'=> 'CPF inválido'],
             ['password', 'string', 'length' => [6, 10], 'message'=> 'A senha deve ter entre 6 e 10 caracteres'],
-			[['password_repeat'], 'required', 'when' => function($model){ return $model->password != "";}, 'whenClient' => "function (attribute, value) {
-                return $('#user-password').val() != '';}"],
-			['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Esta senha não é igual à anterior", 'when' => function($model){ return $model->password != "";}, 'whenClient' => "function (attribute, value) {
-                return $('#user-password').val() != '';}"],
-			
+			['password_repeat', 'compare', 'compareAttribute'=>'password', 'skipOnEmpty' => false, 'message'=>"Esta senha não é igual à anterior"],
         ];
     }
-
+	
     /**
      * @inheritdoc
      */

@@ -83,6 +83,7 @@ class UsuarioController extends Controller
     {
         
 		$model = new Usuario();
+		$model->scenario = 'insert';
 
         if ($model->load(Yii::$app->request->post()) ){//&& $model->save()) {
 
@@ -125,10 +126,16 @@ class UsuarioController extends Controller
      */
     public function actionUpdate($id)
     {
-         $model = $this->findModel($id);
-
+        $model = $this->findModel($id);
+		$senhaAntiga = $model->password;
+		
         if ($model->load(Yii::$app->request->post())){
-			$model->password = md5($model->password);
+			
+			if($model->password != "")
+				$model->password = md5($model->password);
+			else
+				$model->password = $senhaAntiga;
+			
 			$model->save(false);
 			return $this->redirect(['view', 'id' => $model->id]);
 			
@@ -169,17 +176,21 @@ class UsuarioController extends Controller
     public function actionTrocasenha()
     {
 
-         $id = Yii::$app->user->identity->id;
-		 $model = $this->findModel($id);
+        $id = Yii::$app->user->identity->id;
+		$model = $this->findModel($id);
+		$senhaAntiga = $model->password;
 
         if ($model->load(Yii::$app->request->post())){
-			$model->password = md5($model->password);
+			if($model->password != "")
+				$model->password = md5($model->password);
+			else
+				$model->password = $senhaAntiga;
+			
 			$model->save(false);
 			return $this->redirect(['usuario/trocasenha','success' => 'Dados alterados com sucesso!']);
 			
         } else {
 			
-            //return $this->render('update', ['model' => $model,]);
 			return $this->render('novasenha', ['model' => $model,]);
         }
 

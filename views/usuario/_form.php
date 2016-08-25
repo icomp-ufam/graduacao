@@ -56,8 +56,8 @@ use yii\helpers\ArrayHelper;
     }
 
     ?>    
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-		<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'value' => '']) ?>
+		<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true, 'value' => '']) ?>
    
  
     <div class="form-group">
