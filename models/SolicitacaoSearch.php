@@ -20,7 +20,7 @@ class SolicitacaoSearch extends Solicitacao
     {
         return [
             [['id', 'horasComputadas', 'atividade_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
-            [['descricao', 'dtInicio', 'dtTermino', 'observacoes', 'status', 'solicitante_id'], 'safe'],
+            [['descricao', 'dtInicio', 'dtTermino', 'observacoes', 'status', 'solicitante_id', 'name'], 'safe'],
         ];
     }
 
@@ -44,6 +44,29 @@ class SolicitacaoSearch extends Solicitacao
     {
         $query = Solicitacao::find();
 
+
+        /* ********************************************
+        * Filtra somente as Solicitacoes feitas
+        * por Alunos do Curso que o Coordenador 
+        * ou Secrataria logado pertence
+        * ****************************************** */
+        if(Yii::$app->user->identity->perfil=='Coordenador' || Yii::$app->user->identity->perfil=='Secretaria')
+        {
+                
+            $query = Solicitacao::find()->select("solicitacao.*, usuario.name")->joinWith(["usuario"])
+           ->where('status <> "Aberto" AND usuario.curso_id = '.Yii::$app->user->identity->curso_id);
+		   
+			//$dataProvider = new SqlDataProvider([
+              //  'sql' => 'SELECT solicitacao.*, usuario.name
+                //          FROM solicitacao, usuario
+                  //        WHERE solicitante_id = usuario.id
+                    //      AND usuario.curso_id=:cid',
+                //'params' => [':cid' => Yii::$app->user->identity->curso_id],
+                //'pagination' => ['pageSize' => -1],
+            //]);
+
+        }
+		
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -58,23 +81,6 @@ class SolicitacaoSearch extends Solicitacao
             return $dataProvider;
         }
 
-        /* grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'dtInicio' => $this->dtInicio,
-            'dtTermino' => $this->dtTermino,
-            'horasComputadas' => $this->horasComputadas,
-            'atividade_id' => $this->atividade_id,
-            //'solicitante_id' => $this->solicitante_id,
-            'aprovador_id' => $this->aprovador_id,
-            'anexo_id' => $this->anexo_id,
-        ]);
-
-        $query->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'observacoes', $this->observacoes])
-            ->andFilterWhere(['like', 'status', $this->status]);
-        */
-
         /* ********************************************
         * Filtra somente as Solicitacoes feitas
         * pelo Usuario logado no caso de Aluno
@@ -87,30 +93,23 @@ class SolicitacaoSearch extends Solicitacao
 
         }
 
-        /* ********************************************
-        * Filtra somente as Solicitacoes feitas
-        * por Alunos do Curso que o Coordenador logado
-        * pertence
-        * ****************************************** */
-        if(Yii::$app->user->identity->perfil=='Coordenador' || Yii::$app->user->identity->perfil=='Secretaria')
-        {
-                
-            $dataProvider = new SqlDataProvider([
-                'sql' => 'SELECT solicitacao.*, usuario.name
-                          FROM solicitacao, usuario
-                          WHERE solicitante_id = usuario.id
-                          AND usuario.curso_id=:cid',
-                'params' => [':cid' => Yii::$app->user->identity->curso_id],
-                'pagination' => ['pageSize' => -1],
-            ]);
+		// grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'dtInicio' => $this->dtInicio,
+            'dtTermino' => $this->dtTermino,
+            'horasComputadas' => $this->horasComputadas,
+            'atividade_id' => $this->atividade_id,
+            //'solicitante_id' => $this->solicitante_id,
+            'aprovador_id' => $this->aprovador_id,
+			'status' => $this->status,
+            'anexo_id' => $this->anexo_id,
+        ]);
 
-        }
-
-        /* ********************************************
-        * Filtra somente as Solicitacoes feitas
-        * por Alunos do Curso que o secretaria logado
-        * pertence
-        * ****************************************** */
+        $query->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'usuario.name', $this->name])
+			->andFilterWhere(['like', 'observacoes', $this->observacoes]);
+        		
 
         return $dataProvider;
     }

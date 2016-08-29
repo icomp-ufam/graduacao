@@ -29,6 +29,9 @@ class Solicitacao extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+	 
+	 public $name;
+	 
     public static function tableName()
     {
         return 'solicitacao';

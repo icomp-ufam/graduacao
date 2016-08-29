@@ -13,13 +13,6 @@ $this->title = 'Solicitações';
 
 ?>
 
-<?php
-    $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.dataTables.js',['depends' => [\yii\web\JqueryAsset::className()]]);
-    $this->registerJsFile(Yii::$app->request->baseUrl.'/js/dataTables.bootstrap.js',['depends' => [\yii\web\JqueryAsset::className()]]);
-    $this->registerJsFile(Yii::$app->request->baseUrl.'/js/initTable.js');
-    $this->registerCssFile(Yii::$app->request->baseUrl.'/css/dataTables.bootstrap.css');
-?>
-
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -80,31 +73,28 @@ $this->title = 'Solicitações';
 
         <label>Selecione o filtro:</label>  
             
-       <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-        <?= Html::activeDropDownList($searchModel, 'id', ['Submetida', 'Pre-aprovada','Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
-       <?php } ?>
-
-       <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-        <?= Html::activeDropDownList($searchModel, 'id', ['Submetida','Pre-aprovada', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
-       <?php } ?>
-       
-       <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-        <?= Html::activeDropDownList($searchModel, 'id', ['Aberto','Submetida', 'Deferida', 'Indeferida', 'Arquivada', 'Todas'] ) ?>
-       <?php } ?> 
+       <?php 
+			if(Yii::$app->user->identity->perfil == 'Aluno')
+				$opcoes = array ('Aberto' => 'Aberto', 'Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
+			else
+				$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
+			
+		?>
 
          <hr/>
 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-                'summary' => '',
-                'tableOptions' => ['class' => 'table  table-bordered table-hover'],
+				'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\CheckboxColumn',
                         'checkboxOptions' => function ($dataProvider, $key, $index, $column) {
                             return ['value' => $dataProvider['id']];
                         }
                     ],
-					Yii::$app->user->identity->perfil <> 'Aluno' ? ['attribute'=>'Aluno', 'value'=>'name']: 'id',					
+					'id',					
+					['label' => 'Nome do Aluno', 'attribute' => 'name', 'value' => 'name', 'visible' => Yii::$app->user->identity->perfil <> 'Aluno'],
+					
                     'descricao',
                     [
                         'attribute' => 'Inicio',
@@ -116,8 +106,13 @@ $this->title = 'Solicitações';
                         'format'    => ['date', 'php:d-m-Y'],
                         'value'     => 'dtTermino'
                     ],
-                    ['attribute'=>'Horas Solicitadas', 'value'=>'horasComputadas'],
-                    'status',
+                    ['label' => 'Horas Solicitadas', 'attribute'=>'horasComputadas', 'value'=>'horasComputadas'],
+					[   'label' => 'Status',
+						'attribute' => 'status',
+						'filter'=> $opcoes,
+						'value' => 'status',
+					],
+					//'status',
                     //
                     ['class' => 'yii\grid\ActionColumn',
                         'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}',

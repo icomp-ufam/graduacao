@@ -31,7 +31,6 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
   
-    
 	<?= $form->field($model, 'curso_id')->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'value' => '']) ?>
@@ -39,7 +38,7 @@ use yii\helpers\ArrayHelper;
  
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a('Cancelar', ['usuario/index'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Cancelar', ['/'], ['class' => 'btn btn-danger']) ?>
     </div>
 </div>
     <?php ActiveForm::end(); ?>

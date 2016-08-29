@@ -9,6 +9,20 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<script>
+$(document).ready(function(){
+  var droplist = $('#dropdownlist');
+  droplist.change(function(e){
+    if (droplist.val() == 'Yes') {
+      $('#mydiv').show();
+    }
+    else {
+      $('#mydiv').hide();
+    }
+  })
+});
+
+</script>
 <div class="usuario-form">
 
     <?php 
@@ -29,12 +43,6 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
-  
-    <?= $form->field($model, 'curso_id')
-                    ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
-
-   
     <?php
     
     if(isset(Yii::$app->user->identity))
@@ -56,6 +64,13 @@ use yii\helpers\ArrayHelper;
     }
 
     ?>    
+
+    <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
+  
+    <?= $form->field($model, 'curso_id')
+                    ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
+
+   
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'value' => '']) ?>
 		<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true, 'value' => '']) ?>
    

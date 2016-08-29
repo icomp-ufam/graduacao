@@ -71,9 +71,11 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
 				//return $('#perfil').val() == 'Aluno'; }", 'message'=> 'Este campo é obrigatório'],
 		
             [['dtEntrada', 'name'], 'safe'],
-            [['isAdmin', 'isAtivo', 'curso_id'], 'integer'],
+            [['isAdmin', 'isAtivo', 'curso_id', 'matricula'], 'integer', 'message'=> 'Este campo deve ser numérico'],
 			[['password'], 'required', 'on' => 'insert', 'message'=> 'Este campo é obrigatório'],
-            [['name', 'cpf', 'email', 'matricula', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
+            [['name', 'cpf', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
+			['email', 'email', 'message'=> 'E-mail inválido'],
+			['email', 'unique', 'message'=> 'E-mail já cadastrado no sistema'],
             [['auth_key'], 'string', 'max' => 255],
             // cpf validator
             ['cpf', CpfValidator::className(), 'message'=> 'CPF inválido'],

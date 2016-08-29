@@ -122,23 +122,13 @@ class LoginController extends Controller
             
             $model = new Usuario();
 			$model->scenario = 'insert';
-
+echo "entrei";
             //verifica se o CPF já está cadastrado
             $usuario = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();
 
             if( $usuario != null )
             {
-
                 return $this->render('novousuario', ['erro'=>'Usuário já cadastrado']);
-
-            }
-
-            //verifica se o EMAIL já está cadastrado
-            $usuario = Usuario::find()->where(['email' => Yii::$app->request->post('email') ])->one();
-
-            if( $usuario != null )
-            {
-                return $this->render('novousuario', ['erro'=>'E-mail já cadastrado']);
             }
 
             /* * pega os dados do webservice do cpd * */
@@ -157,10 +147,8 @@ class LoginController extends Controller
             //Caso negativo ele exibe o formulario em branco
             if($webservice == null)
             {
-                //return $this->render('novousuario', ['erro'=>'Não foi possível recuperar os dados do aluno']) ;
                 $model->cpf = Yii::$app->request->post('cpf');
                 $model->isNewRecord = true;
-                //$model->save(false);
                 return $this->render('create', ['model' => $model ]);
             }
             
@@ -193,13 +181,9 @@ class LoginController extends Controller
             // Adiciona os dados do aluno no model e redireciona p 
             // tela de cadastro...
             $model->name        = $atual['nome'] ;
-            
             $model->cpf         = Yii::$app->request->post('cpf');
-            
             $model->email       = $atual['email'];
-            
             $model->matricula   = $atual['matriculaAluno'];
-            
             $curso_sigla = $atual['curso'];
             
             //Verifica se o curso pertence aos cursos
@@ -213,7 +197,6 @@ class LoginController extends Controller
             }
 
             $model->curso_id = $curso->id;
-
             $model->isNewRecord = false;
             
 			return $this->render('create', ['model' => $model ]);                 
@@ -229,10 +212,28 @@ class LoginController extends Controller
 
     public function actionCreate()
     {
-           $model = new Usuario();
+        $model = new Usuario();
         
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
             
+            //verifica se o CPF já está cadastrado
+            $usuario = Usuario::find()->where(['cpf' => $model->cpf ])->one();
+
+            if( $usuario != null )
+            {
+                $model->addError('cpf','O CPF informado já está cadastrado...');
+                return $this->render('create', ['model' => $model]);
+            }
+
+            //verifica se o EMAIL já está cadastrado
+            $usuario = Usuario::find()->where(['email' => $model->email ])->one();
+
+            if( $usuario != null )
+            {
+                $model->addError('email','O EMAIL informado já está cadastrado...');
+                return $this->render('create', ['model' => $model]);
+            }
+
             $model->password = md5($model->password);
             
             $model->save(false);

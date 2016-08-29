@@ -16,7 +16,7 @@ use scotthuangzl\googlechart\GoogleChart;
                 <h4>Aguardando a Secretaria</h4>
             </div>
 
-            <a href="?r=solicitacao%2Findex" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao%2Findex&SolicitacaoSearch%5Bstatus%5D=Submetida" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -26,10 +26,10 @@ use scotthuangzl\googlechart\GoogleChart;
             <div class="inner">
                 <p><i class="fa fa-exclamation-triangle fa-4x pull-right"></i></p>
                 <h3><?php echo $aberto ?></h3>
-                <h4>Solicitações em aberto</h4>
+                <h4>Solicitações Pré-aprovadas</h4>
             </div>
 
-            <a href="?r=solicitacao%2Findex" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao%2Findex&SolicitacaoSearch%5Bstatus%5D=Pre-aprovada" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -42,7 +42,7 @@ use scotthuangzl\googlechart\GoogleChart;
                 <h4>Solicitações Arquivadas</h4>
             </div>
 
-            <a href="?r=solicitacao%2Findex" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao%2Findex&SolicitacaoSearch%5Bstatus%5D=Arquivada" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
