@@ -35,8 +35,11 @@ class Periodo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo', 'dtInicio', 'dtTermino'], 'required', 'message'=> 'Este campo é obrigatório'],
-            [['dtInicio', 'dtTermino', 'dtInicioInscMonitoria', 'dtTerminoInscMonitoria'], 'safe'],
+            [['codigo', 'dtInicio', 'dtTermino', 'dtInicioInscMonitoria','dtTerminoInscMonitoria'], 'required', 'message'=> 'Este campo é obrigatório'],
+			[['dtInicio','dtTermino'], 'date', 'format' => 'php:d-m-Y', 'message'=> 'O formato desta data é inválido'],
+			[['dtInicioInscMonitoria','dtTerminoInscMonitoria'], 'date', 'format' => 'php:d-m-Y', 'message'=> 'O formato desta data é inválido'],
+			['dtInicio','validateDates'],
+			['dtInicioInscMonitoria','validateDates'],
             [['justificativaPlanoSemestral'], 'string'],
             [['isAtivo'], 'integer'],
             [['codigo'], 'string', 'max' => 10],
@@ -74,4 +77,22 @@ class Periodo extends \yii\db\ActiveRecord
                 break;
         }
     }
+	
+	public function validateDates(){
+		if(strtotime($this->dtTermino) <= strtotime($this->dtInicio)){
+			$this->addError('dtInicio','Por favor, informe uma data de início anterior à data de término');
+			$this->addError('dtTermino','Por favor, informe uma data de término posterior à data de início');
+		}
+		if(strtotime($this->dtTerminoInscMonitoria) <= strtotime($this->dtInicioInscMonitoria)){
+			$this->addError('dtInicioInscMonitoria','Por favor, informe uma data de início da inscrição de monitoria anterior à data de término');
+			$this->addError('dtTerminoInscMonitoria','Por favor, informe uma data de término da inscrição de monitoria posterior à data de início');
+		}
+		if(strtotime($this->dtInicioInscMonitoria) < strtotime($this->dtInicio) || strtotime($this->dtInicioInscMonitoria) > strtotime($this->dtTermino)){
+			$this->addError('dtInicioInscMonitoria','A data de início da inscrição de monitoria deve ser dentro do intervalo do período');
+		}
+		if(strtotime($this->dtTerminoInscMonitoria) <= strtotime($this->dtInicio) || strtotime($this->dtTerminoInscMonitoria) > strtotime($this->dtTermino)){
+			$this->addError('dtTerminoInscMonitoria','A data de término da inscrição de monitoria deve ser dentro do intervalo do período');
+		}
+		
+	}
 }

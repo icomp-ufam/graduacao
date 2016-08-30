@@ -66,10 +66,9 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
     {
         return [
             [['name', 'curso_id', 'cpf', 'email', 'perfil','matricula'], 'required', 'message'=> 'Este campo é obrigatório'],
-			
+	//		[['name', 'cpf', 'email', 'perfil','matricula'], 'required', 'message'=> 'Este campo é obrigatório'],
 			//['curso_id', 'required', 'when' => function($model) { return $model->perfil == 'Aluno';}, 'whenClient' => "function (attribute, value) {
-				//return $('#perfil').val() == 'Aluno'; }", 'message'=> 'Este campo é obrigatório'],
-		
+//				return $('#curso_id').val() == 'Aluno';}", 'message'=> 'Este campo é obrigatório para Alunos'],
             [['dtEntrada', 'name'], 'safe'],
             [['isAdmin', 'isAtivo', 'curso_id', 'matricula'], 'integer', 'message'=> 'Este campo deve ser numérico'],
 			[['password'], 'required', 'on' => 'insert', 'message'=> 'Este campo é obrigatório'],

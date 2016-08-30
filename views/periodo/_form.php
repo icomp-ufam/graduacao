@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
      <div class="col-md-4">
    
-        <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'codigo')->textInput(['maxlength' => true])->widget(\yii\widgets\MaskedInput::className(), ['mask' => '9999/9',]) ?>
         <?= $form->field($model, 'dtInicio')->widget(\yii\jui\DatePicker::classname(), [
                 'options' => ['class' => 'form-control'],
                 'language' => 'pt-BR',
