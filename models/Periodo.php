@@ -36,8 +36,8 @@ class Periodo extends \yii\db\ActiveRecord
     {
         return [
             [['codigo', 'dtInicio', 'dtTermino', 'dtInicioInscMonitoria','dtTerminoInscMonitoria'], 'required', 'message'=> 'Este campo é obrigatório'],
-			[['dtInicio','dtTermino'], 'date', 'format' => 'php:d-m-Y', 'message'=> 'O formato desta data é inválido'],
-			[['dtInicioInscMonitoria','dtTerminoInscMonitoria'], 'date', 'format' => 'php:d-m-Y', 'message'=> 'O formato desta data é inválido'],
+			[['dtInicio','dtTermino','dtInicioInscMonitoria','dtTerminoInscMonitoria'], 'date', 'format' => 'php:Y-m-d', 'message'=> 'O formato desta data é inválido'],
+			[['dtInicio','dtTermino','dtInicioInscMonitoria','dtTerminoInscMonitoria'], 'default', 'value' => null],
 			['dtInicio','validateDates'],
 			['dtInicioInscMonitoria','validateDates'],
             [['justificativaPlanoSemestral'], 'string'],
@@ -79,6 +79,7 @@ class Periodo extends \yii\db\ActiveRecord
     }
 	
 	public function validateDates(){
+		
 		if(strtotime($this->dtTermino) <= strtotime($this->dtInicio)){
 			$this->addError('dtInicio','Por favor, informe uma data de início anterior à data de término');
 			$this->addError('dtTermino','Por favor, informe uma data de término posterior à data de início');
@@ -90,7 +91,7 @@ class Periodo extends \yii\db\ActiveRecord
 		if(strtotime($this->dtInicioInscMonitoria) < strtotime($this->dtInicio) || strtotime($this->dtInicioInscMonitoria) > strtotime($this->dtTermino)){
 			$this->addError('dtInicioInscMonitoria','A data de início da inscrição de monitoria deve ser dentro do intervalo do período');
 		}
-		if(strtotime($this->dtTerminoInscMonitoria) <= strtotime($this->dtInicio) || strtotime($this->dtTerminoInscMonitoria) > strtotime($this->dtTermino)){
+		if(strtotime($this->dtTerminoInscMonitoria) < strtotime($this->dtInicio) || strtotime($this->dtTerminoInscMonitoria) > strtotime($this->dtTermino)){
 			$this->addError('dtTerminoInscMonitoria','A data de término da inscrição de monitoria deve ser dentro do intervalo do período');
 		}
 		

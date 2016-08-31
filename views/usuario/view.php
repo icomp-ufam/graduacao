@@ -38,7 +38,8 @@ $this->title = $model->name;
             'name',
             'cpf',
             'email:email',
-            'matricula',
+            'perfil',
+			'matricula',
             'curso_id',
         ],
     ]) ?>

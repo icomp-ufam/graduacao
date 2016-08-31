@@ -102,16 +102,15 @@ class PeriodoController extends Controller
             }
 
             $model->dtInicio = Yii::$app->formatter->asDate(strtotime($model->dtInicio), 'php:Y-m-d');
-
             $model->dtTermino = Yii::$app->formatter->asDate(strtotime($model->dtTermino), 'php:Y-m-d');
-
             $model->dtInicioInscMonitoria = Yii::$app->formatter->asDate(strtotime($model->dtInicioInscMonitoria), 'php:Y-m-d');
-
             $model->dtTerminoInscMonitoria = Yii::$app->formatter->asDate(strtotime($model->dtTerminoInscMonitoria), 'php:Y-m-d');
 
-            $model->save(false);
-            
-            return $this->redirect(['index']);
+            if($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else
+				return $this->render('create', ['model' => $model,]);
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -129,8 +128,7 @@ class PeriodoController extends Controller
     {
         $model = $this->findModel($id);
 
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){ 
 
             // Quando marcado como o período corrente, então o demais não podem ser o corrente.
             if ($model->isAtivo == 1)
@@ -138,21 +136,18 @@ class PeriodoController extends Controller
                 Yii::$app->db->createCommand()->update('periodo', ['isAtivo' => 0], 'id<>'.$id)->execute();
             }
 
-            $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
-
-            $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
-
-            $model->dtInicioInscMonitoria = Yii::$app->formatter->asDate($model->dtInicioInscMonitoria, 'php:Y-m-d');
-            
-            $model->dtTerminoInscMonitoria = Yii::$app->formatter->asDate($model->dtTerminoInscMonitoria, 'php:Y-m-d');
-
-            $model->save(false);
-
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model->dtInicio = Yii::$app->formatter->asDate(strtotime($model->dtInicio), 'php:Y-m-d');
+            $model->dtTermino = Yii::$app->formatter->asDate(strtotime($model->dtTermino), 'php:Y-m-d');
+            $model->dtInicioInscMonitoria = Yii::$app->formatter->asDate(strtotime($model->dtInicioInscMonitoria), 'php:Y-m-d');
+            $model->dtTerminoInscMonitoria = Yii::$app->formatter->asDate(strtotime($model->dtTerminoInscMonitoria), 'php:Y-m-d');
+			
+            if($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else
+				return $this->render('update', ['model' => $model,]);
+				
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->render('update', ['model' => $model,]);
         }
     }
 

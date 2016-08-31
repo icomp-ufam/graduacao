@@ -58,27 +58,26 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
         return $this->hasOne(Curso::className(), ['id' => 'curso_id']);
     }
     
-    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['name', 'curso_id', 'cpf', 'email', 'perfil','matricula'], 'required', 'message'=> 'Este campo é obrigatório'],
-	//		[['name', 'cpf', 'email', 'perfil','matricula'], 'required', 'message'=> 'Este campo é obrigatório'],
-			//['curso_id', 'required', 'when' => function($model) { return $model->perfil == 'Aluno';}, 'whenClient' => "function (attribute, value) {
-//				return $('#curso_id').val() == 'Aluno';}", 'message'=> 'Este campo é obrigatório para Alunos'],
-            [['dtEntrada', 'name'], 'safe'],
+			[['name', 'cpf', 'email', 'perfil'], 'required', 'message'=> 'Este campo é obrigatório'],
+			['curso_id', 'required', 'when' => function($model) { return $model->perfil == 'Aluno';}, 'whenClient' => "function (attribute, value) {
+				return $('#curso_id').val() == 'Aluno';}", 'message'=> 'Este campo é obrigatório para Alunos'],
+			['matricula', 'required', 'when' => function($model) { return $model->perfil == 'Aluno';}, 'whenClient' => "function (attribute, value) {
+				return $('#matricula').val() == 'Aluno';}", 'message'=> 'Este campo é obrigatório para Alunos'],
+			[['dtEntrada', 'name', 'password', 'password_repeat'], 'safe'],
             [['isAdmin', 'isAtivo', 'curso_id', 'matricula'], 'integer', 'message'=> 'Este campo deve ser numérico'],
-			[['password'], 'required', 'on' => 'insert', 'message'=> 'Este campo é obrigatório'],
+			[['password'], 'required', 'on' => 'insert', 'message'=> 'Este campo é obrigatório e deve conter entre 6 e 10 caracteres'],
             [['name', 'cpf', 'siape', 'perfil', 'password_reset_token'], 'string', 'max' => 100],
 			['email', 'email', 'message'=> 'E-mail inválido'],
 			['email', 'unique', 'message'=> 'E-mail já cadastrado no sistema'],
             [['auth_key'], 'string', 'max' => 255],
             // cpf validator
             ['cpf', CpfValidator::className(), 'message'=> 'CPF inválido'],
-            ['password', 'string', 'length' => [6, 10], 'message'=> 'A senha deve ter entre 6 e 10 caracteres'],
 			['password_repeat', 'compare', 'compareAttribute'=>'password', 'skipOnEmpty' => false, 'message'=>"Esta senha não é igual à anterior"],
         ];
     }
@@ -261,13 +260,9 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
         // gera uma string aleatoria... nao muito segura... kkk
         
 		$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		
 		$key = substr(str_shuffle(str_repeat($chars, 5)), 0, strlen($chars) );
-        
         $key = substr($key, 0, 12);
-        
         $password = $key ;
-
         $this->password = md5($password);    
 
         $this->save();

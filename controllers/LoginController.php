@@ -122,7 +122,7 @@ class LoginController extends Controller
             
             $model = new Usuario();
 			$model->scenario = 'insert';
-echo "entrei";
+
             //verifica se o CPF já está cadastrado
             $usuario = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();
 
@@ -236,10 +236,11 @@ echo "entrei";
 
             $model->password = md5($model->password);
             
-            $model->save(false);
-            
-            return $this->redirect(['login']);
-            
+            if($model->save())
+				return $this->redirect(['login']);
+			else
+				return $this->render('create', ['model' => $model,]);
+			
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -262,26 +263,30 @@ echo "entrei";
                 
                 //gera o token de troca senha
                 $usuario->generatePasswordResetToken();
-                $usuario->save(false);
                 
-                //prepara o email com o link
-                $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
-                $key = 'key-f0dc85b59a45bcda5373019f605ce034';
-                $mailgun = new \MailgunApi( $domain, $key );
+				if($model->save()){
+					
+					//prepara o email com o link
+					$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
+					$key = 'key-f0dc85b59a45bcda5373019f605ce034';
+					$mailgun = new \MailgunApi( $domain, $key );
                 
-                $message = $mailgun->newMessage();
+					$message = $mailgun->newMessage();
                 
-                $message->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares');
-                $message->addTo( $usuario->email, $usuario->name); //destinatario...
-                $message->setSubject('Nova Senha');
+					$message->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares');
+					$message->addTo( $usuario->email, $usuario->name); //destinatario...
+					$message->setSubject('Nova Senha');
 
-                $url = Url::to(['login/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
+					$url = Url::to(['login/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
                 
-                $message->setHtml($this->renderPartial('email', ['usuario' => $usuario->name, 'url' => $url]), []);
+					$message->setHtml($this->renderPartial('email', ['usuario' => $usuario->name, 'url' => $url]), []);
 
-                $message->send();
+					$message->send();
 
-                return $this->render('senhaenviada');
+					return $this->render('senhaenviada');
+				}
+				else
+					return $this->render('recuperarsenha');
             }
             else
             {
@@ -349,17 +354,19 @@ echo "entrei";
 
             $model->password = md5(Yii::$app->request->post('senhanova'));
 
-            $model->save(false);
+            if($model->save()){
 			
-			$this->mensagens('success', 'Alteração de Senha', 'A senha foi alterada com sucesso.');
-			var_dump(Yii::$app->user->identity->perfil);
+				$this->mensagens('success', 'Alteração de Senha', 'A senha foi alterada com sucesso.');
 			
-			if(Yii::$app->user->identity->perfil == "admin")
-				return $this->redirect(['login/trocasenha']);	
-			else if(Yii::$app->user->identity->perfil == "Secretaria")
-				return $this->redirect(['solicitacao/index']);	
+				if(Yii::$app->user->identity->perfil == "admin")
+					return $this->redirect(['login/trocasenha']);	
+				else if(Yii::$app->user->identity->perfil == "Secretaria")
+					return $this->redirect(['solicitacao/index']);	
+				else
+					return $this->redirect(['dashboard/index']);				
+			}
 			else
-				return $this->redirect(['dashboard/index']);				
+				return $this->render('novasenha', ['model' => $model]);
         }
         else
         {

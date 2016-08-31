@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="periodo-form">
-
     <?php $form = ActiveForm::begin(); ?>
      <div class="col-md-4">
    

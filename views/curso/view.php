@@ -23,7 +23,8 @@ $this->title = $model->nome;
     <div class="box box-success">   
         <div class="curso-view box-body">
             <p>
-                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> Voltar', ['index'], ['class' => 'btn btn-warning']) ?>
+				<?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 <?= Html::a('Excluir', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',
                     'data' => [
@@ -36,7 +37,6 @@ $this->title = $model->nome;
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
-                    'id',
                     'codigo',
                     'nome',
                     'max_horas',

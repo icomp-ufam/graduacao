@@ -35,9 +35,10 @@ class Curso extends \yii\db\ActiveRecord
     {
         return [
             [['codigo', 'nome', 'max_horas'], 'required', 'message'=> 'Este campo é obrigatório'],
-            [['max_horas'], 'integer', 'message'=>'Máximo de horas deve ser inteiro'],
-            [['codigo'], 'string', 'max' => 5],
-            [['nome'], 'string', 'max' => 100],
+            [['max_horas'], 'integer', 'min'=> 1, 'max'=> 10000, 'message'=>'Máximo de horas deve ser inteiro', 'tooSmall' => 'Máximo de horas deve ser maior que zero','tooBig' => 'Máximo de horas deve ser menor que 10.000',],
+            [['codigo'], 'string', 'max' => 5, 'message'=>'O Código deve ter no máximo 5 caracteres'],
+			[['codigo'], 'unique', 'message'=>'Código de curso  já cadastrado'],
+            [['nome'], 'string', 'max' => 100, 'message'=>'O nome do curso deve ter no máximo 100 caracteres'],
         ];
     }
 

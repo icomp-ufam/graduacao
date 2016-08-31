@@ -108,10 +108,11 @@ class UsuarioController extends Controller
             // criptografa a senha...
             $model->password = md5($model->password);
 
-            $model->save(false);
-
-            return $this->redirect(['index']);
-
+            if($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else
+				return $this->render('create', ['model' => $model,]);
+			
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -130,14 +131,20 @@ class UsuarioController extends Controller
 		$senhaAntiga = $model->password;
 		
         if ($model->load(Yii::$app->request->post())){
-			
-			if($model->password != "")
+						
+			if($model->password != ""){
 				$model->password = md5($model->password);
-			else
+				$model->password_repeat = md5($model->password_repeat);
+			}
+			else{
 				$model->password = $senhaAntiga;
+				$model->password_repeat = $senhaAntiga;
+			}
 			
-			$model->save(false);
-			return $this->redirect(['view', 'id' => $model->id]);
+				if($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else
+				return $this->render('update', ['model' => $model,]);
 			
         } else {
 			
