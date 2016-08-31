@@ -73,9 +73,11 @@ class Solicitacao extends \yii\db\ActiveRecord
         return [
             [['descricao','horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id'], 'required', 'message'=>'Este campo é obrigatório'],
             [['dtInicio', 'dtTermino', 'solicitante_id'], 'safe'],
+			[['dtInicio','dtTermino'], 'date', 'format' => 'php:Y-m-d', 'message'=> 'O formato desta data é inválido'],
             ['dtTermino', 'compare', 'compareAttribute' => 'dtInicio', 'operator' => '>=', 'message'=> 'A data de término deve ser igual ou maior que a data de início'],
-            [['horasComputadas', 'atividade_id'], 'integer'],
-            [['descricao', 'observacoes'], 'string', 'max' => 100],
+            [['atividade_id'], 'integer', 'message'=>'Este campo deve ser inteiro'],
+			[['horasComputadas'], 'integer', 'min'=> 1, 'message'=>'Horas computadas deve ser inteiro', 'tooSmall' => 'Horas computadas deve ser maior que zero'],
+            [['descricao', 'observacoes'], 'string', 'max' => 100, 'message'=>'Este campos possui tamanho máximo igual a 100 caracteres', 'tooLong'=>'Este campos possui tamanho máximo igual a 100 caracteres'],
             [['status'], 'string', 'max' => 20],
             ['horasComputadas', 'integer', 'min'=>1, 'max'=>100], //Isto depende da atividade cadastrada.
             [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'wrongExtension'=>'Formato incorreto: Aceito somente: png, jpeg e PDF'],

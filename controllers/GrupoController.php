@@ -79,8 +79,6 @@ class GrupoController extends Controller
     {
         $model = new Grupo();
 
-        $model->curso_id = Yii::$app->user->identity->curso_id;
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return  $this->redirect(['index']);
         } else {

@@ -47,7 +47,7 @@ class AtividadeSearch extends Atividade
 		
 		$query = Atividade::find()->select("atividade.*, curso.nome as curso, grupo.nome as grupo")
         ->leftJoin("curso","atividade.curso_id = curso.id")->leftJoin("grupo","atividade.grupo_id = grupo.id")
-		->where('atividade.curso_id = '.$usuario->curso_id);
+		->where('atividade.curso_id = '.$usuario->curso_id)->orderBy('atividade.codigo');
 
         // add conditions that should always apply here
 
@@ -79,12 +79,12 @@ class AtividadeSearch extends Atividade
             'max_horas' => $this->max_horas,
             'curso_id' => $this->curso_id,
             'grupo_id' => $this->grupo_id,
+			'grupo_id' => $this->grupo,
         ]);
 
         $query->andFilterWhere(['like', 'codigo', $this->codigo])
-			->andFilterWhere(['like', 'curso', $this->curso])
-			->andFilterWhere(['like', 'grupo', $this->grupo])
-            ->andFilterWhere(['like', 'nome', $this->nome]);
+			->andFilterWhere(['like', 'curso.nome', $this->curso])
+            ->andFilterWhere(['like', 'atividade.nome', $this->nome]);
 
         return $dataProvider;
     }

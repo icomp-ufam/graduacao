@@ -27,12 +27,18 @@ $this->title = 'Atividades';
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
+			'filterModel' => $searchModel,
             'summary'=>'',
             'columns' => [
-                'nome',
+                'codigo',
+				'nome',
                 'max_horas',
-				'curso',
-                'grupo',
+				//'curso',
+				[   'label' => 'Grupo',
+                'attribute' => 'grupo',
+                'filter'=> array (1 => "Ensino",2 => "Pesquisa",3 => "Extensão"),
+				'value' => 'grupo',
+            ],
 
                 ['class' => 'yii\grid\ActionColumn'],
             ],

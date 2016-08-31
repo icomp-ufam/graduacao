@@ -31,7 +31,8 @@ $this->title = 'Grupos';
         //'filterModel' => $searchModel,
         'summary'=>'',
         'columns' => [
-            'nome',
+            'codigo',
+			'nome',
             'max_horas',
 
             ['class' => 'yii\grid\ActionColumn'],

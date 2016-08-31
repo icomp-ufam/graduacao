@@ -84,6 +84,12 @@ AppAsset::register($this);
                   <span>Período</span> 
                 </a>
               </li>
+			  <li class="treeview">
+				<a href="?r=grupo%2Findex">
+                  <i class="fa fa-users fa-fw"></i>
+                  <span>Grupos</span> 
+                </a>
+			  </li>
               <li class="treeview">
                 <a href="?r=usuario%2Findex">
                   <i class="fa fa-user fa-fw"></i>
@@ -154,12 +160,6 @@ AppAsset::register($this);
           </li>
           <?php } ?>
 
-          <li class="treeview">
-            <a href="?r=monitoria%2Fprofessor">
-            <i class="fa fa-clone fa-fw"></i>
-            <span>Gerenciar Monitorias</span> 
-            </a>
-          </li>
            <li class="treeview">
             <a href="?r=dashboard%2Findex">
               <i class="fa fa-dashboard fa-fw"></i>
@@ -167,15 +167,15 @@ AppAsset::register($this);
             </a>
           </li>
           <li class="treeview">
-            <a href="?r=solicitacao%2Findex">
-              <i class="fa fa-download fa-fw"></i>
-              <span>Solicitações</span> 
+            <a href="?r=monitoria%2Fprofessor">
+            <i class="fa fa-clone fa-fw"></i>
+            <span>Gerenciar Monitorias</span> 
             </a>
           </li>
           <li class="treeview">
-            <a href="?r=grupo%2Findex">
-              <i class="fa fa-users fa-fw"></i>
-              <span>Grupos</span> 
+            <a href="?r=solicitacao%2Findex">
+              <i class="fa fa-download fa-fw"></i>
+              <span>Solicitações</span> 
             </a>
           </li>
           <li class="treeview">
