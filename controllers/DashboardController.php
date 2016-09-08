@@ -53,27 +53,27 @@ class DashboardController extends \yii\web\Controller
 
                 $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
                     FROM solicitacao AS S WHERE S.atividade_id 
-                    IN (SELECT id FROM atividade WHERE grupo_id=1)
+                    IN (SELECT atividade.id FROM atividade JOIN grupo ON grupo.id = atividade.grupo_id WHERE grupo.nome = 'Ensino')
                     AND S.status='Deferida'
-                    AND solicitante_id = $id 
+                    AND solicitante_id =  $id 
                 ");
                 
                 $hsEnsino = $cmd->queryScalar();
 
                 $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
                     FROM solicitacao AS S WHERE S.atividade_id 
-                    IN (SELECT id FROM atividade WHERE grupo_id=2)
+                    IN (SELECT atividade.id FROM atividade JOIN grupo ON grupo.id = atividade.grupo_id WHERE grupo.nome = 'Pesquisa')
                     AND S.status='Deferida'
-                    AND solicitante_id = $id
+                    AND solicitante_id =  $id 
                 ");
                 
                 $hsPesquisa = $cmd->queryScalar();
                 
                 $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
                     FROM solicitacao AS S WHERE S.atividade_id 
-                    IN (SELECT id FROM atividade WHERE grupo_id=3)
+                    IN (SELECT atividade.id FROM atividade JOIN grupo ON grupo.id = atividade.grupo_id WHERE grupo.nome = 'Extensão')
                     AND S.status='Deferida'
-                    AND solicitante_id = $id 
+                    AND solicitante_id =  $id 
                 ");
                 
                 $hsExtensao = $cmd->queryScalar();
@@ -91,9 +91,9 @@ class DashboardController extends \yii\web\Controller
                 //POG-temporariamente
                 //pega o valor total por grupo
                 $grupos = [0=>0,
-                    1=>Grupo::findOne(1)->getAttribute('max_horas'),
-                    2=>Grupo::findOne(2)->getAttribute('max_horas'),
-                    3=>Grupo::findOne(3)->getAttribute('max_horas'),
+                    1=>Grupo::findOne(['nome' => 'Ensino'])->getAttribute('max_horas'),
+                    2=>Grupo::findOne(['nome' => 'Pesquisa'])->getAttribute('max_horas'),
+                    3=>Grupo::findOne(['nome' => 'Extensão'])->getAttribute('max_horas'),
 
                 ];
 

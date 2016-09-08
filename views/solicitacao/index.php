@@ -92,30 +92,33 @@ $this->title = 'Solicitações';
                             return ['value' => $dataProvider['id']];
                         }
                     ],
-					'id',					
+					['label' => 'Número', 'attribute'=>'id', 'value'=>'id','contentOptions' =>['style' => 'width:100px'],],
 					['label' => 'Nome do Aluno', 'attribute' => 'name', 'value' => 'name', 'visible' => Yii::$app->user->identity->perfil <> 'Aluno'],
-					
+					//'atividade_id',
+					['attribute'=>'atividade_id', 'label'=>'Atividade', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
                     'descricao',
                     [
                         'attribute' => 'Inicio',
                         'format'    => ['date', 'php:d-m-Y'],
-                        'value'     => 'dtInicio'
+                        'value'     => 'dtInicio',
+						'contentOptions' =>['style' => 'width:100px'],
                     ],
                     [
                         'attribute' => 'Termino',
                         'format'    => ['date', 'php:d-m-Y'],
-                        'value'     => 'dtTermino'
+                        'value'     => 'dtTermino',
+						'contentOptions' =>['style' => 'width:100px'],
                     ],
-                    ['label' => 'Horas Solicitadas', 'attribute'=>'horasComputadas', 'value'=>'horasComputadas'],
+                    ['label' => 'Horas Solicitadas', 'attribute'=>'horasComputadas', 'value'=>'horasComputadas','contentOptions' =>['style' => 'width:100px'],],
 					[   'label' => 'Status',
 						'attribute' => 'status',
 						'filter'=> $opcoes,
 						'value' => 'status',
+						'contentOptions' =>['style' => 'width:100px'],
 					],
-					//'status',
-                    //
                     ['class' => 'yii\grid\ActionColumn',
-                        'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}',
+                        'contentOptions' =>['style' => 'width:100px'],
+						'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}',
                         'buttons' => [
                             'update' => function ($url, $model) {
                                 return \yii\helpers\Html::a('<span class="label label-primary"><i class=" fa fa-pencil"></i></span>&nbsp;',

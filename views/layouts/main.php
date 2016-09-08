@@ -84,12 +84,6 @@ AppAsset::register($this);
                   <span>Período</span> 
                 </a>
               </li>
-			  <li class="treeview">
-				<a href="?r=grupo%2Findex">
-                  <i class="fa fa-users fa-fw"></i>
-                  <span>Grupos</span> 
-                </a>
-			  </li>
               <li class="treeview">
                 <a href="?r=usuario%2Findex">
                   <i class="fa fa-user fa-fw"></i>
@@ -178,6 +172,12 @@ AppAsset::register($this);
               <span>Solicitações</span> 
             </a>
           </li>
+		  <li class="treeview">
+			<a href="?r=grupo%2Findex">
+                 <i class="fa fa-users fa-fw"></i>
+                 <span>Grupos</span> 
+            </a>
+		  </li>
           <li class="treeview">
             <a href="?r=atividade%2Findex">
               <i class="fa fa-tasks fa-fw"></i>

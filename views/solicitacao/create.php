@@ -23,7 +23,7 @@ $this->title = 'Cadastro de Solicitação';
 
 
     <?= $this->render('_form', [
-        'model' => $model,
+        'model' => $model, 
     ]) ?>
 
 </div>

@@ -37,6 +37,7 @@ $this->title = $model->descricao;
         'model' => $model,
         'attributes' => [
             'descricao',
+			'atividade_id',
             [
                 'attribute' => 'dtInicio',
                 'format'    => 'raw',

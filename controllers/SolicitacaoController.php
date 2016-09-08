@@ -75,6 +75,7 @@ class SolicitacaoController extends Controller
     {
         $searchModel = new SolicitacaoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -88,8 +89,14 @@ class SolicitacaoController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        $model = $this->findModel($id);
+		
+		$atividade = Atividade::findOne($model->atividade_id);
+        if ($atividade != null)
+            $model->atividade_id = $atividade->codigo."-".$atividade->nome;
+		
+		return $this->render('view', [
+            'model' => $model,
         ]);
     }
 
@@ -102,17 +109,15 @@ class SolicitacaoController extends Controller
     {
 
         $model = new Solicitacao();
-
         $model->created_at = date('Y-m-d');
 		
 		$periodo = Periodo::findOne(['isAtivo' => 1]); //Periodo::getPeriodoAtivo();
 		$model->periodo_id = $periodo->id;
 		
+       if ($model->load(Yii::$app->request->post())){ // && $model->save()) {
 
-       if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
-            $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
+            //$model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
+            //$model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
 
             if(Yii::$app->user->identity->perfil == 'Aluno'){
                 $model->solicitante_id = Yii::$app->user->identity->id;
@@ -124,27 +129,26 @@ class SolicitacaoController extends Controller
                 
                 
                 $file_name = Yii::$app->user->identity->id . '_' . rand(1, 999999);
-
                 $file_name = $file_name . '.' . $file->extension;     
-
                 $file->saveAs('uploads/' . $file_name);
-                
                 $model->arquivo = $file;
                 
                 //atualiza os dados do nome no model solicitacao
                 
                 $model->anexoOriginalName = $file->baseName . '.' . $file->extension ;
-                
                 $model->anexoHashName = $file_name ;
-                
                 $model->arquivo = null ;     //estava dando erro na hora de salvar  
             }
 
-            $model->save();
+            if($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else
+				return $this->render('create', ['model' => $model,]);
+			
+			//$model->save();
             
             //redireciona para a view da solicitacao criada
-            return $this->redirect(['index']);
-            
+            //return $this->redirect(['index']);
             
         } else {
             return $this->render('create', [
@@ -163,11 +167,13 @@ class SolicitacaoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
-            $model->dtTermino = Yii::$app->formatter->asDate($model->dtTermino, 'php:Y-m-d');
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())){ 
+			 
+			 if($model->save())
+				return $this->redirect(['view', 'id' => $model->id]);
+			else
+				return $this->render('update', ['model' => $model,]);
+			
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -201,14 +207,11 @@ class SolicitacaoController extends Controller
 
         
         $selection = (array)Yii::$app->request->post('selection');//typecasting
-
         $action = Yii::$app->request->post('action');
 
         $status = '';
 
-
         if(!$selection){
-           
             return $this->redirect(['index','error' => 'Selecione uma solicitação']);
         }
 

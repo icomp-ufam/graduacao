@@ -42,8 +42,7 @@ class SolicitacaoSearch extends Solicitacao
      */
     public function search($params)
     {
-        $query = Solicitacao::find();
-
+        $query = Solicitacao::find()->select("atividade.*, solicitacao.*")->joinWith("atividade");
 
         /* ********************************************
         * Filtra somente as Solicitacoes feitas
@@ -52,8 +51,7 @@ class SolicitacaoSearch extends Solicitacao
         * ****************************************** */
         if(Yii::$app->user->identity->perfil=='Coordenador' || Yii::$app->user->identity->perfil=='Secretaria')
         {
-                
-            $query = Solicitacao::find()->select("solicitacao.*, usuario.name")->joinWith(["usuario"])
+            $query = Solicitacao::find()->select("atividade.*, solicitacao.*, usuario.name")->joinWith(["usuario"])->joinWith("atividade")
            ->where('status <> "Aberto" AND usuario.curso_id = '.Yii::$app->user->identity->curso_id);
 		   
 			//$dataProvider = new SqlDataProvider([
@@ -92,6 +90,11 @@ class SolicitacaoSearch extends Solicitacao
             ]);
 
         }
+		
+		//$dataProvider->sort->attributes['atividade'] = [
+          //  'asc' => ['atividade' => SORT_ASC],
+//            'desc' => ['atividade' => SORT_DESC],
+  //      ];
 
 		// grid filtering conditions
         $query->andFilterWhere([
@@ -100,7 +103,7 @@ class SolicitacaoSearch extends Solicitacao
             'dtTermino' => $this->dtTermino,
             'horasComputadas' => $this->horasComputadas,
             'atividade_id' => $this->atividade_id,
-            //'solicitante_id' => $this->solicitante_id,
+            'solicitante_id' => $this->solicitante_id,
             'aprovador_id' => $this->aprovador_id,
 			'status' => $this->status,
             'anexo_id' => $this->anexo_id,
@@ -108,6 +111,7 @@ class SolicitacaoSearch extends Solicitacao
 
         $query->andFilterWhere(['like', 'descricao', $this->descricao])
             ->andFilterWhere(['like', 'usuario.name', $this->name])
+		//	->andFilterWhere(['like', 'atividade.nome', $this->atividade])			
 			->andFilterWhere(['like', 'observacoes', $this->observacoes]);
         		
 

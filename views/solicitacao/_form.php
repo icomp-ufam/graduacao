@@ -11,9 +11,11 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Solicitacao */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $searchModel app\models\AtividadeSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
 
-<div class="col-md-4">
+<div class="col-md-6">
 
     <?php $form = ActiveForm::begin([
             'options' => ['enctype' => 'multipart/form-data', 'autocomplete'=>'off'],
@@ -43,24 +45,48 @@ use yii\helpers\ArrayHelper;
 
         <!-- Atividades -->
 
-        <?= $form->field($model, 'atividade_id')
+        <?php 
+		/*	$data = Atividade::find()
+				->select(["CONCAT(codigo, ' ', nome) as value", "CONCAT(codigo, ' ', nome) as label","id as id"])
+                ->where(['curso_id'=>Yii::$app->user->identity->curso_id])
+				->asArray()
+                ->all();
+
+			echo $form->field($model, 'atividade_id')->widget(\yii\jui\AutoComplete::classname(), [
+				'options' => ['class' => 'form-control'],
+				'clientOptions' => [
+				'source' => $data,
+				],
+				
+			],
+			['prompt'=>'Selecione',  'onchange'=>'
+                $.post( "'.Yii::$app->urlManager->createUrl('solicitacao/field').'&id=" + $(this).val(), function( data ) {
+                  $( "input#maxHoras" ).val( data );
+                 // $( "#divMaxHours" ).show();
+                });']
+			) */?>
+		
+		<?= $form->field($model, 'atividade_id')
             ->dropDownList(ArrayHelper::map(Atividade::find()
                 ->where(['curso_id'=>Yii::$app->user->identity->curso_id])
                 ->all(),
-                'id', 'nome'),
-                ['prompt'=>'Selecione',  'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('solicitacao/field').'&id=" + $(this).val(), function( data ) {
-                  $( "input#maxHoras" ).val( data );
-                  $( "#divMaxHours" ).show();
-                });']); ?>
+				'id', function ($element) {	return '(Máximo: '.str_pad($element['max_horas'], 2, "0", STR_PAD_LEFT). ' horas) '.$element['codigo'] . ': '. $element['nome'];}),
+				
+                ['prompt'=>'Selecione',  
+				'onchange'=>'
+                //$.post( "'.Yii::$app->urlManager->createUrl('solicitacao/field').'&id=" + $(this).val(), function( data ) {
+                 // $( "input#maxHoras" ).val( data );
+                 // $( "#divMaxHours" ).show();
+                //});'
+				]
+				); ?>
        
-    
         <?= $form->field($model, 'horasComputadas')->textInput() ?>
         
-        <div id="divMaxHours" class="form-group">
+        <!--<div id="divMaxHours" class="form-group">
             <label id="maxHoras" class="control-label" >Máx. Horas</label>
             <input type="text" class="form-control" disabled id="maxHoras" />
-        </div>
+        </div>-->
         
         <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>
 
@@ -96,12 +122,12 @@ use yii\helpers\ArrayHelper;
 </div>
 
 <script>
-    $( "#divMaxHours" ).hide();
+   // $( "#divMaxHours" ).hide();
     $( "#solicitacao-atividade_id" ).trigger( "change" );
     $('#solicitacao-dtinicio').on('change', function () {
         var test = $(this).datepicker('getDate');
         var testm = new Date(test.getTime());
-        testm.setDate(testm.getDate() + 1);
+        testm.setDate(testm.getDate());
 
         $("#solicitacao-dttermino").datepicker("option", "minDate", testm);
 

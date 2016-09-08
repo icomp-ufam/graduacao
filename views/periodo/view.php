@@ -10,7 +10,7 @@ $this->title = $model->codigo;
 ?>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Período: <?= Html::encode($this->title) ?></h1>
     <ol class="breadcrumb">
         <li><a href="?r=periodo/index"><i class="fa fa-calendar"></i> Período</a></li>
         <li class="active"><a href="?r=periodo/index">Lista</a></li>
@@ -35,7 +35,6 @@ $this->title = $model->codigo;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'codigo',
             [
             'attribute' => 'dtInicio',
