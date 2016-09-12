@@ -52,7 +52,7 @@ $this->title = 'Solicitações';
             <div class="col-xs-8"> 
                 <div class="pull-right">       
                     <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-                        <?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>
+                        <!--<?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>-->
                         <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
                         <?= Html::submitButton('Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
                     <?php } ?>
@@ -75,9 +75,11 @@ $this->title = 'Solicitações';
             
        <?php 
 			if(Yii::$app->user->identity->perfil == 'Aluno')
-				$opcoes = array ('Aberto' => 'Aberto', 'Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
+				//$opcoes = array ('Aberto' => 'Aberto', 'Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
+				$opcoes = array ('Aberto' => 'Aberto', 'Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida");
 			else
-				$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
+				//$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
+				$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida");
 			
 		?>
 
@@ -96,6 +98,7 @@ $this->title = 'Solicitações';
 					['label' => 'Nome do Aluno', 'attribute' => 'name', 'value' => 'name', 'visible' => Yii::$app->user->identity->perfil <> 'Aluno'],
 					//'atividade_id',
 					['attribute'=>'atividade_id', 'label'=>'Atividade', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
+					//'grupo',
                     'descricao',
                     [
                         'attribute' => 'Inicio',
@@ -109,7 +112,8 @@ $this->title = 'Solicitações';
                         'value'     => 'dtTermino',
 						'contentOptions' =>['style' => 'width:100px'],
                     ],
-                    ['label' => 'Horas Solicitadas', 'attribute'=>'horasComputadas', 'value'=>'horasComputadas','contentOptions' =>['style' => 'width:100px'],],
+                    ['label' => 'Horas Solicitadas', 'attribute'=>'horasLancadas', 'value'=>'horasLancadas','contentOptions' =>['style' => 'width:100px'],],
+					['label' => 'Horas Computadas', 'attribute'=>'horasComputadas', 'value'=>'horasComputadas','contentOptions' =>['style' => 'width:100px'],],
 					[   'label' => 'Status',
 						'attribute' => 'status',
 						'filter'=> $opcoes,
@@ -118,7 +122,7 @@ $this->title = 'Solicitações';
 					],
                     ['class' => 'yii\grid\ActionColumn',
                         'contentOptions' =>['style' => 'width:100px'],
-						'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}' : '{view}{update}{delete}',
+						'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}{delete}' : '{view}{update}{delete}',
                         'buttons' => [
                             'update' => function ($url, $model) {
                                 return \yii\helpers\Html::a('<span class="label label-primary"><i class=" fa fa-pencil"></i></span>&nbsp;',
@@ -134,6 +138,7 @@ $this->title = 'Solicitações';
                                         'title' => Yii::t('yii', 'Apagar'),
                                         'data-method' => 'post',
                                         'data-pjax' => '0',
+										'data-confirm'=> 'Confirmar exclusão da solicitação?'										
                                     ]);
                             },
                             'view' => function ($url, $model) {

@@ -149,6 +149,7 @@ class LoginController extends Controller
             {
                 $model->cpf = Yii::$app->request->post('cpf');
                 $model->isNewRecord = true;
+				$model->isAtivo = 1;
                 return $this->render('create', ['model' => $model ]);
             }
             

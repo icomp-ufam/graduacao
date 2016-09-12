@@ -14,6 +14,7 @@ use app\models\Atividade;
  * @property string $descricao
  * @property string $dtInicio
  * @property string $dtTermino
+* @property integer $horasLancadas 
  * @property integer $horasComputadas
  * @property integer $horasMaxAtiv
  * @property string $observacoes
@@ -71,20 +72,20 @@ class Solicitacao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descricao','horasComputadas','dtInicio', 'dtTermino', 'status', 'atividade_id'], 'required', 'message'=>'Este campo é obrigatório'],
+            [['descricao', 'horasLancadas','dtInicio', 'dtTermino', 'status', 'atividade_id', 'solicitante_id'], 'required', 'message'=>'Este campo é obrigatório'],
             //[['dtInicio', 'dtTermino', 'solicitante_id'], 'safe'],
-			[['solicitante_id'], 'safe'],
+			[['solicitante_id', 'aprovador_id'], 'safe'],
 			['dtInicio','validateDates'],
 			['descricao','validateSolicitacao'],
 //			[['dtInicio','dtTermino'], 'date', 'format' => 'php:Y-m-d', 'message'=> 'O formato desta data é inválido'],
 //            ['dtTermino', 'compare', 'compareAttribute' => 'dtInicio', 'operator' => '>=', 'message'=> 'A data de término deve ser igual ou maior que a data de início'],
             [['atividade_id'], 'integer', 'message'=>'Este campo deve ser inteiro'],
-			[['horasComputadas'], 'integer', 'min'=> 1, 'message'=>'Horas computadas deve ser inteiro', 'tooSmall' => 'Horas computadas deve ser maior que zero'],
+			[['horasLancadas'], 'integer', 'min'=> 1, 'message'=>'Horas deve ser inteiro', 'tooSmall' => 'Horas computadas deve ser maior que zero'],
             [['descricao', 'observacoes'], 'string', 'max' => 100, 'message'=>'Este campos possui tamanho máximo igual a 100 caracteres', 'tooLong'=>'Este campos possui tamanho máximo igual a 100 caracteres'],
             [['status'], 'string', 'max' => 20],
             [['arquivo'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, pdf', 'wrongExtension'=>'Formato incorreto: Aceito somente: png, jpeg e PDF'],
-            [['horasComputadas'], 'horas_check', 'message'=>'As horas computadas não pode ser maior que a hora máxima por atividade'],
-            [['horasComputadas'], 'horas_calc', 'message'=>'Quantidade maxima para atividade foi atingida']
+           // [['horasComputadas'], 'horas_check', 'message'=>'As horas computadas não pode ser maior que a hora máxima por atividade'],
+            //[['horasComputadas'], 'horas_calc', 'message'=>'Quantidade maxima para atividade foi atingida']
         ];
     }
     
@@ -143,7 +144,8 @@ class Solicitacao extends \yii\db\ActiveRecord
             'descricao' => 'Descrição da Solicitação',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
-            'horasComputadas' => 'Horas',
+            'horasComputadas' => 'Horas Lançadas',
+			'horasComputadas' => 'Horas Computadas',
             'observacoes' => 'Observações',
             'status' => 'Status',
             'atividade_id' => 'Atividade',

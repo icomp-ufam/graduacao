@@ -167,7 +167,8 @@ AppAsset::register($this);
             </a>
           </li>
           <li class="treeview">
-            <a href="?r=solicitacao%2Findex">
+            <!--<a href="?r=solicitacao%2Findex">-->
+			<a href="?r=solicitacao%2Findex&SolicitacaoSearch%5Bstatus%5D=Pre-aprovada">
               <i class="fa fa-download fa-fw"></i>
               <span>Solicitações</span> 
             </a>
@@ -200,7 +201,8 @@ AppAsset::register($this);
                 </a>
               </li>
               <li class="treeview">
-                <a href="?r=solicitacao%2Findex">
+                <!--<a href="?r=solicitacao%2Findex">-->
+				<a href="?r=solicitacao%2Findex&SolicitacaoSearch%5Bstatus%5D=Submetida">
                   <i class="fa fa-download fa-fw"></i>
                   <span>Solicitações</span> 
                 </a>

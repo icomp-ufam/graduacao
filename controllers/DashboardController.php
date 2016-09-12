@@ -51,32 +51,31 @@ class DashboardController extends \yii\web\Controller
                 
                 $id = Yii::$app->user->identity->id ;               
 
-                $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
-                    FROM solicitacao AS S WHERE S.atividade_id 
-                    IN (SELECT atividade.id FROM atividade JOIN grupo ON grupo.id = atividade.grupo_id WHERE grupo.nome = 'Ensino')
-                    AND S.status='Deferida'
-                    AND solicitante_id =  $id 
+                $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma, SUM(horasLancadas) AS somaLancadas, G.nome
+                    FROM solicitacao AS S
+                    JOIN atividade AS A ON A.id = S.atividade_id
+                    JOIN grupo AS G ON G.id = A.grupo_id
+                    WHERE solicitante_id = $id
+					AND status = 'Deferida'
+                    GROUP BY (G.id)
                 ");
-                
-                $hsEnsino = $cmd->queryScalar();
-
-                $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
-                    FROM solicitacao AS S WHERE S.atividade_id 
-                    IN (SELECT atividade.id FROM atividade JOIN grupo ON grupo.id = atividade.grupo_id WHERE grupo.nome = 'Pesquisa')
-                    AND S.status='Deferida'
-                    AND solicitante_id =  $id 
-                ");
-                
-                $hsPesquisa = $cmd->queryScalar();
-                
-                $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
-                    FROM solicitacao AS S WHERE S.atividade_id 
-                    IN (SELECT atividade.id FROM atividade JOIN grupo ON grupo.id = atividade.grupo_id WHERE grupo.nome = 'Extensão')
-                    AND S.status='Deferida'
-                    AND solicitante_id =  $id 
-                ");
-                
-                $hsExtensao = $cmd->queryScalar();
+				
+                //$hsEnsino = $cmd->queryScalar();
+				$horasRetornadas = $cmd->queryAll();
+				
+				$horasComputadas = array();
+				$horasComputadas["Ensino"] = $horasComputadas["Pesquisa"] = $horasComputadas["Extensão"] = 0;
+				$horasLancadas = array();
+				$horasLancadas["Ensino"] = $horasLancadas["Pesquisa"] = $horasLancadas["Extensão"] = 0;
+				$horas["Ensino"] = $horas["Pesquisa"] = $horas["Extensão"] = 0;
+				$totalConcluido = 0;
+				
+				foreach($horasRetornadas as $horaRetornada){
+					//var_dump($hsEnsino[0]["soma"]);
+					$horasComputadas[$horaRetornada["nome"]] = $horaRetornada["soma"];	
+					$horasLancadas[$horaRetornada["nome"]] = $horaRetornada["somaLancadas"];	
+					$totalConcluido += $horaRetornada["soma"];
+				}
 				
 				$cmd = Yii::$app->db->createCommand("SELECT max_horas AS soma 
                     FROM curso AS C WHERE C.id IN (SELECT curso_id FROM usuario WHERE id = $id)
@@ -84,10 +83,6 @@ class DashboardController extends \yii\web\Controller
                 
                 $totalGrupos = $cmd->queryScalar();
                 
-                if($hsEnsino==null)     $hsEnsino   = 0 ;
-                if($hsPesquisa==null)   $hsPesquisa = 0 ;
-                if($hsExtensao==null)   $hsExtensao = 0 ;
-
                 //POG-temporariamente
                 //pega o valor total por grupo
                 $grupos = [0=>0,
@@ -97,13 +92,16 @@ class DashboardController extends \yii\web\Controller
 
                 ];
 
-                $totalConcluido = $hsEnsino+$hsPesquisa+$hsExtensao;
+                //$totalConcluido = $hsEnsino+$hsPesquisa+$hsExtensao;
                 //$totalGrupos = $grupos[1] + $grupos[2] + $grupos[3];
 
                 return $this->render('dashAluno', [
-                    'horasEmEnsino'     =>  $hsEnsino, 
-                    'horasEmPesquisa'   =>  $hsPesquisa,
-                    'horasEmExtensao'   =>  $hsExtensao,
+                    'horasEmEnsino'     =>  $horasComputadas["Ensino"], 
+                    'horasEmPesquisa'   =>  $horasComputadas["Pesquisa"],
+                    'horasEmExtensao'   =>  $horasComputadas["Extensão"],
+                    'horasLancadasEmEnsino'     =>  $horasLancadas["Ensino"], 
+                    'horasLancadasEmPesquisa'   =>  $horasLancadas["Pesquisa"],
+                    'horasLancadasEmExtensao'   =>  $horasLancadas["Extensão"],
                     'maxHrsGrupos'      =>  $grupos,
                     'totalGrupos'       => $totalGrupos,
                     'totalConcluido'    =>  $totalConcluido

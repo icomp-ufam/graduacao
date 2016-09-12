@@ -81,7 +81,8 @@ use yii\helpers\ArrayHelper;
 				]
 				); ?>
        
-        <?= $form->field($model, 'horasComputadas')->textInput() ?>
+        <?= $form->field($model, 'horasLancadas')->textInput()->hint('As horas lançadas não representam as horas que serão computadas se a solicitação for deferida. As horas computadas dependem das regras definidas em cada  curso.') ?>
+		<!--<?= $form->field($model, 'horasComputadas')->textInput() ?>-->
         
         <!--<div id="divMaxHours" class="form-group">
             <label id="maxHoras" class="control-label" >Máx. Horas</label>
@@ -91,8 +92,8 @@ use yii\helpers\ArrayHelper;
         <?= $form->field($model, 'observacoes')->textInput(['maxlength' => true]) ?>
 
         <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-             <?= $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->where(['perfil' => 'Aluno'])
-                ->orderBy('id ASC')->all(), 'id', 'name'), ['prompt'=>'Selecione']); ?>
+             <?= $form->field($model, 'solicitante_id')->dropDownList(ArrayHelper::map(\app\models\Usuario::find()->where(['perfil' => 'Aluno', 'isAtivo' => '1'])
+                ->orderBy('name ASC')->all(), 'id', 'name'), ['prompt'=>'Selecione']); ?>
         
         <?php } ?>
         
@@ -100,7 +101,7 @@ use yii\helpers\ArrayHelper;
 		<?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>	
 			<?= $form->field($model, 'status')->hiddenInput(['value' => 'Aberto'])->label(false) ?>		
 		<?php }
-			else if(Yii::$app->user->identity->perfil == 'Coordenador'){ 
+			else if(Yii::$app->user->identity->perfil == 'Coordenador' && $model->isNewRecord){ 
 		?>
 			<?= $form->field($model, 'status')->hiddenInput(['value' => 'Submetida'])->label(false) ?>
 		<?php }

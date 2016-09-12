@@ -36,7 +36,8 @@ $this->title = $model->descricao;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'descricao',
+            'id',
+			'descricao',
 			'atividade_id',
             [
                 'attribute' => 'dtInicio',
@@ -48,7 +49,8 @@ $this->title = $model->descricao;
                 'format'    => 'raw',
                 'value'     => Yii::$app->formatter->asDate($model->dtTermino, 'php:d-m-Y')
             ],
-            'horasComputadas',
+            'horasLancadas',
+			'horasComputadas',
             'status:html',
 
             [

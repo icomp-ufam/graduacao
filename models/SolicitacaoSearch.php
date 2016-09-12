@@ -19,7 +19,7 @@ class SolicitacaoSearch extends Solicitacao
     public function rules()
     {
         return [
-            [['id', 'horasComputadas', 'atividade_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
+            [['id', 'horasLancadas', 'horasComputadas', 'atividade_id', 'solicitante_id', 'aprovador_id', 'anexo_id'], 'integer'],
             [['descricao', 'dtInicio', 'dtTermino', 'observacoes', 'status', 'solicitante_id', 'name'], 'safe'],
         ];
     }
@@ -52,7 +52,7 @@ class SolicitacaoSearch extends Solicitacao
         if(Yii::$app->user->identity->perfil=='Coordenador' || Yii::$app->user->identity->perfil=='Secretaria')
         {
             $query = Solicitacao::find()->select("atividade.*, solicitacao.*, usuario.name")->joinWith(["usuario"])->joinWith("atividade")
-           ->where('status <> "Aberto" AND usuario.curso_id = '.Yii::$app->user->identity->curso_id);
+           ->where('status <> "Aberto" AND usuario.isAtivo = 1 AND usuario.curso_id = '.Yii::$app->user->identity->curso_id);
 		   
 			//$dataProvider = new SqlDataProvider([
               //  'sql' => 'SELECT solicitacao.*, usuario.name
@@ -101,7 +101,8 @@ class SolicitacaoSearch extends Solicitacao
             'id' => $this->id,
             'dtInicio' => $this->dtInicio,
             'dtTermino' => $this->dtTermino,
-            'horasComputadas' => $this->horasComputadas,
+            'horasLancadas' => $this->horasLancadas,
+			'horasComputadas' => $this->horasComputadas,
             'atividade_id' => $this->atividade_id,
             'solicitante_id' => $this->solicitante_id,
             'aprovador_id' => $this->aprovador_id,

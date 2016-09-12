@@ -7,7 +7,11 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
-        'request' => [
+        'session' => [
+            'name' => 'PHPGRADSESSID',
+            'savePath' => sys_get_temp_dir(),
+        ],
+		'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'mfWQoxey6_MM3eJPory8U_UGpX3IW1c0',
         ],
@@ -17,6 +21,9 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\Usuario',
             'enableAutoLogin' => false,
+			'identityCookie' => [
+                'name' => '_gradUser', // unique for backend
+            ]
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

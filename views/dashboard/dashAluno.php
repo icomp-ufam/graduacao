@@ -65,6 +65,10 @@ use yii\helpers\Html;
                 <div class="col-xs-8">
                     <?php
 
+					$restantes = 0;
+					if($totalConcluido <= $totalGrupos)
+						$restantes = $totalGrupos - $totalConcluido ;
+
                     echo Highcharts::widget([
                         'options' => [
                             'title' => ['text' => 'Total de Horas Concluídas X Total de Horas do Curso'],
@@ -72,12 +76,37 @@ use yii\helpers\Html;
                                 'type' => 'pie',
                                 'name' => 'Horas',
                                 'data' => [
-                                    ['name' => 'Concluido', 'y' => (float) $totalConcluido ],
-                                    ['name' => 'Total', 'y' => (float) $totalGrupos]
+                                    ['name' => 'Concluído', 'y' => (float) $totalConcluido ],
+                                    ['name' => 'Restantes', 'y' => (float) ($restantes)]
                                 ]
                             ]]               
                         ]
                     ]);
+					
+					echo Highcharts::widget([
+						'options' => [
+							'title' => ['text' => 'Horas concluídas por Grupo'],
+							'chart' => [
+								'type' => 'column',
+							],
+							'xAxis' => [
+								'categories' => ['Ensino', 'Pesquisa','Extensão']
+							],
+							'yAxis' => [
+								'title' => ['text' => 'Amount']
+							],
+							'series' => [[
+								'name' => 'Horas Concluídas',
+								'data' => [(float)$horasEmEnsino, (float)$horasEmPesquisa, (float)$horasEmExtensao]
+								],
+								[
+								'name' => 'Horas Lançadas',
+								'data' => [(float)$horasLancadasEmEnsino, (float)$horasLancadasEmPesquisa, (float)$horasLancadasEmExtensao]
+								]
+							]
+						]
+					]);
+					
 
                     ?>
                 </div>
