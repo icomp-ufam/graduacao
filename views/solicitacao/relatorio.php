@@ -16,12 +16,12 @@ $this->title = 'Relatório';
         <li class="active"><a href="?r=solicitacao/view">Visualizar</a></li>
     </ol>
 </section>
-
+ 
 <section class="content">
 
     <div class="box box-success">
         <div class="box-header">
-            <h4>Clique em cima da matricula para copiar para a àrea de transferencia.</h4>
+            <h4>Clique em cima da matricula para copiar para a área de transfêrencia.</h4>
         </div>
         <div class="solicitacao-view box-body">
 

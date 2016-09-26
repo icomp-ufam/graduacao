@@ -20,5 +20,4 @@ return array(
     'MailgunUnsubscribe' => $vendorDir . '/baibaratsky/php-mailgun/MailgunUnsubscribe.php',
     'MailgunYii' => $vendorDir . '/baibaratsky/php-mailgun/MailgunYii.php',
     'MailgunYii2' => $vendorDir . '/baibaratsky/php-mailgun/MailgunYii2.php',
-    'mPDF' => $vendorDir . '/kartik-v/mpdf/mpdf.php',
 );

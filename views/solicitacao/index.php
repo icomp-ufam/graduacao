@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+//use kartik\dynagrid\DynaGrid;
+//use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\ActiveForm;
 
@@ -80,11 +82,102 @@ $this->title = 'Solicitações';
 			else
 				//$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
 				$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida");
+				
 			
 		?>
 
          <hr/>
 
+		 <?php 
+		
+		/*DynaGrid::widget([
+			 'columns' => [
+                    ['class' => 'yii\grid\CheckboxColumn',
+                        'checkboxOptions' => function ($dataProvider, $key, $index, $column) {
+                            return ['value' => $dataProvider['id']];
+                        }
+                    ],
+					['label' => 'Número', 'attribute'=>'id', 'value'=>'id','contentOptions' =>['style' => 'width:100px'],],
+					['label' => 'Nome do Aluno', 'attribute' => 'name', 'value' => 'name', 'visible' => Yii::$app->user->identity->perfil <> 'Aluno'],
+					//'atividade_id',
+					['attribute'=>'atividade_id', 'label'=>'Atividade', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
+					//'grupo',
+                    'descricao',
+                    [
+                        'attribute' => 'Inicio',
+                        'format'    => ['date', 'php:d-m-Y'],
+                        'value'     => 'dtInicio',
+						'contentOptions' =>['style' => 'width:100px'],
+                    ],
+                    [
+                        'attribute' => 'Termino',
+                        'format'    => ['date', 'php:d-m-Y'],
+                        'value'     => 'dtTermino',
+						'contentOptions' =>['style' => 'width:100px'],
+                    ],
+                    ['label' => 'Horas Solicitadas', 'attribute'=>'horasLancadas', 'value'=>'horasLancadas','contentOptions' =>['style' => 'width:100px'],],
+					['label' => 'Horas Computadas', 'attribute'=>'horasComputadas', 'value'=>'horasComputadas','contentOptions' =>['style' => 'width:100px'],],
+					[   'label' => 'Status',
+						'attribute' => 'status',
+						'filter'=> $opcoes,
+						'value' => 'status',
+						'contentOptions' =>['style' => 'width:100px'],
+					],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'contentOptions' =>['style' => 'width:100px'],
+						'template' =>  Yii::$app->user->identity->perfil == 'Secretaria' ? '{view}{update}{delete}' : '{view}{update}{delete}',
+                        'buttons' => [
+                            'update' => function ($url, $model) {
+                                return \yii\helpers\Html::a('<span class="label label-primary"><i class=" fa fa-pencil"></i></span>&nbsp;',
+                                    (new yii\grid\ActionColumn())->createUrl('solicitacao/update', $model, $model['id'], 1), [
+                                        'title' => Yii::t('yii', 'Editar'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '0',
+                                    ]);
+                            },
+                            'delete' => function ($url, $model) {
+                                return \yii\helpers\Html::a('<span class="label label-danger"><i class=" fa fa-trash"></i></span>',
+                                    (new yii\grid\ActionColumn())->createUrl('solicitacao/delete', $model, $model['id'], 1), [
+                                        'title' => Yii::t('yii', 'Apagar'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '0',
+										'data-confirm'=> 'Confirmar exclusão da solicitação?'										
+                                    ]);
+                            },
+                            'view' => function ($url, $model) {
+                                return \yii\helpers\Html::a('<span class="label label-success"><i class=" fa fa-search"></i>&nbsp;</span>&nbsp;',
+                                    (new yii\grid\ActionColumn())->createUrl('solicitacao/view', $model, $model['id'], 1), [
+                                        'title' => Yii::t('yii', 'Ver'),
+                                        'data-method' => 'post',
+                                        'data-pjax' => '0',
+                                    ]);
+                            },
+
+
+                        ]
+                    ],
+
+                ],
+			'storage'=>DynaGrid::TYPE_COOKIE,
+			//'category' => DynaGridStore::STORE_FILTER,
+			'theme'=>'panel-danger',
+			'gridOptions'=>[
+				'dataProvider'=>$dataProvider,
+				'filterModel'=>$searchModel,
+				'panel'=>['heading'=>'<h3 class="panel-title">Solicitações</h3>'],
+				'toolbar' =>  [
+					['content'=>
+						Html::button('<i class="glyphicon glyphicon-plus"></i>', ['type'=>'button', 'title'=>'Add Book', 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
+						Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['dynagrid-demo'], ['data-pjax'=>0, 'class' => 'btn btn-default', 'title'=>'Reset Grid'])
+					],
+					['content'=>'{dynagridFilter}{dynagridSort}{dynagrid}'],
+					'{export}',
+				]
+			],
+			'options'=>['id'=>'dynagrid-1'] // a unique identifier is important
+		])
+*/
+		?> 
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
 				'filterModel' => $searchModel,

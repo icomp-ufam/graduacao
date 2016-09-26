@@ -105,7 +105,8 @@ class UsuarioController extends Controller
                 return $this->render('create', ['model' => $model]);
             }
 
-            // criptografa a senha...
+            $model->isAtivo = 1;
+			// criptografa a senha...
             $model->password = md5($model->password);
 
             if($model->save())

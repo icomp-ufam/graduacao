@@ -3,6 +3,7 @@ namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\CachingStream;
+use GuzzleHttp\Psr7\Stream;
 
 /**
  * @covers GuzzleHttp\Psr7\CachingStream
@@ -10,8 +11,9 @@ use GuzzleHttp\Psr7\CachingStream;
 class CachingStreamTest extends \PHPUnit_Framework_TestCase
 {
     /** @var CachingStream */
-    protected $body;
-    protected $decorated;
+    private $body;
+    /** @var Stream */
+    private $decorated;
 
     public function setUp()
     {
@@ -96,6 +98,33 @@ class CachingStreamTest extends \PHPUnit_Framework_TestCase
         $this->body->seek(2, SEEK_CUR);
         $this->assertEquals(4, $this->body->tell());
         $this->assertEquals('ing', $this->body->read(3));
+    }
+
+    public function testCanSeekToReadBytesWithPartialBodyReturned()
+    {
+        $stream = fopen('php://temp', 'r+');
+        fwrite($stream, 'testing');
+        fseek($stream, 0);
+
+        $this->decorated = $this->getMockBuilder('\GuzzleHttp\Psr7\Stream')
+            ->setConstructorArgs([$stream])
+            ->setMethods(['read'])
+            ->getMock();
+
+        $this->decorated->expects($this->exactly(2))
+            ->method('read')
+            ->willReturnCallback(function($length) use ($stream){
+                return fread($stream, 2);
+            });
+
+        $this->body = new CachingStream($this->decorated);
+
+        $this->assertEquals(0, $this->body->tell());
+        $this->body->seek(4, SEEK_SET);
+        $this->assertEquals(4, $this->body->tell());
+
+        $this->body->seek(0);
+        $this->assertEquals('test', $this->body->read(4));
     }
 
     public function testWritesToBufferStream()

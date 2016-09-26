@@ -294,6 +294,12 @@ class SolicitacaoController extends Controller
         }
     }
 
+/**
+     * Lists Report with all Solicitacao.
+     * @return mixed
+     */
+    
+	
     public function actionRelatorio()
     {
         $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula, periodo.codigo as periodo,

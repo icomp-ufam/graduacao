@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use app\models\Usuario;
 use app\models\Atividade;
+use marqu3s\behaviors\SaveGridFiltersBehavior;
 
 
 /**
@@ -206,4 +207,18 @@ class Solicitacao extends \yii\db\ActiveRecord
 			$this->addError('descricao','Já existe uma solicitação cadastrada com esses dados.');
 		}
 	}	
+	
+	public function behaviors()
+	{
+		return [
+			//'saveGridPage' =>[
+//				'class' => SaveGridPaginationBehavior::className(),
+	//			'sessionVarName' => self::className() . 'GridPage'
+		//	],
+			'saveGridFilters' =>[
+				'class' => SaveGridFiltersBehavior::className(),
+				'sessionVarName' => self::className() . 'GridFilters'
+			]
+		];
+	}
 }

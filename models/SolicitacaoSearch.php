@@ -54,15 +54,6 @@ class SolicitacaoSearch extends Solicitacao
             $query = Solicitacao::find()->select("atividade.*, solicitacao.*, usuario.name")->joinWith(["usuario"])->joinWith("atividade")
            ->where('status <> "Aberto" AND usuario.isAtivo = 1 AND usuario.curso_id = '.Yii::$app->user->identity->curso_id);
 		   
-			//$dataProvider = new SqlDataProvider([
-              //  'sql' => 'SELECT solicitacao.*, usuario.name
-                //          FROM solicitacao, usuario
-                  //        WHERE solicitante_id = usuario.id
-                    //      AND usuario.curso_id=:cid',
-                //'params' => [':cid' => Yii::$app->user->identity->curso_id],
-                //'pagination' => ['pageSize' => -1],
-            //]);
-
         }
 		
         // add conditions that should always apply here
@@ -71,7 +62,8 @@ class SolicitacaoSearch extends Solicitacao
             'query' => $query,
         ]);
 
-        $this->load($params);
+        //$this->load($params);
+		$dataProvider = $this->loadWithFilters($params, $dataProvider); // From SaveGridFiltersBehavior
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -118,4 +110,5 @@ class SolicitacaoSearch extends Solicitacao
 
         return $dataProvider;
     }
+	
 }
