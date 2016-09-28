@@ -2,9 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use app\models\Periodo;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Solicitacao */
@@ -19,27 +16,20 @@ $this->title = 'Relatório';
         <li class="active"><a href="?r=solicitacao/view">Visualizar</a></li>
     </ol>
 </section>
-
+ 
 <section class="content">
 
     <div class="box box-success">
         <div class="box-header">
-            <h4>Clique em cima da matricula para copiar para a àrea de transferencia.</h4>
-        </div>      
+            <h4>Clique em cima da matricula para copiar para a área de transfêrencia.</h4>
+        </div>
         <div class="solicitacao-view box-body">
-            <div class="col-sm-12">
-                <div class="col-sm-3">
-                <?php $form = ActiveForm::begin(); ?>
 
-                <?= $form->field($model, 'id')->label('Selecione o Período:')->dropDownList(ArrayHelper::map(Periodo::find()->orderBy("codigo DESC")->all(), 'id', 'codigo'),['onchange'=>'this.form.submit()'],['prompt' => 'Select']) ?>
-                <?php $form = ActiveForm::end(); ?>
-                </div>
-            </div>
             <table class="table table-hover table-bordered">
                 <thead>
                     <th>Aluno</th>
                     <th>Matricula</th>
-                    
+                    <th>Período</th>
                     <th>Ensino</th>
                     <th>Pesquisa</th>
                     <th>Extensão</th>
@@ -53,7 +43,7 @@ $this->title = 'Relatório';
                             <span class="fa fa-clipboard" onclick="copyToClipboard(this)"><?= $res['matricula'] ?></span>
                         </a>
                     </td>
-                    
+                    <td><?= $res['periodo'] ?></td>
                     <td><?= $res['ensino'] ?></td>
                     <td><?= $res['pesquisa'] ?></td>
                     <td><?= $res['extensao'] ?></td>

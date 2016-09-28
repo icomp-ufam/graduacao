@@ -300,7 +300,7 @@ class SolicitacaoController extends Controller
      */
     
 	
-    public function actionRelatorio()
+    /*public function actionRelatorio()
     {
         $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula, periodo.codigo as periodo,
                                                     (
@@ -347,8 +347,66 @@ class SolicitacaoController extends Controller
 
         return $this->render('relatorio', ['resultado' => $dados]);
 
-    }
-	
+    }*/
+
+	public function actionRelatorio()
+    {   
+        $action = Yii::$app->request->post('Periodo');
+        if($action != null){
+            $id = $action['id'];
+            $model = Periodo::findOne($id);
+        }else{
+            $model = Periodo::find()->where("isAtivo = 1")->one();
+        }
+
+        $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula,
+                                                  (
+                                                      SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
+                                                      FROM solicitacao 
+                                                      JOIN atividade on solicitacao.atividade_id = atividade.id
+                                                      JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Ensino'
+                                                      WHERE solicitacao.status = 'Deferida'
+                                                      AND usuario.id = solicitacao.solicitante_id
+                          AND usuario.isAtivo = 1
+                                                      AND solicitacao.periodo_id = :periodo
+                                                  ) as ensino,
+                                                  (
+                                                      SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
+                                                      FROM solicitacao 
+                                                      JOIN atividade on solicitacao.atividade_id = atividade.id
+                                                      JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Pesquisa'
+                                                      WHERE solicitacao.status = 'Deferida'
+                                                      AND usuario.id = solicitacao.solicitante_id
+                          AND usuario.isAtivo = 1
+                                                      AND solicitacao.periodo_id = :periodo
+                                                  ) as pesquisa,
+                                                  (
+                                                      SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
+                                                      FROM solicitacao 
+                                                      JOIN atividade on solicitacao.atividade_id = atividade.id
+                                                      JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Extensão'
+                                                      WHERE solicitacao.status = 'Deferida'
+                                                      AND usuario.id = solicitacao.solicitante_id
+                          AND usuario.isAtivo = 1
+                                                      AND solicitacao.periodo_id = :periodo
+
+                                                  ) as extensao
+
+                                           FROM usuario JOIN solicitacao on
+                                           usuario.id =
+                                           solicitacao.solicitante_id JOIN
+                                           periodo on solicitacao.periodo_id =
+                                           :periodo WHERE usuario.curso_id =
+                                           :curso AND usuario.isAtivo = 1 AND
+                                           usuario.perfil = 'Aluno' AND
+                                           solicitacao.status = 'Deferida' GROUP BY
+                                           usuario.name",[':curso' => Yii::$app->user->identity->curso_id, ':periodo' => $model->id]);
+
+      $dados = $cmd->queryAll();
+        
+      return $this->render('relatorio', ['resultado' => $dados, 'model' => $model]);
+
+    }	
             /* Envio de mensagens para views
        Tipo: success, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){
