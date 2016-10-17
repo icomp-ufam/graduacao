@@ -56,6 +56,24 @@ class UsuarioController extends Controller
         ]);
     }
     /**
+     * Lists all Usuario models.
+     * @return mixed
+     */
+    public function actionAlunos()
+    {
+        $searchModel = new UsuarioSearch();
+
+	$model = $this->findModel(Yii::$app->user->id);
+
+        $dataProvider = $searchModel->searchAlunos(Yii::$app->request->queryParams, $model->curso_id);
+
+        return $this->render('alunos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
      * Displays a single Usuario model.
      * @param integer $id
      * @return mixed
@@ -63,9 +81,9 @@ class UsuarioController extends Controller
     public function actionView($id)
     {
 
-		$model = $this->findModel($id);
+	$model = $this->findModel($id);
 		
-		$curso = Curso::findOne($model->curso_id);
+	$curso = Curso::findOne($model->curso_id);
         if ($curso != null)
             $model->curso_id = $curso->codigo."-".$curso->nome;
 		

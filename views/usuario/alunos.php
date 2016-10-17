@@ -7,14 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\UsuarioSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Lista de Usuários';
+$this->title = 'Lista de Alunos';
 ?>
 
 <section class="content-header">
         <h1><?= Html::encode($this->title) ?></h1>
         <ol class="breadcrumb">
-            <li><a href="?r=usuario/index"><i class="fa fa-user"></i> Usuários</a></li>
-        <li class="active"><a href="?r=usuario/index">Lista</a></li>
+            <li><a href="?r=usuario/alunos"><i class="fa fa-user"></i> Alunos</a></li>
+        <li class="active"><a href="?r=usuario/alunos">Lista</a></li>
         </ol>
 </section>
 
@@ -24,9 +24,9 @@ $this->title = 'Lista de Usuários';
 
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-        <p>
-            <?= Html::a('Novo Usuário', ['create'], ['class' => 'btn btn-success']) ?>
-        </p>
+<!--        <p>
+            <?= Html::a('Novo Aluno', ['create'], ['class' => 'btn btn-success']) ?>
+        </p>-->
 
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
@@ -37,9 +37,8 @@ $this->title = 'Lista de Usuários';
                 'cpf',
                 'email:email',
                 'matricula',
-                'perfil',
 
-                ['class' => 'yii\grid\ActionColumn'],
+              //  ['class' => 'yii\grid\ActionColumn'],
             ],
         ]); ?>
 
