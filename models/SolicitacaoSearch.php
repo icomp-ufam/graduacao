@@ -49,10 +49,16 @@ class SolicitacaoSearch extends Solicitacao
         * por Alunos do Curso que o Coordenador 
         * ou Secrataria logado pertence
         * ****************************************** */
-        if(Yii::$app->user->identity->perfil=='Coordenador' || Yii::$app->user->identity->perfil=='Secretaria')
+        if(Yii::$app->user->identity->perfil=='Coordenador')
         {
             $query = Solicitacao::find()->select("atividade.*, solicitacao.*, usuario.name")->joinWith(["usuario"])->joinWith("atividade")
            ->where('status <> "Aberto" AND usuario.isAtivo = 1 AND usuario.curso_id = '.Yii::$app->user->identity->curso_id);
+		   
+        }
+		else if(Yii::$app->user->identity->perfil=='Secretaria')
+        {
+            $query = Solicitacao::find()->select("atividade.*, solicitacao.*, usuario.name")->joinWith(["usuario"])->joinWith("atividade")
+           ->where('status <> "Aberto" AND usuario.isAtivo = 1');
 		   
         }
 		
