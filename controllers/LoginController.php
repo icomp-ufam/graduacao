@@ -236,6 +236,7 @@ class LoginController extends Controller
             }
 
             $model->password = md5($model->password);
+	    $model->password_repeat = md5($model->password_repeat);
             
             if($model->save())
 				return $this->redirect(['login']);

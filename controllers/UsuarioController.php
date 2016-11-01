@@ -126,6 +126,7 @@ class UsuarioController extends Controller
             $model->isAtivo = 1;
 			// criptografa a senha...
             $model->password = md5($model->password);
+	    $model->password_repeat = md5($model->password_repeat);
 
             if($model->save())
 				return $this->redirect(['view', 'id' => $model->id]);
