@@ -257,16 +257,17 @@ class LoginController extends Controller
         if ( Yii::$app->request->post()) 
         {
             $email = Yii::$app->request->post('email');
+	    
+	    $model = new Usuario();
+	    $model = Usuario::find()->where(['email'=>$email])->one();
 
-            $usuario = Usuario::find()->where(['email'=>$email])->one();
-
-            if($usuario!=null) //se o usuario com email informado existe...
+            if($model != null) //se o usuario com email informado existe...
             {
                 
                 //gera o token de troca senha
-                $usuario->generatePasswordResetToken();
+                $model->generatePasswordResetToken();
                 
-				if($model->save()){
+				if($model->save(false)){
 					
 					//prepara o email com o link
 					$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
@@ -276,19 +277,20 @@ class LoginController extends Controller
 					$message = $mailgun->newMessage();
                 
 					$message->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares');
-					$message->addTo( $usuario->email, $usuario->name); //destinatario...
+					$message->addTo( $model->email, $model->name); //destinatario...
 					$message->setSubject('Nova Senha');
 
-					$url = Url::to(['login/resetpassword', 'token' => $usuario->password_reset_token] , true) ;
+					$url = Url::to(['login/resetpassword', 'token' => $model->password_reset_token] , true) ;
                 
-					$message->setHtml($this->renderPartial('email', ['usuario' => $usuario->name, 'url' => $url]), []);
+					$message->setHtml($this->renderPartial('email', ['usuario' => $model->name, 'url' => $url]), []);
 
 					$message->send();
 
 					return $this->render('senhaenviada');
 				}
-				else
+				else{
 					return $this->render('recuperarsenha');
+				}
             }
             else
             {
