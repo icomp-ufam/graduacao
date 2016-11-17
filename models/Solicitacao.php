@@ -145,7 +145,7 @@ class Solicitacao extends \yii\db\ActiveRecord
             'descricao' => 'Descrição da Solicitação',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
-            'horasComputadas' => 'Horas Lançadas',
+            'horasLancadas' => 'Total de Horas',
 			'horasComputadas' => 'Horas Computadas',
             'observacoes' => 'Observações',
             'status' => 'Status',

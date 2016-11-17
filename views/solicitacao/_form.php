@@ -81,7 +81,7 @@ use yii\helpers\ArrayHelper;
 				]
 				); ?>
        
-        <?= $form->field($model, 'horasLancadas')->textInput()->hint('As horas lançadas não representam as horas que serão computadas se a solicitação for deferida. As horas computadas dependem das regras definidas em cada  curso.') ?>
+        <?= $form->field($model, 'horasLancadas')->textInput()->hint('Este total de horas lançadas não representam as horas que serão computadas se a solicitação for deferida. As horas computadas dependem das regras definidas em cada  curso.') ?>
 		<!--<?= $form->field($model, 'horasComputadas')->textInput() ?>-->
         
         <!--<div id="divMaxHours" class="form-group">
