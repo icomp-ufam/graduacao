@@ -148,7 +148,8 @@ class UsuarioController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-		$senhaAntiga = $model->password;
+	$senhaAntiga = $model->password;
+	$model->isAtivo = 1;
 		
         if ($model->load(Yii::$app->request->post())){
 						
@@ -206,6 +207,7 @@ class UsuarioController extends Controller
         $id = Yii::$app->user->identity->id;
 		$model = $this->findModel($id);
 		$senhaAntiga = $model->password;
+		$model->isAtivo = 1;
 
         if ($model->load(Yii::$app->request->post())){
 			if($model->password != "")

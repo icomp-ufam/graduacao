@@ -121,7 +121,9 @@ class LoginController extends Controller
         {
             
             $model = new Usuario();
-			$model->scenario = 'insert';
+	    $model->scenario = 'insert';
+	    $model->isAtivo = 1;
+
 
             //verifica se o CPF já está cadastrado
             $usuario = Usuario::find()->where(['cpf' => Yii::$app->request->post('cpf') ])->one();
@@ -149,7 +151,6 @@ class LoginController extends Controller
             {
                 $model->cpf = Yii::$app->request->post('cpf');
                 $model->isNewRecord = true;
-				$model->isAtivo = 1;
                 return $this->render('create', ['model' => $model ]);
             }
             
@@ -237,6 +238,7 @@ class LoginController extends Controller
 
             $model->password = md5($model->password);
 	    $model->password_repeat = md5($model->password_repeat);
+	    $model->isAtivo = 1;
             
             if($model->save())
 				return $this->redirect(['login']);
