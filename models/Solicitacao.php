@@ -173,7 +173,7 @@ class Solicitacao extends \yii\db\ActiveRecord
 		else{
 			$this->dtInicio = Yii::$app->formatter->asDate(strtotime($this->dtInicio), 'php:Y-m-d');
 		}
-		if(!Periodo::checkData($this->dtTermino)){
+		if(!Solicitacao::checkData($this->dtTermino)){
 			$this->dtTermino = "";
 			$this->addError('dtTermino','Por favor, informe uma data de término válida no formato DD-MM-AAAA.');
 			$erro = true;
