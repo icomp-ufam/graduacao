@@ -167,17 +167,16 @@ class Solicitacao extends \yii\db\ActiveRecord
 	public function validateDates(){
 		$erro = false;
 
-        		
-	//	 if(!Solicitacao::checkData($this->dtInicio)){
-        if(date('d-m-Y', strtotime($this->dtInicio)) <> $this->dtInicio){
-		 	$this->dtInicio = "";
-		 	$this->addError('dtInicio','a'.$this->dtInicio. 'Por favor, informe uma data de início válida no formato DD-MM-AAAA.');
-		 	$erro = true;
-		 }
-		 else{
-		  $this->dtInicio = Yii::$app->formatter->asDate(strtotime($this->dtInicio), 'php:Y-m-d');
-		 }
-		 if(!Solicitacao::checkData($this->dtTermino)){
+		
+		if(!Solicitacao::checkData($this->dtInicio)){
+			$this->dtInicio = "";
+			$this->addError('dtInicio','Por favor, informe uma data de início válida no formato DD-MM-AAAA.');
+			$erro = true;
+		}
+		else{
+			$this->dtInicio = Yii::$app->formatter->asDate(strtotime($this->dtInicio), 'php:Y-m-d');
+		}
+		if(!Solicitacao::checkData($this->dtTermino)){
 			$this->dtTermino = "";
 			$this->addError('dtTermino','Por favor, informe uma data de término válida no formato DD-MM-AAAA.');
 			$erro = true;

@@ -33,7 +33,17 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+//            'useFileTransport' => true,
+
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'sistemas@icomp.ufam.edu.br',
+                'password' => 'Si102030',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
         ],
         'mailgun' => [
             'class' => 'vendor.baibaratsky.php-mailgun.MailgunYii',

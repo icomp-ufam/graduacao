@@ -189,8 +189,10 @@ $this->title = 'Solicitações';
                     ],
 					['label' => 'Número', 'attribute'=>'id', 'value'=>'id','contentOptions' =>['style' => 'width:100px'],],
 					['label' => 'Nome do Aluno', 'attribute' => 'name', 'value' => 'name', 'visible' => Yii::$app->user->identity->perfil <> 'Aluno'],
-					//'atividade_id',
-					['label'=>'Atividade', 'attribute'=>'atividade_id', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
+
+					'atividade_id',
+				//	['attribute'=>'atividade_id', 'label'=>'Atividade', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
+
 					//'grupo',
                     'descricao',
                     [
