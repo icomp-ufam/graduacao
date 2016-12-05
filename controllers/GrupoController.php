@@ -28,7 +28,7 @@ class GrupoController extends Controller
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
                             {
-                                return Yii::$app->user->identity->perfil == 'Coordenador' ;
+                                return Yii::$app->user->identity->perfil == 'admin' ;
                             }
                         }
                     ],

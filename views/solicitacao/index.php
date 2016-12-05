@@ -6,6 +6,7 @@ use yii\grid\GridView;
 //use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\ActiveForm;
+use app\models\Atividade;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\SolicitacaoSearch */
@@ -190,8 +191,8 @@ $this->title = 'Solicitações';
 					['label' => 'Número', 'attribute'=>'id', 'value'=>'id','contentOptions' =>['style' => 'width:100px'],],
 					['label' => 'Nome do Aluno', 'attribute' => 'name', 'value' => 'name', 'visible' => Yii::$app->user->identity->perfil <> 'Aluno'],
 
-					'atividade_id',
-				//	['attribute'=>'atividade_id', 'label'=>'Atividade', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
+					//'atividade_id',
+					['attribute'=>'atividade_id', 'label'=>'Atividade', 'value' => function ($model) {  return $model->atividade->codigo.': '.$model->atividade->nome;  }  ],
 
 					//'grupo',
                     'descricao',
