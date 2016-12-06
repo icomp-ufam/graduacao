@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use app\models\Atividade;
 
 /**
@@ -55,7 +56,8 @@ class AtividadeSearch extends Atividade
             'query' => $query,
         ]);
 
-        $this->load($params);
+        //$this->load($params);
+		$dataProvider = $this->loadWithFilters($params, $dataProvider); // From SaveGridFiltersBehavior
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

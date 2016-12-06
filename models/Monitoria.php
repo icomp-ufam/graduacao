@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\Periodo;
+use marqu3s\behaviors\SaveGridFiltersBehavior;
 
 /**
  * This is the model class for table "monitoria".
@@ -260,4 +261,14 @@ class Monitoria extends \yii\db\ActiveRecord
         }
         return $diaString;
     }
+	
+	public function behaviors()
+	{
+		return [
+			'saveGridFilters' =>[
+				'class' => SaveGridFiltersBehavior::className(),
+				'sessionVarName' => self::className() . 'GridFilters'
+			]
+		];
+	}	
 }

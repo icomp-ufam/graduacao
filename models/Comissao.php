@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use marqu3s\behaviors\SaveGridFiltersBehavior;
 
 /**
  * This is the model class for table "comissao".
@@ -54,4 +55,14 @@ class Comissao extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuario::className(), ['id' => 'idProfessor']);
     }
+	
+	public function behaviors()
+	{
+		return [
+			'saveGridFilters' =>[
+				'class' => SaveGridFiltersBehavior::className(),
+				'sessionVarName' => self::className() . 'GridFilters'
+			]
+		];
+	}	
 }

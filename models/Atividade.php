@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use marqu3s\behaviors\SaveGridFiltersBehavior;
 
 /**
  * This is the model class for table "atividade".
@@ -92,4 +93,14 @@ class Atividade extends \yii\db\ActiveRecord
 			$this->addError('max_horas','As horas são superiores às horas máximas previstas para o curso');
 		}
 	}
+	
+	public function behaviors()
+	{
+		return [
+			'saveGridFilters' =>[
+				'class' => SaveGridFiltersBehavior::className(),
+				'sessionVarName' => self::className() . 'GridFilters'
+			]
+		];
+	}	
 }

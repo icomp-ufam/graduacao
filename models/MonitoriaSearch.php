@@ -5,6 +5,7 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use app\models\Monitoria;
 use app\models\Usuario;
 use app\models\Disciplina;
@@ -50,7 +51,8 @@ class MonitoriaSearch extends Monitoria
             'query' => $query,
         ]);
 
-        $this->load($params);
+		//$this->load($params);
+		$dataProvider = $this->loadWithFilters($params, $dataProvider); // From SaveGridFiltersBehavior
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -85,7 +87,8 @@ class MonitoriaSearch extends Monitoria
             'query' => $query,
         ]);
 
-        $this->load($params);
+		//$this->load($params);
+		$dataProvider = $this->loadWithFilters($params, $dataProvider); // From SaveGridFiltersBehavior		
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -129,7 +132,8 @@ class MonitoriaSearch extends Monitoria
             'query' => $query,
         ]);
 
-        $this->load($params);
+        //$this->load($params);
+		$dataProvider = $this->loadWithFilters($params, $dataProvider); // From SaveGridFiltersBehavior		
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

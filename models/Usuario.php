@@ -11,6 +11,7 @@ use yiibr\brvalidator\CpfValidator;
 use yiibr\brvalidator\YiiConditionalValidator;
 use app\models\Curso;
 use app\models\Solicitacao;
+use marqu3s\behaviors\SaveGridFiltersBehavior;
 
 /**
  * This is the model class for table "usuario".
@@ -270,5 +271,13 @@ class Usuario extends \yii\db\ActiveRecord  implements IdentityInterface
         return $password ; //sem ta criptografado =) eh logico...      
     } 
     
-    
+	public function behaviors()
+	{
+		return [
+			'saveGridFilters' =>[
+				'class' => SaveGridFiltersBehavior::className(),
+				'sessionVarName' => self::className() . 'GridFilters'
+			]
+		];
+	}	    
 }

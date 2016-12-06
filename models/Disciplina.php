@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use marqu3s\behaviors\SaveGridFiltersBehavior;
 
 /**
  * This is the model class for table "disciplina".
@@ -77,4 +78,14 @@ class Disciplina extends \yii\db\ActiveRecord
                 break;
         }
     }
+	
+	public function behaviors()
+	{
+		return [
+			'saveGridFilters' =>[
+				'class' => SaveGridFiltersBehavior::className(),
+				'sessionVarName' => self::className() . 'GridFilters'
+			]
+		];
+	}
 }
