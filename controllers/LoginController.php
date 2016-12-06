@@ -316,11 +316,11 @@ class LoginController extends Controller
 		$url = Url::to(['login/resetpassword', 'token' => $model->password_reset_token] , true) ;
 
         try{
-               Yii::$app->mailer->compose()
+               Yii::$app->mailer->compose('email', ['usuario' => $model->name, 'url' => $url])
                 ->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares')
                 ->setTo($model->email)
                 ->setSubject($subject)
-                ->setTextBody($this->renderPartial('email', ['usuario' => $model->name, 'url' => $url]), [])
+                //->setTextBody($this->renderPartial('email', ['usuario' => $model->name, 'url' => $url]), [])
                 ->send();
 				var_dump($model->email);
 				

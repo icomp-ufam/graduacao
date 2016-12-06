@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Periodo;
 use app\models\Usuario;
 use app\models\Atividade;
 use marqu3s\behaviors\SaveGridFiltersBehavior;
@@ -77,6 +78,7 @@ class Solicitacao extends \yii\db\ActiveRecord
             //[['dtInicio', 'dtTermino', 'solicitante_id'], 'safe'],
 			[['solicitante_id', 'aprovador_id'], 'safe'],
 			['dtInicio','validateDates'],
+            ['dtTermino','validateDates'],           
 			['descricao','validateSolicitacao'],
 //			[['dtInicio','dtTermino'], 'date', 'format' => 'php:Y-m-d', 'message'=> 'O formato desta data é inválido'],
 //            ['dtTermino', 'compare', 'compareAttribute' => 'dtInicio', 'operator' => '>=', 'message'=> 'A data de término deve ser igual ou maior que a data de início'],
@@ -145,7 +147,7 @@ class Solicitacao extends \yii\db\ActiveRecord
             'descricao' => 'Descrição da Solicitação',
             'dtInicio' => 'Data de Início',
             'dtTermino' => 'Data de Término',
-            'horasLancadas' => 'Total de Horas',
+            'horasComputadas' => 'Horas Lançadas',
 			'horasComputadas' => 'Horas Computadas',
             'observacoes' => 'Observações',
             'status' => 'Status',
@@ -164,6 +166,7 @@ class Solicitacao extends \yii\db\ActiveRecord
 
 	public function validateDates(){
 		$erro = false;
+
 		
 		if(!Solicitacao::checkData($this->dtInicio)){
 			$this->dtInicio = "";

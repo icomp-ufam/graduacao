@@ -1,24 +1,26 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.11.1deb2+deb7u1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
--- Máquina: localhost
--- Data de Criação: 02-Dez-2016 às 13:57
--- Versão do servidor: 5.5.43
--- versão do PHP: 5.6.7-1
+-- Host: 127.0.0.1
+-- Generation Time: 05-Dez-2016 às 06:27
+-- Versão do servidor: 5.7.14
+-- PHP Version: 5.6.25
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de Dados: `graduacao`
+-- Database: `graduacao`
 --
+CREATE DATABASE IF NOT EXISTS `graduacao` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `graduacao`;
 
 -- --------------------------------------------------------
 
@@ -33,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `anexo` (
   `hash` int(11) NOT NULL,
   `solicitacao_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -49,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `atividade` (
   `curso_id` int(11) NOT NULL,
   `grupo_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `atividade`
@@ -117,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `comissao` (
   `idProfessor` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `comissao`
@@ -138,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `nome` varchar(100) NOT NULL,
   `max_horas` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `curso`
@@ -148,6 +150,19 @@ INSERT INTO `curso` (`id`, `codigo`, `nome`, `max_horas`) VALUES
 (1, 'IE15', 'Sistemas de Informação', 120),
 (2, 'IE08', 'Ciência da Computação - v2016', 200),
 (3, '2012', 'Ciência da Computação - v2012', 140);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `curso_usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `curso_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL,
+  `curso_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -164,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `disciplina` (
   `possuiMonitoria` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE KEY `codDisciplina` (`codDisciplina`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1730 ;
+) ENGINE=InnoDB AUTO_INCREMENT=1730 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `disciplina`
@@ -199,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `disciplina_periodo` (
   KEY `fk_disciplina_periodo_idDisciplina` (`idDisciplina`),
   KEY `fk_disciplina_periodo_idCurso` (`idCurso`),
   KEY `fk_disciplina_periodo_idProfessor` (`idProfessor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `disciplina_periodo`
@@ -222,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `frequencia` (
   `atividade` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDMonitoria` (`IDMonitoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -237,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `grupo` (
   `max_horas` int(11) NOT NULL,
   `curso_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `grupo`
@@ -309,7 +324,7 @@ CREATE TABLE IF NOT EXISTS `monitoria` (
   KEY `IDDisc` (`IDDisc`) USING BTREE,
   KEY `IDAluno` (`IDAluno`),
   KEY `IDperiodoinscr` (`IDperiodoinscr`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `monitoria`
@@ -334,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `periodo` (
   `dtTerminoInscMonitoria` date DEFAULT NULL,
   `justificativaPlanoSemestral` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `periodo`
@@ -369,7 +384,7 @@ CREATE TABLE IF NOT EXISTS `solicitacao` (
   `anexoHashName` varchar(255) DEFAULT NULL,
   `created_at` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=130 ;
+) ENGINE=MyISAM AUTO_INCREMENT=130 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `solicitacao`
@@ -544,23 +559,23 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `siape` varchar(20) DEFAULT NULL,
   `perfil` varchar(20) NOT NULL,
   `dtEntrada` date DEFAULT NULL,
-  `isAdmin` tinyint(1) NOT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL,
   `isAtivo` tinyint(1) NOT NULL,
   `auth_key` varchar(65) DEFAULT NULL,
   `password_reset_token` varchar(255) DEFAULT NULL,
   `curso_id` int(11) DEFAULT NULL,
-  `telefone` varchar(25) NOT NULL,
-  `endereco` text NOT NULL,
-  `rg` varchar(15) NOT NULL,
+  `telefone` varchar(25) DEFAULT NULL,
+  `endereco` text,
+  `rg` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=113 ;
+) ENGINE=MyISAM AUTO_INCREMENT=119 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `name`, `cpf`, `email`, `password`, `matricula`, `siape`, `perfil`, `dtEntrada`, `isAdmin`, `isAtivo`, `auth_key`, `password_reset_token`, `curso_id`, `telefone`, `endereco`, `rg`) VALUES
-(1, 'Admin Master', '999.999.999-99', 'ariloclaudio@gmail.com', 'b706835de79a2b4e80506f582af3676a', '', '', 'admin', '0000-00-00', 1, 1, NULL, 'LEABHn8QVmcIqiDSRJTQ', NULL, '', '', ''),
+(1, 'Admin Master', '999.999.999-99', 'ariloclaudio@gmail.com', 'b706835de79a2b4e80506f582af3676a', '', '', 'admin', '2016-12-01', 1, 1, NULL, 'LEABHn8QVmcIqiDSRJTQ', NULL, '', '', ''),
 (2, 'Leonardo', '013.328.842-02', 'leonardo.almeida18@gmail.com', '4417ee9b580735c1a2a52b87691b2b8d', '21206254', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
 (41, 'Arilo', '704.574.332-72', 'arilo@icomp.ufam.edu.br', '2a2b6fdbc8df6a01355c15572afffeaf', '123456', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
 (14, 'Coordenador CC', '768.420.702-44', 'coord-cc@icomp.ufam.edu.br', '7341c60663027589e4e532d615f33e58', '345678', NULL, 'Coordenador', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
@@ -620,7 +635,7 @@ INSERT INTO `usuario` (`id`, `name`, `cpf`, `email`, `password`, `matricula`, `s
 (70, 'Bruno Pinheiro', '021.721.382-07', 'bsp@icomp.ufam.edu.br', '87f42baa143decf9ac6f0c43f2006fe2', '21650919', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
 (71, 'Renato Lousan da Silva', '026.515.942-37', 'rls@icomp.ufam.edu.br', '670e691082e275f6bd58863b649608d1', '21553693', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
 (72, 'Leonardo Carneiro Marques', '016.516.192-20', 'lcm@icomp.ufam.edu.br', '6e6203663d1ea766a87710e8b79ee1e8', '21100161', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
-(73, 'Tyller Jor''El', '017.630.512-26', 'tylee.fne@gmail.com', '7657e4d6f3916601fe8afe1eba0054fd', '21204697', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 3, '', '', ''),
+(73, 'Tyller Jor\'El', '017.630.512-26', 'tylee.fne@gmail.com', '7657e4d6f3916601fe8afe1eba0054fd', '21204697', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 3, '', '', ''),
 (74, 'Ives Matheus Pereira de Souza Alves', '017.776.592-56', 'impsa@icomp.ufam.edu.br', '2645703ee8d01fbfb57239d9f67c7a6d', '21353615', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
 (75, 'Thiago Lopes Costa', '002.586.212-06', 'tlc2@icomp.ufam.edu.br', 'bfd85564b0daca6eb6af912d1693d388', '21601238', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
 (76, 'Timóteo Fonseca Santos', '002.566.542-12', 'tfs@icomp.ufam.edu.br', 'a0f0e4f8276a4e332ecb705d2771c9cc', '21553687', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 2, '', '', ''),
@@ -659,12 +674,18 @@ INSERT INTO `usuario` (`id`, `name`, `cpf`, `email`, `password`, `matricula`, `s
 (109, 'Aglair Pereira Barroncas Neto', '813.549.592-72', 'apbn@icomp.ufam.edu.br', '2219e54fc8f523f0229364f06189c212', '21354856', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
 (110, 'Nikolas Rocha de Medeiros', '003.589.152-10', 'nrm@icomp.ufam.edu.br', '61281ebd36314c45cce41666b55ca54a', '21352599', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
 (111, 'Gustavo Noronha Matos', '025.324.142-19', 'gnm@icomp.ufam.edu.br', '8843629326cf58d3fb1ae7cdbd2c3b67', '21555193', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
-(112, 'Roberto Cavalcanti Campos Neto', '016.649.112-86', 'rccn@icomp.ufam.edu.br', 'a077decf1fa95ed7c2d9391ff57ce2d9', '21351820', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', '');
+(112, 'Roberto Cavalcanti Campos Neto', '016.649.112-86', 'rccn@icomp.ufam.edu.br', 'a077decf1fa95ed7c2d9391ff57ce2d9', '21351820', NULL, 'Aluno', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
+(113, 'Rodrigo Soares Gouveia', '021.556.522-32', 'rsg@icomp.ufam.edu.br', '91f5167c34c400758115c2a6826ec2e3', '02155652232', NULL, 'Aluno', NULL, NULL, 1, NULL, NULL, 1, NULL, NULL, NULL),
+(114, '1Admin-Estágio', '111.111.111-11', 'rsoaresgouveia@gmail.com', '91f5167c34c400758115c2a6826ec2e3', '', '', 'admin', '2016-12-01', 1, 1, NULL, 'LEABHn8QVmcIqiDSRJTQ', NULL, '', '', ''),
+(118, '1Secretaria-Estágio', '111.111.111-14', 'rsoaresgouveia@gmail.com', '91f5167c34c400758115c2a6826ec2e3', '11111', NULL, 'Secretaria', NULL, 0, 1, NULL, NULL, 1, '', '', ''),
+(116, '1Professor-Estágio', '111.111.111-13', 'rsoaresgouveia@gmail.com', '91f5167c34c400758115c2a6826ec2e3', '', '', 'Professor', '2016-12-01', 0, 1, NULL, 'LEABHn8QVmcIqiDSRJTQ', NULL, '', '', ''),
+(117, '1Coordenador-Estágio', '111.111.111-12', 'rsg@icomp.ufam.edu.br', '91f5167c34c400758115c2a6826ec2e3', '111111', NULL, 'Coordenador', NULL, 0, 1, NULL, NULL, 2, '', '', '');
 
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `view_aluno_monitoria`
+-- (See below for the actual view)
 --
 CREATE TABLE IF NOT EXISTS `view_aluno_monitoria` (
 `id` int(11)
@@ -701,10 +722,12 @@ CREATE TABLE IF NOT EXISTS `view_aluno_monitoria` (
 ,`pathArqPlanoDisciplina` varchar(250)
 ,`pathArqRelatorioSemestral` varchar(250)
 );
+
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `view_disciplina_monitoria`
+-- (See below for the actual view)
 --
 CREATE TABLE IF NOT EXISTS `view_disciplina_monitoria` (
 `id` int(11)
@@ -721,10 +744,12 @@ CREATE TABLE IF NOT EXISTS `view_disciplina_monitoria` (
 ,`qtdMonitorBolsista` int(4)
 ,`qtdMonitorNaoBolsista` int(4)
 );
+
 -- --------------------------------------------------------
 
 --
 -- Stand-in structure for view `view_professor_monitoria`
+-- (See below for the actual view)
 --
 CREATE TABLE IF NOT EXISTS `view_professor_monitoria` (
 `id` int(11)
@@ -747,6 +772,7 @@ CREATE TABLE IF NOT EXISTS `view_professor_monitoria` (
 ,`pathArqPlanoDisciplina` varchar(250)
 ,`pathArqRelatorioSemestral` varchar(250)
 );
+
 -- --------------------------------------------------------
 
 --
@@ -754,7 +780,7 @@ CREATE TABLE IF NOT EXISTS `view_professor_monitoria` (
 --
 DROP TABLE IF EXISTS `view_aluno_monitoria`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_aluno_monitoria` AS select `m`.`id` AS `id`,`m`.`IDDisc` AS `id_disciplina`,`u`.`name` AS `aluno`,`m`.`IDAluno` AS `IDAluno`,`u`.`matricula` AS `matricula`,`u`.`cpf` AS `cpf`,`m`.`mediaFinal` AS `mediaFinal`,`m`.`bolsa` AS `bolsa`,if((`m`.`bolsa` = 1),'Sim','Não') AS `bolsa_traducao`,`m`.`banco` AS `banco`,`m`.`agencia` AS `agencia`,`m`.`conta` AS `conta`,`m`.`semestreConclusao` AS `semestreConclusao`,`m`.`anoConclusao` AS `anoConclusao`,`u`.`telefone` AS `telefoneAluno`,`u`.`endereco` AS `enderecoAluno`,`u`.`email` AS `emailAluno`,`u`.`rg` AS `RgAluno`,`ca`.`nome` AS `nomeCursoAluno`,`d`.`codDisciplina` AS `codDisciplina`,`d`.`nomeDisciplina` AS `nomeDisciplina`,`dp`.`codTurma` AS `codTurma`,`p`.`name` AS `professor`,`p`.`telefone` AS `telefoneProfessor`,`p`.`email` AS `emailProfessor`,`c`.`nome` AS `nomeCurso`,`m`.`status` AS `codStatus`,(case `m`.`status` when 0 then 'Aguardando Avaliação' when 1 then 'Selecionado com bolsa' when 2 then 'Selecionado sem bolsa' when 3 then 'Não selecionado' when 4 then 'Indeferido - Nota < 7' when 5 then 'Indeferido - Coeficiente < 5' when 6 then 'Indeferido - Não cursou a disciplina' end) AS `status`,`pi`.`codigo` AS `periodo`,`m`.`IDperiodoinscr` AS `IDperiodoinscr`,`m`.`pathArqHistorico` AS `pathArqHistorico`,`m`.`pathArqPlanoDisciplina` AS `pathArqPlanoDisciplina`,`m`.`pathArqRelatorioSemestral` AS `pathArqRelatorioSemestral` from (((((((`monitoria` `m` join `disciplina_periodo` `dp` on((`m`.`IDDisc` = `dp`.`id`))) join `disciplina` `d` on((`dp`.`idDisciplina` = `d`.`id`))) left join `usuario` `u` on((`m`.`IDAluno` = `u`.`id`))) left join `usuario` `p` on((`dp`.`idProfessor` = `p`.`id`))) left join `curso` `c` on((`dp`.`idCurso` = `c`.`id`))) left join `periodo` `pi` on((`m`.`IDperiodoinscr` = `pi`.`id`))) left join `curso` `ca` on((`u`.`curso_id` = `ca`.`id`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_aluno_monitoria`  AS  select `m`.`id` AS `id`,`m`.`IDDisc` AS `id_disciplina`,`u`.`name` AS `aluno`,`m`.`IDAluno` AS `IDAluno`,`u`.`matricula` AS `matricula`,`u`.`cpf` AS `cpf`,`m`.`mediaFinal` AS `mediaFinal`,`m`.`bolsa` AS `bolsa`,if((`m`.`bolsa` = 1),'Sim','Não') AS `bolsa_traducao`,`m`.`banco` AS `banco`,`m`.`agencia` AS `agencia`,`m`.`conta` AS `conta`,`m`.`semestreConclusao` AS `semestreConclusao`,`m`.`anoConclusao` AS `anoConclusao`,`u`.`telefone` AS `telefoneAluno`,`u`.`endereco` AS `enderecoAluno`,`u`.`email` AS `emailAluno`,`u`.`rg` AS `RgAluno`,`ca`.`nome` AS `nomeCursoAluno`,`d`.`codDisciplina` AS `codDisciplina`,`d`.`nomeDisciplina` AS `nomeDisciplina`,`dp`.`codTurma` AS `codTurma`,`p`.`name` AS `professor`,`p`.`telefone` AS `telefoneProfessor`,`p`.`email` AS `emailProfessor`,`c`.`nome` AS `nomeCurso`,`m`.`status` AS `codStatus`,(case `m`.`status` when 0 then 'Aguardando Avaliação' when 1 then 'Selecionado com bolsa' when 2 then 'Selecionado sem bolsa' when 3 then 'Não selecionado' when 4 then 'Indeferido - Nota < 7' when 5 then 'Indeferido - Coeficiente < 5' when 6 then 'Indeferido - Não cursou a disciplina' end) AS `status`,`pi`.`codigo` AS `periodo`,`m`.`IDperiodoinscr` AS `IDperiodoinscr`,`m`.`pathArqHistorico` AS `pathArqHistorico`,`m`.`pathArqPlanoDisciplina` AS `pathArqPlanoDisciplina`,`m`.`pathArqRelatorioSemestral` AS `pathArqRelatorioSemestral` from (((((((`monitoria` `m` join `disciplina_periodo` `dp` on((`m`.`IDDisc` = `dp`.`id`))) join `disciplina` `d` on((`dp`.`idDisciplina` = `d`.`id`))) left join `usuario` `u` on((`m`.`IDAluno` = `u`.`id`))) left join `usuario` `p` on((`dp`.`idProfessor` = `p`.`id`))) left join `curso` `c` on((`dp`.`idCurso` = `c`.`id`))) left join `periodo` `pi` on((`m`.`IDperiodoinscr` = `pi`.`id`))) left join `curso` `ca` on((`u`.`curso_id` = `ca`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -763,7 +789,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_disciplina_monitoria`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_disciplina_monitoria` AS select `a`.`id` AS `id`,`b`.`nomeDisciplina` AS `nomeDisciplina`,`b`.`codDisciplina` AS `codDisciplina`,`c`.`nome` AS `nomeCurso`,`a`.`codTurma` AS `codTurma`,`d`.`name` AS `nomeProfessor`,`a`.`numPeriodo` AS `numPeriodo`,`a`.`anoPeriodo` AS `anoPeriodo`,`a`.`qtdVagas` AS `qtdVagas`,`a`.`usaLaboratorio` AS `lab`,if((`a`.`usaLaboratorio` = 1),'Sim','Não') AS `lab_traducao`,`a`.`qtdMonitorBolsista` AS `qtdMonitorBolsista`,`a`.`qtdMonitorNaoBolsista` AS `qtdMonitorNaoBolsista` from (((`disciplina_periodo` `a` join `disciplina` `b` on((`a`.`idDisciplina` = `b`.`id`))) left join `curso` `c` on((`a`.`idCurso` = `c`.`id`))) left join `usuario` `d` on((`a`.`idProfessor` = `d`.`id`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_disciplina_monitoria`  AS  select `a`.`id` AS `id`,`b`.`nomeDisciplina` AS `nomeDisciplina`,`b`.`codDisciplina` AS `codDisciplina`,`c`.`nome` AS `nomeCurso`,`a`.`codTurma` AS `codTurma`,`d`.`name` AS `nomeProfessor`,`a`.`numPeriodo` AS `numPeriodo`,`a`.`anoPeriodo` AS `anoPeriodo`,`a`.`qtdVagas` AS `qtdVagas`,`a`.`usaLaboratorio` AS `lab`,if((`a`.`usaLaboratorio` = 1),'Sim','Não') AS `lab_traducao`,`a`.`qtdMonitorBolsista` AS `qtdMonitorBolsista`,`a`.`qtdMonitorNaoBolsista` AS `qtdMonitorNaoBolsista` from (((`disciplina_periodo` `a` join `disciplina` `b` on((`a`.`idDisciplina` = `b`.`id`))) left join `curso` `c` on((`a`.`idCurso` = `c`.`id`))) left join `usuario` `d` on((`a`.`idProfessor` = `d`.`id`))) ;
 
 -- --------------------------------------------------------
 
@@ -772,7 +798,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_professor_monitoria`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_professor_monitoria` AS select `m`.`id` AS `id`,`m`.`IDDisc` AS `id_disciplina`,`d`.`codDisciplina` AS `codDisciplina`,`d`.`nomeDisciplina` AS `nomeDisciplina`,`dp`.`codTurma` AS `codTurma`,`p`.`name` AS `professor`,`p`.`cpf` AS `cpfProfessor`,`dp`.`idProfessor` AS `idProfessor`,`c`.`nome` AS `nomeCursoDisciplina`,`u`.`name` AS `aluno`,`m`.`IDAluno` AS `IDAluno`,`u`.`matricula` AS `matricula`,`ca`.`nome` AS `nomeCursoAluno`,`m`.`bolsa` AS `bolsa`,if((`m`.`bolsa` = 1),'Sim','Não') AS `bolsa_traducao`,`pi`.`codigo` AS `periodo`,`m`.`IDperiodoinscr` AS `IDperiodoinscr`,`m`.`pathArqPlanoDisciplina` AS `pathArqPlanoDisciplina`,`m`.`pathArqRelatorioSemestral` AS `pathArqRelatorioSemestral` from (((((((`monitoria` `m` join `disciplina_periodo` `dp` on((`m`.`IDDisc` = `dp`.`id`))) join `disciplina` `d` on((`dp`.`idDisciplina` = `d`.`id`))) left join `usuario` `u` on((`m`.`IDAluno` = `u`.`id`))) left join `usuario` `p` on((`dp`.`idProfessor` = `p`.`id`))) left join `curso` `c` on((`dp`.`idCurso` = `c`.`id`))) left join `periodo` `pi` on((`m`.`IDperiodoinscr` = `pi`.`id`))) left join `curso` `ca` on((`u`.`curso_id` = `ca`.`id`))) where (`m`.`status` in (1,2));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_professor_monitoria`  AS  select `m`.`id` AS `id`,`m`.`IDDisc` AS `id_disciplina`,`d`.`codDisciplina` AS `codDisciplina`,`d`.`nomeDisciplina` AS `nomeDisciplina`,`dp`.`codTurma` AS `codTurma`,`p`.`name` AS `professor`,`p`.`cpf` AS `cpfProfessor`,`dp`.`idProfessor` AS `idProfessor`,`c`.`nome` AS `nomeCursoDisciplina`,`u`.`name` AS `aluno`,`m`.`IDAluno` AS `IDAluno`,`u`.`matricula` AS `matricula`,`ca`.`nome` AS `nomeCursoAluno`,`m`.`bolsa` AS `bolsa`,if((`m`.`bolsa` = 1),'Sim','Não') AS `bolsa_traducao`,`pi`.`codigo` AS `periodo`,`m`.`IDperiodoinscr` AS `IDperiodoinscr`,`m`.`pathArqPlanoDisciplina` AS `pathArqPlanoDisciplina`,`m`.`pathArqRelatorioSemestral` AS `pathArqRelatorioSemestral` from (((((((`monitoria` `m` join `disciplina_periodo` `dp` on((`m`.`IDDisc` = `dp`.`id`))) join `disciplina` `d` on((`dp`.`idDisciplina` = `d`.`id`))) left join `usuario` `u` on((`m`.`IDAluno` = `u`.`id`))) left join `usuario` `p` on((`dp`.`idProfessor` = `p`.`id`))) left join `curso` `c` on((`dp`.`idCurso` = `c`.`id`))) left join `periodo` `pi` on((`m`.`IDperiodoinscr` = `pi`.`id`))) left join `curso` `ca` on((`u`.`curso_id` = `ca`.`id`))) where (`m`.`status` in (1,2)) ;
 
 --
 -- Constraints for dumped tables

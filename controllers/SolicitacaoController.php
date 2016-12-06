@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Curso;
+use app\models\Usuario;
 use app\models\Grupo;
 use app\models\Periodo;
 use Yii;
@@ -122,6 +123,25 @@ class SolicitacaoController extends Controller
 
             if(Yii::$app->user->identity->perfil == 'Aluno'){
                 $model->solicitante_id = Yii::$app->user->identity->id;
+
+                // <>
+                
+
+                // $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
+                // $key = 'key-f0dc85b59a45bcda5373019f605ce034';
+                // $mailgun = new \MailgunApi( $domain, $key );
+                
+                // $message = $mailgun->newMessage();
+                
+                // $message->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares');
+                // $message->addTo( <>, $model->name); //destinatario...
+                // $message->setSubject('Nova Solicitação criada');
+
+                // //$url = Url::to(['login/resetpassword', 'token' => $model->password_reset_token] , true) ;
+                
+                // $message->$message->setText('O aluno '. <> .' Acabou de criar uma nova solicitação de atividade');
+
+                // $message->send();
             }
 
             $file = UploadedFile::getInstance($model, 'arquivo');
