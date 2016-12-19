@@ -272,7 +272,8 @@ class LoginController extends Controller
 				if($model->save(false)){
 					
 					//prepara o email com o link
-					/*$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
+					/*
+					$domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
 					$key = 'key-f0dc85b59a45bcda5373019f605ce034';
 					$mailgun = new \MailgunApi( $domain, $key );
                 
@@ -286,7 +287,8 @@ class LoginController extends Controller
                 
 					$message->setHtml($this->renderPartial('email', ['usuario' => $model->name, 'url' => $url]), []);
 
-					$message->send();*/
+					$message->send(); */
+
 					$this->enviarSenha($model);
 
 					return $this->render('senhaenviada');
@@ -305,8 +307,12 @@ class LoginController extends Controller
             return $this->render('recuperarsenha');
         }
     }
-	
-	public function enviarSenha($model){
+    
+    /**
+     * Envia token para geração de nova senha por email.
+     */
+
+    public function enviarSenha($model){
 
         // subject
         $subject  = "[IComp/UFAM] RecuperaÃ§Ã£o de Senha";
@@ -316,22 +322,21 @@ class LoginController extends Controller
 		$url = Url::to(['login/resetpassword', 'token' => $model->password_reset_token] , true) ;
 
         try{
-               Yii::$app->mailer->compose('email', ['usuario' => $model->name, 'url' => $url])
+               Yii::$app->mailer->compose()
                 ->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares')
                 ->setTo($model->email)
                 ->setSubject($subject)
-                //->setTextBody($this->renderPartial('email', ['usuario' => $model->name, 'url' => $url]), [])
+                ->setHtmlBody($this->renderPartial('email', ['usuario' => $model->name, 'url' => $url]), [])
                 ->send();
-				var_dump($model->email);
 				
         }catch(Exception $e){
-                $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar RecuperaÃ§Ã£o de Senha.
+                $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar Recuperação de Senha.
                     Tente novamente ou contate o adminstrador do sistema');
                 return false;
         }
         return true;
     }   
-    
+
     /**
      * Reseta a senha do usuario informado.
      */

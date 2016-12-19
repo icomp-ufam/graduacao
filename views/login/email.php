@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\UsuarioSearch */
@@ -12,7 +11,7 @@ use yii\helpers\Url;
 
     <html>
     <head>
-        <title>Email teste</title>
+        <title>Recuperação de Senha</title>
 
         <meta charset="UTF-8">
 
@@ -27,7 +26,7 @@ use yii\helpers\Url;
 
         <tr>
             <td style="color:#153643;font-size:18px;font-weight:bold;font-family:'Open Sans',sans-serif;border-bottom:#bbbbbb solid 1px" align="center" bgcolor="#F7F7F7">
-                <img tabindex="0" class="CToWUd a6T" src="http://icomp.ufam.edu.br/images/sampledata/ja_university/sistema-icomp.png" alt="logo icomp" style="display:block" height="auto" width="auto"><div style="opacity: 0.01; left: 690.5px; top: 201px;" dir="ltr" class="a6S"><div data-tooltip="Fazer o download" data-tooltip-class="a1V" id=":fc" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" role="button" tabindex="0" aria-label="Fazer o download do anexo "><div class="aSK J-J5-Ji aYr"></div></div></div>
+                <img tabindex="0" class="CToWUd a6T" src="http://sistemas.icomp.ufam.edu.br/graduacao/web/images/icomp.png" alt="logo icomp" style="display:block" height="auto" width="auto"><div style="opacity: 0.01; left: 690.5px; top: 201px;" dir="ltr" class="a6S"><div data-tooltip="Fazer o download" data-tooltip-class="a1V" id=":fc" class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q" role="button" tabindex="0" aria-label="Fazer o download do anexo "><div class="aSK J-J5-Ji aYr"></div></div></div>
             </td>
         </tr>
         <tr>
