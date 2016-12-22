@@ -24,8 +24,8 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
     	<!--<a href="?r=disciplina/index" class="btn btn-default">Voltar</a>-->
-        <?= Html::a('Cancelar', ['disciplina/index'], ['class' => 'btn btn-danger']) ?>
-        <?= Html::submitButton($model->isNewRecord ? 'Cadastrar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Cadastrar' : '<i class="fa fa-save"></i> Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		<?= Html::a('<i class="fa fa-close"></i> Cancelar', ['disciplina/index'], ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

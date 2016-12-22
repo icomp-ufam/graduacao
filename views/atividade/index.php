@@ -22,7 +22,7 @@ $this->title = 'Atividades';
     <div class="atividade-index box-body">
 
         <p>
-            <?= Html::a('Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fa fa-plus-circle"></i> Nova Atividade', ['create'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <?= GridView::widget([

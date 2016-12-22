@@ -37,11 +37,11 @@ use yii\helpers\Html;
                             <p>
                                 Olá, <?= $usuario ?> <br/><br/><br/>
 
-                                Você recebeu para avaliação uma nova solicitação de atividade complementar por meio do<strong>Sistema de Atividades Complementares.</strong></p>
+                                Você recebeu para avaliação uma nova solicitação de atividade complementar por meio do <strong>Sistema de Atividades Complementares.</strong></p>
 
                             <br/>
 								
-								<p>A solicitação foi enviada por <?= $aluno ?>, possui código <?= $codigo ?> e descricao <?= $descricao ?>.</p>.</p>
+								<p>A solicitação foi enviada por <?= $aluno ?>, possui código <strong><?= $codigo ?></strong> e descrição <strong><?= $descricao ?></strong>.</p>
 								
 							<br/>
 								

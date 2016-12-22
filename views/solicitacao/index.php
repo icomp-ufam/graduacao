@@ -26,8 +26,7 @@ $this->title = 'Solicitações';
 <section class="content">
  <div class="box box-success">
    
- 
-     <div class="solicitacao-index box-body">
+      <div class="solicitacao-index box-body">
 	 
          <?php if(Yii::$app->request->get('error')){?>
 		   <div id="alerta" class="alert alert-danger" role="alert"><?php echo Yii::$app->request->get('error') ?></div>
@@ -47,25 +46,25 @@ $this->title = 'Solicitações';
         <div class="row">
             <div class="col-xs-4">     
                 <?php if(Yii::$app->user->identity->perfil == 'Coordenador' || Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-                     <?= Html::a('Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
+                     <?= Html::a('<i class="fa fa-plus-circle"></i> Nova Solicitação', ['create'], ['class' => 'btn btn-success']) ?>
                 <?php } ?>
             </div>
 
             <div class="col-xs-8"> 
                 <div class="pull-right">       
                     <?php if(Yii::$app->user->identity->perfil == 'Coordenador'){ ?>
-                        <!--<?= Html::submitButton('Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>-->
-                        <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
-                        <?= Html::submitButton('Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
+                        <!--<?= Html::submitButton('<i class="fa fa-database"></i> Arquivar ', ['class' => 'btn btn-primary', 'name' => 'action', 'value' => 'Arquivar']) ?>-->
+                        <?= Html::submitButton('<i class="fa fa-thumbs-down"></i> Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
+                        <?= Html::submitButton('<i class="fa fa-check-circle"></i> Deferir ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'Deferir']) ?>
                     <?php } ?>
 
                     <?php if(Yii::$app->user->identity->perfil == 'Secretaria'){ ?>
-                        <?= Html::submitButton('Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
-                        <?= Html::submitButton('Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar']) ?>
+                        <?= Html::submitButton('<i class="fa fa-thumbs-down"></i> Indeferir ', ['class' => 'btn btn-danger', 'name' => 'action', 'value' => 'Indeferir']) ?>
+                        <?= Html::submitButton('<i class="fa fa-thumbs-up"></i> Pré-aprovar ', ['class' => 'btn btn-success', 'name' => 'action', 'value' => 'PreAprovar']) ?>
                     <?php } ?>
                                  
                     <?php if(Yii::$app->user->identity->perfil == 'Aluno'){ ?>
-                        <?= Html::submitButton('Submeter', ['class' => 'btn btn-info', 'name' => 'action', 'value' => 'Submeter']);?>
+                        <?= Html::submitButton('<i class="fa fa-mail-forward"></i> Submeter', ['class' => 'btn btn-info', 'name' => 'action', 'value' => 'Submeter']);?>
                     <?php } ?>
                 </div>
             </div>
@@ -81,7 +80,7 @@ $this->title = 'Solicitações';
 				$opcoes = array ('Aberto' => 'Aberto', 'Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida");
 			else
 				//$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida", 'Arquivada' => "Arquivada");
-				$opcoes = array ('Submetida' => "Submetida", 'Pre-aprovada' => "Pre-aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida");
+				$opcoes = array ('Submetida' => "Submetida", 'Pre-Aprovada' => "Pre-Aprovada", 'Indeferida' => "Indeferida", 'Deferida' => "Deferida");
 				
 			
 		?>

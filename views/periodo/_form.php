@@ -36,8 +36,8 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'isAtivo')->checkbox() ?>
 
-        <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a('Cancelar', ['periodo/index'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Salvar' : '<i class="fa fa-save"></i> Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-close"></i> Cancelar', ['periodo/index'], ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

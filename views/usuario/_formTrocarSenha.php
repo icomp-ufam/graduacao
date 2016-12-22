@@ -37,8 +37,8 @@ use yii\helpers\ArrayHelper;
 	<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true, 'value' => '']) ?>
  
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a('Cancelar', ['/'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Salvar' : '<i class="fa fa-save"></i> Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-close"></i> Cancelar', ['/'], ['class' => 'btn btn-danger']) ?>
     </div>
 </div>
     <?php ActiveForm::end(); ?>

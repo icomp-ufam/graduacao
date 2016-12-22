@@ -23,7 +23,7 @@ $this->title = 'Disciplinas';
     <div class="disciplina-index box-body">
 
     <p>
-        <?= Html::a('Nova Disciplina', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus-circle"></i> Nova Disciplina', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

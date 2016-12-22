@@ -41,7 +41,7 @@ use yii\helpers\Html;
 
                             <br/>
 								
-								<p>A sua solicitação de código <?= $codigo ?> e descricao <?= $descricao ?> foi DEFERIDA.</p>
+								<p>A sua solicitação de código <strong><?= $codigo ?></strong> e descrição <strong><?= $descricao ?></strong> foi <strong>DEFERIDA</strong>.</p>
 								
 							<br/>
 								

@@ -21,7 +21,7 @@ $this->title = 'Lista de Cursos';
         <div class="curso-index box-body">
     
             <p>
-                <?= Html::a('Novo Curso', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('<i class="fa fa-plus-circle"></i> Novo Curso', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
 
             <?= GridView::widget([

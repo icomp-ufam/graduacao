@@ -31,7 +31,7 @@ $this->title = 'Lista de Períodos';
     <?php } ?>
 
     <p>
-        <?= Html::a('Novo Período', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus-circle"></i> Novo Período', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

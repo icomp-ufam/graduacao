@@ -234,8 +234,6 @@ class SolicitacaoController extends Controller
 
         if ($action == 'Submeter') {
             $status = 'Submetida';
-      //  } else if ($_POST['action'] == 'Arquivar') {
-            //$status = 'Arquivada';
         } else if ($_POST['action'] == 'Deferir') {
             $status = 'Deferida';
         }else if ($_POST['action'] == 'Indeferir'){
@@ -253,6 +251,9 @@ class SolicitacaoController extends Controller
                 if($s->status=='Aberto' || $s->status=='Indeferida')
                 {
                     $s->status = $status;
+					$this->notificarCoordenadores($s, "emailNovaSolicitacaoIComp");
+					$this->notificarSecretarias($s, "emailNovaSolicitacaoIComp");
+					$this->notificarAluno($s, "emailNovaSolicitacaoAluno");
                 }
 				else{
 					return $this->redirect(['index','error' => 'Apenas solicitações com status ABERTA ou INDEFERIDA podem ser submetidas']);
@@ -265,6 +266,13 @@ class SolicitacaoController extends Controller
                 {
                     $s->status = $status;
 					$s->aprovador_id = Yii::$app->user->identity->id;
+					if($s->status=='Indeferida'){
+						$this->notificarAluno($s, "emailSolicitacaoIndeferidaAluno");
+					}
+					else{
+						$this->notificarAluno($s, "emailSolicitacaoPreaprovadaAluno");
+						$this->notificarCoordenadores($s, "emailSolicitacaoPreaprovadaCoordenador");
+					}
                 }
 				else{
 					return $this->redirect(['index','error' => 'Apenas solicitações com status SUBMETIDA podem ser Avaliadas']);
@@ -274,18 +282,21 @@ class SolicitacaoController extends Controller
 
             if(Yii::$app->user->identity->perfil=='Coordenador')
             {
-                if($s->status=='Pre-Aprovada' || $s->status=='Submetida')
+                
+				if($s->status =='Pre-Aprovada' || $s->status=='Submetida')
                 {
                     $s->status = $status;
 					$s->aprovador_id = Yii::$app->user->identity->id;
-					$s->horasComputadas = $this->computarHoras($s);
-					$this->notificarInteressado($s, Yii::$app->user->identity->perfil);
-  //                  $s->save();
+					
+					if($s->status=='Indeferida'){
+						$this->notificarAluno($s, "emailSolicitacaoIndeferidaAluno");
+					}
+					else{
+						$s->horasComputadas = $this->computarHoras($s);
+						$this->notificarAluno($s, "emailSolicitacaoDeferidaAluno");
+					}
+					
                 }
-				//else if(($s->status=='Deferida' || $s->status=='Indeferida') && $status == 'Arquivada'){
-                  //  $s->status = $status;
-                    //$s->save();
-				//}
 				else{
 					return $this->redirect(['index','error' => 'Apenas solicitações com status SUBMETIDAS ou PRÉ-APROVADAS podem ser Avaliadas']);
 				}
@@ -293,10 +304,62 @@ class SolicitacaoController extends Controller
 
             $s->save(false);
         }
-		//$this->mensagens('success', 'Sucesso', 'Solicitação pré-aprovada com sucesso.');
-		//Yii::$app->session->setFlash('success', "Your message to display");
+		
         return $this->redirect(['index','success' => 'Solicitação(ões) processada(s) com sucesso']);
     }
+	
+    /* notificar alunos sobre solicitações       */
+    protected function notificarAluno($s, $email){
+	    
+		$aluno = Usuario::findOne($s->solicitante_id);
+		var_dump($aluno->email);
+		$this->enviarEmailInteressado($email, $aluno->email, $aluno->name, $aluno->name, $s->id, $s->descricao);
+		
+        return true;
+	}
+	
+    /* notificar Coordenadores sobre solicitações       */
+    protected function notificarCoordenadores($s, $email){
+	    
+		$aluno = Usuario::findOne($s->solicitante_id);
+		$coordenadores = Usuario::findAll(['curso_id' => $aluno->curso_id, 'perfil' => "Coordenador"]);
+		foreach($coordenadores as $coordenador){
+			$this->enviarEmailInteressado($email, $coordenador->email, $coordenador->name, $aluno->name, $s->id, $s->descricao);	
+			var_dump($coordenador->email);
+		}
+		
+        return true;
+	}
+	
+    /* notificar Secretárias sobre solicitações       */
+    protected function notificarSecretarias($s, $email){
+	    
+		$aluno = Usuario::findOne($s->solicitante_id);
+		$secretarias = Usuario::findAll(['perfil' => "Secretaria"]);
+		foreach($secretarias as $secretaria){
+			$this->enviarEmailInteressado($email, $secretaria->email, $secretaria->name, $aluno->name, $s->id, $s->descricao);	
+			var_dump($secretaria->email);
+		}
+		
+        return true;
+	}
+	
+	/* Envio de emails sobre resultados de solicitações */
+    protected function enviarEmailInteressado($email, $to, $usuario, $aluno, $codigo, $descricao){	
+		try{
+               Yii::$app->mailer->compose()
+                ->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares')
+                ->setTo($to)
+                ->setSubject("[IComp/UFAM] Solicitação de Atividade Complementar Processada")
+                ->setHtmlBody($this->renderPartial($email, ['usuario' => $usuario, 'aluno' => $aluno, 'codigo' => $codigo, 'descricao' => $descricao]),[])
+                ->send();
+				
+        }catch(Exception $e){
+                $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar Processamento de Solicita褯 .
+                    Tente novamente ou contate o adminstrador do sistema');
+                return false;
+        }
+	}	
 
     /**
      * Finds the Solicitacao model based on its primary key value.
@@ -391,52 +454,6 @@ class SolicitacaoController extends Controller
             'showProgressbar' => true,
         ]);
     }
-	
-    /* notificar interessados em solicitações       */
-    protected function notificarInteressado($s, $papel){
-	    if($papel == "Aluno"){
-			//	enviarEmailInteressado("emailNovaSolicitacaoAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
-			//enviarEmailInteressado("emailNovaSolicitacaoIComp", "Coordenador", $s->solicitante_id, $s->id, $s->descricao);
-			//enviarEmailInteressado("emailNovaSolicitacaoIComp", "Secretaria", $s->solicitante_id, $s->id, $s->descricao);
-		}
-		if($papel == "Secretaria"){
-			if($solicitacao->status == "Pre-Aprovada"){
-				//	enviarEmailInteressado("emailSolicitacaoPreaprovadaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
-				//	enviarEmailInteressado("emailSolicitacaoPreaprovadaCoordenador", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
-			}
-			else{
-				//	enviarEmailInteressado("emailSolicitacaoIndeferidaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
-			}
-		}
-		if($papel == "Secretaria"){
-			if($solicitacao->status == "Deferida"){
-				//	enviarEmailInteressado("emailSolicitacaoDeferidaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
-			}
-			else{
-				//	enviarEmailInteressado("emailSolicitacaoIndeferidaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
-			}
-		}
-
-        
-        return true;
-	}
-
-	/* Envio de emails sobre resultados de solicitações */
-    protected function enviarEmailInteressado($email, $to, $usuario, $aluno, $codigo, $descricao){	
-		try{
-               Yii::$app->mailer->compose()
-                ->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares')
-                ->setTo("ariloclaudio@gmail.com")
-                ->setSubject("[IComp/UFAM] Solicitação de Atividade Complementar Processada")
-                ->setHtmlBody($this->renderPartial($email, ['usuario' => $usuario, 'aluno' => $aluno, 'codigo' => $codigo, 'descricao' => $descricao]),[])
-                ->send();
-				
-        }catch(Exception $e){
-                $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar Recupera褯 de Senha.
-                    Tente novamente ou contate o adminstrador do sistema');
-                return false;
-        }
-	}
 	
 	        /* Computar quantas horas serão totalizadas ao aluno */
     protected function computarHoras($s){

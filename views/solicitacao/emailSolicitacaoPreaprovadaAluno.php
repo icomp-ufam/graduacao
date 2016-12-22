@@ -40,8 +40,8 @@ use yii\helpers\Html;
                                 Você submeteu para avaliação uma nova solicitação de atividade complementar por meio do <strong>Sistema de Atividades Complementares.</strong></p>
 
                             <br/>
-								
-								<p>A sua solicitação de código <?= $codigo ?> e descricao <?= $descricao ?> foi PRÉ-APROVADA pela secretaria. Agora ela será avaliada pela Coordenação do curso.</p>
+
+								<p>A sua solicitação de código <strong><?= $codigo ?></strong> e descrição <strong><?= $descricao ?></strong> foi <strong>PRÉ-APROVADA</strong> pela secretaria. Agora ela será avaliada pela Coordenação do curso.</p>							
 								
 							<br/>
 								

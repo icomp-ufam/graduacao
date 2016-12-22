@@ -19,8 +19,8 @@ use yii\widgets\ActiveForm;
    		<?= $form->field($model, 'max_horas')->textInput() ?>
 
    		<div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Salvar' : 'Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a('Cancelar', ['curso/index'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '<i class="fa fa-save"></i> Salvar' : '<i class="fa fa-save"></i> Atualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::a('<i class="fa fa-close"></i> Cancelar', ['curso/index'], ['class' => 'btn btn-danger']) ?>
       </div>
 
     </div>
