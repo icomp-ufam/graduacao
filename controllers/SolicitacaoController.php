@@ -239,7 +239,6 @@ class SolicitacaoController extends Controller
         } else if ($_POST['action'] == 'Deferir') {
             $status = 'Deferida';
         }else if ($_POST['action'] == 'Indeferir'){
-            $model->aprovador_id = Yii::$app->user->identity->id;
 			$status = 'Indeferida';
         }else{
             $status = 'Pre-Aprovada';
@@ -280,6 +279,7 @@ class SolicitacaoController extends Controller
                     $s->status = $status;
 					$s->aprovador_id = Yii::$app->user->identity->id;
 					$s->horasComputadas = $this->computarHoras($s);
+					$this->notificarInteressado($s, Yii::$app->user->identity->perfil);
   //                  $s->save();
                 }
 				//else if(($s->status=='Deferida' || $s->status=='Indeferida') && $status == 'Arquivada'){
@@ -319,56 +319,6 @@ class SolicitacaoController extends Controller
      * @return mixed
      */
     
-	
-    /*public function actionRelatorio()
-    {
-        $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula, periodo.codigo as periodo,
-                                                    (
-                                                        SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
-                                                        FROM solicitacao 
-                                                        JOIN atividade on solicitacao.atividade_id = atividade.id
-                                                        JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Ensino'
-                                                        WHERE solicitacao.status = 'Deferida'
-                                                        AND usuario.id = solicitacao.solicitante_id
-														AND usuario.isAtivo = 1
-                                                        AND solicitacao.periodo_id = periodo.id
-                                                    ) as ensino,
-                                                    (
-                                                        SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
-                                                        FROM solicitacao 
-                                                        JOIN atividade on solicitacao.atividade_id = atividade.id
-                                                        JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Pesquisa'
-                                                        WHERE solicitacao.status = 'Deferida'
-                                                        AND usuario.id = solicitacao.solicitante_id
-														AND usuario.isAtivo = 1
-                                                        AND solicitacao.periodo_id = periodo.id
-                                                    ) as pesquisa,
-                                                    (
-                                                        SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
-                                                        FROM solicitacao 
-                                                        JOIN atividade on solicitacao.atividade_id = atividade.id
-                                                        JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Extensão'
-                                                        WHERE solicitacao.status = 'Deferida'
-                                                        AND usuario.id = solicitacao.solicitante_id
-														AND usuario.isAtivo = 1
-                                                        AND solicitacao.periodo_id = periodo.id
-
-                                                    ) as extensao
-
-                                             FROM usuario
-                                             JOIN solicitacao on usuario.id = solicitacao.solicitante_id
-                                             JOIN periodo on solicitacao.periodo_id = periodo.id
-                                             WHERE usuario.curso_id = :curso AND usuario.isAtivo = 1
-                                             AND usuario.perfil = 'Aluno'
-                                             GROUP BY usuario.name, periodo.codigo",[':curso' => Yii::$app->user->identity->curso_id]);
-
-        $dados = $cmd->queryAll();
-       
-
-        return $this->render('relatorio', ['resultado' => $dados]);
-
-    }*/
-
 	public function actionRelatorio()
     {   
         $action = Yii::$app->request->post('Periodo');
@@ -441,6 +391,52 @@ class SolicitacaoController extends Controller
             'showProgressbar' => true,
         ]);
     }
+	
+    /* notificar interessados em solicitações       */
+    protected function notificarInteressado($s, $papel){
+	    if($papel == "Aluno"){
+			//	enviarEmailInteressado("emailNovaSolicitacaoAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
+			//enviarEmailInteressado("emailNovaSolicitacaoIComp", "Coordenador", $s->solicitante_id, $s->id, $s->descricao);
+			//enviarEmailInteressado("emailNovaSolicitacaoIComp", "Secretaria", $s->solicitante_id, $s->id, $s->descricao);
+		}
+		if($papel == "Secretaria"){
+			if($solicitacao->status == "Pre-Aprovada"){
+				//	enviarEmailInteressado("emailSolicitacaoPreaprovadaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
+				//	enviarEmailInteressado("emailSolicitacaoPreaprovadaCoordenador", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
+			}
+			else{
+				//	enviarEmailInteressado("emailSolicitacaoIndeferidaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
+			}
+		}
+		if($papel == "Secretaria"){
+			if($solicitacao->status == "Deferida"){
+				//	enviarEmailInteressado("emailSolicitacaoDeferidaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
+			}
+			else{
+				//	enviarEmailInteressado("emailSolicitacaoIndeferidaAluno", $s->solicitante_id, $s->solicitante_id, $s->id, $s->descricao);
+			}
+		}
+
+        
+        return true;
+	}
+
+	/* Envio de emails sobre resultados de solicitações */
+    protected function enviarEmailInteressado($email, $to, $usuario, $aluno, $codigo, $descricao){	
+		try{
+               Yii::$app->mailer->compose()
+                ->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares')
+                ->setTo("ariloclaudio@gmail.com")
+                ->setSubject("[IComp/UFAM] Solicitação de Atividade Complementar Processada")
+                ->setHtmlBody($this->renderPartial($email, ['usuario' => $usuario, 'aluno' => $aluno, 'codigo' => $codigo, 'descricao' => $descricao]),[])
+                ->send();
+				
+        }catch(Exception $e){
+                $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar Recupera褯 de Senha.
+                    Tente novamente ou contate o adminstrador do sistema');
+                return false;
+        }
+	}
 	
 	        /* Computar quantas horas serão totalizadas ao aluno */
     protected function computarHoras($s){
