@@ -3,7 +3,7 @@
 //use gietos\yii\ionicons\Ion;
 use scotthuangzl\googlechart\GoogleChart;
 use miloschuman\highcharts\Highcharts;
-use yii\helpers\Html; 
+use yii\helpers\Html;
 
 ?>
 
@@ -18,7 +18,7 @@ use yii\helpers\Html;
                 <h4>Ensino</h4>
             </div>
 
-            <a href="?r=solicitacao/index" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao/index&gid=1" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@ use yii\helpers\Html;
                 <h4>Pesquisa</h4>
             </div>
 
-            <a href="?r=solicitacao/index" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao/index&gid=2" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -42,7 +42,7 @@ use yii\helpers\Html;
                 <h4>Extensão</h4>
             </div>
 
-            <a href="?r=solicitacao/index" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="?r=solicitacao/index&gid=3" class="small-box-footer">Mais detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
 
@@ -79,10 +79,10 @@ use yii\helpers\Html;
                                     ['name' => 'Concluído', 'y' => (float) $totalConcluido ],
                                     ['name' => 'Restantes', 'y' => (float) ($restantes)]
                                 ]
-                            ]]               
+                            ]]
                         ]
                     ]);
-					
+
 					echo Highcharts::widget([
 						'options' => [
 							'title' => ['text' => 'Horas concluídas por Grupo'],
@@ -106,7 +106,7 @@ use yii\helpers\Html;
 							]
 						]
 					]);
-					
+
 
                     ?>
                 </div>
