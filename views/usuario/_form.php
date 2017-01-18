@@ -66,13 +66,16 @@ $(document).ready(function(){
     ?>    
 
     <?= $form->field($model, 'matricula')->textInput(['maxlength' => true]) ?>
-  
-    <?= $form->field($model, 'curso_id')
-                    ->dropDownList(ArrayHelper::map(\app\models\Curso::find()->all(), 'id', 'nome'), ['prompt'=>'Selecione']); ?>
-	<?= $form->field($model, 'isAtivo')->checkbox(array('label'=>'Usuário Ativo?')); ?>
-   
-        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'value' => '']) ?>
-		<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true, 'value' => '']) ?>
+
+    <?= $form->field($model, 'curso_id')->checkboxList(
+        ArrayHelper::map(\app\models\Curso::find()->all(),'id', 'nome'),
+        array('template' => '<li>{input} {label}</li>', 'separator' => '<br>') )?>
+
+    <?= $form->field($model, 'isAtivo')->checkbox(array('label'=>'Usuário Ativo?')); ?>
+
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'value' => '']) ?>
+
+    <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true, 'value' => '']) ?>
    
  
     <div class="form-group">
