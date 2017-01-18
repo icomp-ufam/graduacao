@@ -61,6 +61,7 @@ class GrupoSearch extends Grupo
         $query->andFilterWhere([
             'id' => $this->id,
             'max_horas' => $this->max_horas,
+            'curso_id' => Yii::$app->user->identity->curso_id,
         ]);
 
         $query->andFilterWhere(['like', 'codigo', $this->codigo])

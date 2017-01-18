@@ -5,6 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Curso;
 use app\models\CursoSearch;
+use app\models\Grupo;
+use app\models\GrupoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -28,12 +30,12 @@ class CursoController extends Controller
                         'matchCallback' => function ($rule, $action) {
                             if(!Yii::$app->user->isGuest)
                             {
-                                return Yii::$app->user->identity->isAdmin == 1 ;    
-                            }                            
+                                return Yii::$app->user->identity->isAdmin == 1 ;
+                            }
                         }
-                    ],                    
+                    ],
                 ],
-            ],            
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -79,7 +81,32 @@ class CursoController extends Controller
     {
         $model = new Curso();
 
+
+        $grupoPesquisa = new Grupo();
+        $grupoExtensao = new Grupo();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $grupoEnsino = new Grupo();
+            $grupoEnsino->curso_id = $model->id;
+            $grupoEnsino->codigo = "Grupo1";
+            $grupoEnsino->nome = "Ensino";
+            $grupoEnsino->max_horas = $model->max_horas;
+
+            $grupoPesquisa->curso_id = $model->id;
+            $grupoPesquisa->codigo = "Grupo2";
+            $grupoPesquisa->nome = "Pesquisa";
+            $grupoPesquisa->max_horas = $model->max_horas;
+
+            $grupoExtensao->curso_id = $model->id;
+            $grupoExtensao->codigo = "Grupo3";
+            $grupoExtensao->nome = "Extensão";
+            $grupoExtensao->max_horas = $model->max_horas;
+
+            $grupoEnsino->save();
+            $grupoPesquisa->save();
+            $grupoExtensao->save();
+
+
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
