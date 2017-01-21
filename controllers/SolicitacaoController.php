@@ -394,7 +394,7 @@ class SolicitacaoController extends Controller
             $model = Periodo::find()->where("isAtivo = 1")->one();
         }
 
-        $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula,
+       $cmd = Yii::$app->db->createCommand("SELECT DISTINCT usuario.id as id, usuario.name as nome,usuario.matricula as matricula,
                                                   (
                                                       SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
                                                       FROM solicitacao
@@ -434,8 +434,7 @@ class SolicitacaoController extends Controller
                                            :periodo WHERE usuario.curso_id =
                                            :curso AND usuario.isAtivo = 1 AND
                                            usuario.perfil = 'Aluno' AND
-                                           solicitacao.status = 'Deferida' GROUP BY
-                                           usuario.name",[':curso' => Yii::$app->user->identity->curso_id, ':periodo' => $model->id]);
+                                           solicitacao.status = 'Deferida'",[':curso' => Yii::$app->user->identity->curso_id, ':periodo' => $model->id]);
 
       $dados = $cmd->queryAll();
 
