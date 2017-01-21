@@ -5,12 +5,10 @@ use Yii;
 use app\models\Usuario;
 use app\models\Curso;
 use app\models\UsuarioSearch;
-use app\models\UsuarioForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -158,7 +156,7 @@ class UsuarioController extends Controller
                 $model->curso_id = $array[0];
             }
 
-            $model->curso_id = NULL;
+           // $model->curso_id = NULL;
 
             if($model->save()) {
 
@@ -241,7 +239,7 @@ class UsuarioController extends Controller
                 $model->curso_id = $array[0];
             }
 
-            $model->curso_id = NULL;
+           // $model->curso_id = NULL;
 
             if($model->save()) {
                 $usuarioSalvo = Usuario::find()->where(['cpf' => $model->cpf ])->one();
@@ -274,6 +272,8 @@ class UsuarioController extends Controller
 				return $this->render('update', ['model' => $model,]);
 			
         } else {
+            $usuarioCursos = UsuarioCurso::findAll(['usuario' => $id]);
+
             if(!empty($usuarioCursos)){
 
                 foreach ($usuarioCursos as $uc){
@@ -387,6 +387,14 @@ class UsuarioController extends Controller
             'positonX' => 'center',
             'showProgressbar' => true,
         ]);
+    }
+
+    public function actionAlterar(){
+
+        $usuario = Usuario::find()->where(['id'=>Yii::$app->user->identity->id])->one();
+        $usuario->curso_id = Yii::$app->request->post('curso');
+
+        if($usuario->save(false)) return $this->redirect(['dashboard/index']);
     }
 
 
