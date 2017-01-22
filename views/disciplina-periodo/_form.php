@@ -29,10 +29,13 @@ use dosamigos\datepicker\DatePicker;
 
     <?= $form->field($model, 'codTurma')->textInput(['maxlength' => true, 'style'=>'width:130px']) ?>
 
-    <?= $form->field($model, 'idCurso')->dropDownList(ArrayHelper::map(Curso::find()->orderBy('nome')->asArray()->all(), 'id', 'nome'), 
+
+    <?= $form->field($model, 'idCurso')->dropDownList(
+            ArrayHelper::map(Curso::find()->where(['id'=>$model->idCurso])->orderBy('nome')->asArray()->all(), 'id', 'nome'),
         ['prompt'=>'Selecione um curso', 'style'=>'width:300px']); ?>
 
-    <?= $form->field($model, 'idProfessor')->dropDownList(ArrayHelper::map(Usuario::find()->where(['perfil' => 'Professor'])->orderBy('name')->asArray()->all(), 'id', 'name'),
+    <?= $form->field($model, 'idProfessor')->dropDownList(
+            ArrayHelper::map(Usuario::find()->where(['perfil' => 'Professor'])->orderBy('name')->asArray()->all(), 'id', 'name'),
         ['prompt'=>'Selecione o professor', 'style'=>'width:600px']); ?>
 
     <?= $form->field($model, 'nomeUnidade')->textInput(['maxlength' => true, 'style'=>'width:600px']) ?>
