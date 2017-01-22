@@ -57,10 +57,7 @@ AppAsset::register($this);
                           $.ajax({
                               url: '<?php echo Url::to(['usuario/alterar']); ?>',
                               type:'POST',
-                              data:{'curso': a},
-                              success: function (data) {
-                                  alert(data);
-                              }
+                              data:{'curso': a}
                           });
 
                       });
@@ -68,19 +65,22 @@ AppAsset::register($this);
                   });
               </script>
             <?php
-              if(Yii::$app->user->identity->perfil == "Coordenador"){
-              echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
+            $usuario = Yii::$app->user->identity->id;
+            $usuarioCursos = UsuarioCurso::find()->where(['usuario' => $usuario])->all();
 
-                  $usuario = Yii::$app->user->identity->id;
-                  $usuarioCursos = UsuarioCurso::find()->where(['usuario' => $usuario])->all();
+            if(count($usuarioCursos)>1) {
+                if (Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Secretaria") {
+                    echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
 
-                  echo "<option>Selecionar Curso</option>";
-                  foreach ($usuarioCursos as $uc) {
-                      $curso = Curso::findOne($uc);
-                      echo "<option id=" . $curso->id . "'>" . $curso->nome . "</option>";
-                  }
-              echo "</select>";
-              }
+
+                    echo "<option>Selecionar Curso</option>";
+                    foreach ($usuarioCursos as $uc) {
+                        $curso = Curso::findOne($uc);
+                        echo "<option id=" . $curso->id . "'>" . $curso->nome . "</option>";
+                    }
+                    echo "</select>";
+                }
+            }
             ?>
           </div>
         </nav>
@@ -96,7 +96,7 @@ AppAsset::register($this);
                   <p>Olá, <?= Yii::$app->user->identity->name ?><br/> Seu perfil atual é: <?= Yii::$app->user->identity->perfil ?>
 				  <?php
 
-                  if(Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Aluno" ) {
+                  if(Yii::$app->user->identity->perfil == "Secretaria" ||Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Aluno" ) {
                       if (Yii::$app->user->identity->curso_id) {
                           $idUsuario = Yii::$app->user->identity->id;
                           $usuario = Usuario::findOne($idUsuario);

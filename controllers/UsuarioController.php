@@ -396,8 +396,13 @@ class UsuarioController extends Controller
         $idCurso = str_replace('\'','', $idCurso);
         $usuario->curso_id =(string)$idCurso;
 
+        if($usuario->save(false)){
+            if(Yii::$app->user->identity->perfil == "Secretaria")
+                return $this->redirect('index.php');
 
-        if($usuario->save(false)) return $this->redirect(['dashboard/index']);
+            elseif (Yii::$app->user->identity->perfil == "Coordenador")
+                return $this->redirect(['dashboard/index']);
+        }
     }
 
 
