@@ -51,13 +51,16 @@ AppAsset::register($this);
                   $(function(){
                       $(document).on("change", "#meuSelect", function(){
 
-                          var cursoId = document.getElementById("meuSelect");
-                          var a = cursoId.options[cursoId.selectedIndex].id;
+                          var e = document.getElementById("meuSelect");
+                          var a = e.options[e.selectedIndex].id;
 
                           $.ajax({
                               url: '<?php echo Url::to(['usuario/alterar']); ?>',
                               type:'POST',
-                              data:{'curso': cursoId.selectedIndex}
+                              data:{'curso': a},
+                              success: function (data) {
+                                  alert(data);
+                              }
                           });
 
                       });
@@ -66,12 +69,12 @@ AppAsset::register($this);
               </script>
             <?php
               if(Yii::$app->user->identity->perfil == "Coordenador"){
-              echo "<select  id=\"meuSelect\" class=\"btn btn-success\">";
+              echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
 
                   $usuario = Yii::$app->user->identity->id;
                   $usuarioCursos = UsuarioCurso::find()->where(['usuario' => $usuario])->all();
 
-                  echo "<option>Selecione o curso</option>";
+                  echo "<option>Selecionar Curso</option>";
                   foreach ($usuarioCursos as $uc) {
                       $curso = Curso::findOne($uc);
                       echo "<option id=" . $curso->id . "'>" . $curso->nome . "</option>";

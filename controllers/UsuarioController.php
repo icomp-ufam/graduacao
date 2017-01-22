@@ -392,7 +392,10 @@ class UsuarioController extends Controller
     public function actionAlterar(){
 
         $usuario = Usuario::find()->where(['id'=>Yii::$app->user->identity->id])->one();
-        $usuario->curso_id = Yii::$app->request->post('curso');
+        $idCurso= Yii::$app->request->post('curso');
+        $idCurso = str_replace('\'','', $idCurso);
+        $usuario->curso_id =(string)$idCurso;
+
 
         if($usuario->save(false)) return $this->redirect(['dashboard/index']);
     }
