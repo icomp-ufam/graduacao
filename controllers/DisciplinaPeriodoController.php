@@ -131,13 +131,14 @@ class DisciplinaPeriodoController extends Controller
         $model = new DisciplinaPeriodo();
         $model->scenario = 'default';
 
+        $usuario = Usuario::findAll(['id' => Yii::$app->user->identity->id]);
         $usuarioCursos = UsuarioCurso::findAll(['usuario' => Yii::$app->user->identity->id]);
 
         if(!empty($usuarioCursos)){
             foreach ($usuarioCursos as $uc){
                 $cursos[]=$uc->curso;
             }
-        }else $cursos[]=[];
+        }else $cursos[0]= $usuario[0]->curso_id;
 
         $model->idCurso = $cursos;
 
