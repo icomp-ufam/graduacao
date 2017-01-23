@@ -402,6 +402,9 @@ class UsuarioController extends Controller
 
             elseif (Yii::$app->user->identity->perfil == "Coordenador")
                 return $this->redirect(['dashboard/index']);
+
+            elseif (Yii::$app->user->identity->perfil == "admin")
+                return $this->redirect(['curso/index']);
         }
     }
 

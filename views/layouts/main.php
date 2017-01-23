@@ -66,12 +66,10 @@ AppAsset::register($this);
               </script>
             <?php
             $usuario = Yii::$app->user->identity->id;
-            $usuarioCursos = UsuarioCurso::find()->where(['usuario' => $usuario])->all();
-
-            if(count($usuarioCursos)>1) {
-                if (Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Secretaria") {
+            if (Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Secretaria") {
+                $usuarioCursos = UsuarioCurso::find()->where(['usuario' => $usuario])->all();
+                if(count($usuarioCursos)>1) {
                     echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
-
 
                     echo "<option>Selecionar Curso</option>";
                     foreach ($usuarioCursos as $uc) {
@@ -79,7 +77,18 @@ AppAsset::register($this);
                         echo "<option id=" . $curso->id . "'>" . $curso->nome . "</option>";
                     }
                     echo "</select>";
+                 }
+            }elseif (Yii::$app->user->identity->perfil == "admin"){
+                $cursos = Curso::find()->all();
+
+                echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
+
+                echo "<option>Selecionar Curso</option>";
+                foreach ($cursos as $uc) {
+                    echo "<option id=" . $uc->id . "'>" . $uc->nome . "</option>";
                 }
+                echo "</select>";
+
             }
             ?>
           </div>
