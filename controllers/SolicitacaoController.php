@@ -56,7 +56,7 @@ class SolicitacaoController extends Controller
                                 return Yii::$app->user->identity->perfil == 'Aluno' ;
                             }
                         }
-                    ],                    
+                    ],
                 ],
             ],
 
@@ -73,11 +73,13 @@ class SolicitacaoController extends Controller
      * Lists all Solicitacao models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($gid = 1)
     {
         $searchModel = new SolicitacaoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		
+       // $searchModel->grupo_id = 0;
+
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,$gid);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -92,11 +94,11 @@ class SolicitacaoController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-		
+
 		$atividade = Atividade::findOne($model->atividade_id);
         if ($atividade != null)
             $model->atividade_id = $atividade->codigo."-".$atividade->nome;
-		
+
 		return $this->render('view', [
             'model' => $model,
         ]);
@@ -112,10 +114,10 @@ class SolicitacaoController extends Controller
 
         $model = new Solicitacao();
         $model->created_at = date('Y-m-d');
-		
+
 		$periodo = Periodo::findOne(['isAtivo' => 1]); //Periodo::getPeriodoAtivo();
 		$model->periodo_id = $periodo->id;
-		
+
        if ($model->load(Yii::$app->request->post())){ // && $model->save()) {
 
             //$model->dtInicio = Yii::$app->formatter->asDate($model->dtInicio, 'php:Y-m-d');
@@ -125,20 +127,20 @@ class SolicitacaoController extends Controller
                 $model->solicitante_id = Yii::$app->user->identity->id;
 
                 // <>
-                
+
 
                 // $domain = 'sandbox081c87f9e07a4f669f46f26af7261c2a.mailgun.org';
                 // $key = 'key-f0dc85b59a45bcda5373019f605ce034';
                 // $mailgun = new \MailgunApi( $domain, $key );
-                
+
                 // $message = $mailgun->newMessage();
-                
+
                 // $message->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares');
                 // $message->addTo( <>, $model->name); //destinatario...
                 // $message->setSubject('Nova Solicitação criada');
 
                 // //$url = Url::to(['login/resetpassword', 'token' => $model->password_reset_token] , true) ;
-                
+
                 // $message->$message->setText('O aluno '. <> .' Acabou de criar uma nova solicitação de atividade');
 
                 // $message->send();
@@ -147,25 +149,25 @@ class SolicitacaoController extends Controller
             $file = UploadedFile::getInstance($model, 'arquivo');
 
             if(isset($file)){
-                
-                
+
+
                 $file_name = Yii::$app->user->identity->id . '_' . rand(1, 999999);
-                $file_name = $file_name . '.' . $file->extension;     
+                $file_name = $file_name . '.' . $file->extension;
                 $file->saveAs('uploads/' . $file_name);
                 $model->arquivo = $file;
-                
+
                 //atualiza os dados do nome no model solicitacao
-                
+
                 $model->anexoOriginalName = $file->baseName . '.' . $file->extension ;
                 $model->anexoHashName = $file_name ;
-                $model->arquivo = null ;     //estava dando erro na hora de salvar  
+                $model->arquivo = null ;     //estava dando erro na hora de salvar
             }
 
             if($model->save())
 				return $this->redirect(['view', 'id' => $model->id]);
 			else
 				return $this->render('create', ['model' => $model,]);
-			
+
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -182,16 +184,16 @@ class SolicitacaoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-		
-        if ($model->load(Yii::$app->request->post())){ 
+
+        if ($model->load(Yii::$app->request->post())){
 			if($model->horasLancadas < $model->horasComputadas)
 				$model->horasComputadas = $model->horasLancadas;
-				
+
 			if($model->save())
 				return $this->redirect(['view', 'id' => $model->id]);
 			else
 				return $this->render('update', ['model' => $model,]);
-			
+
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -211,10 +213,10 @@ class SolicitacaoController extends Controller
 
         return $this->redirect(['index', 'success' => 'Solicitação excluída com sucesso']);
     }
-    
+
     public function actionField($id){
         $posts = Atividade::findOne($id);
-        
+
         echo $posts->max_horas;
     }
 
@@ -241,7 +243,7 @@ class SolicitacaoController extends Controller
         }else{
             $status = 'Pre-Aprovada';
         }
-        
+
         foreach($selection as $id){
 
             $s = Solicitacao::findOne((int)$id); //make a typecasting
@@ -277,17 +279,17 @@ class SolicitacaoController extends Controller
 				else{
 					return $this->redirect(['index','error' => 'Apenas solicitações com status SUBMETIDA podem ser Avaliadas']);
 				}
-				
+
             }
 
             if(Yii::$app->user->identity->perfil=='Coordenador')
             {
-                
+
 				if($s->status =='Pre-Aprovada' || $s->status=='Submetida')
                 {
                     $s->status = $status;
 					$s->aprovador_id = Yii::$app->user->identity->id;
-					
+
 					if($s->status=='Indeferida'){
 						$this->notificarAluno($s, "emailSolicitacaoIndeferidaAluno");
 					}
@@ -295,7 +297,7 @@ class SolicitacaoController extends Controller
 						$s->horasComputadas = $this->computarHoras($s);
 						$this->notificarAluno($s, "emailSolicitacaoDeferidaAluno");
 					}
-					
+
                 }
 				else{
 					return $this->redirect(['index','error' => 'Apenas solicitações com status SUBMETIDAS ou PRÉ-APROVADAS podem ser Avaliadas']);
@@ -304,48 +306,48 @@ class SolicitacaoController extends Controller
 
             $s->save(false);
         }
-		
+
         return $this->redirect(['index','success' => 'Solicitação(ões) processada(s) com sucesso']);
     }
-	
+
     /* notificar alunos sobre solicitações       */
     protected function notificarAluno($s, $email){
-	    
+
 		$aluno = Usuario::findOne($s->solicitante_id);
 		var_dump($aluno->email);
 		$this->enviarEmailInteressado($email, $aluno->email, $aluno->name, $aluno->name, $s->id, $s->descricao);
-		
+
         return true;
 	}
-	
+
     /* notificar Coordenadores sobre solicitações       */
     protected function notificarCoordenadores($s, $email){
-	    
+
 		$aluno = Usuario::findOne($s->solicitante_id);
 		$coordenadores = Usuario::findAll(['curso_id' => $aluno->curso_id, 'perfil' => "Coordenador"]);
 		foreach($coordenadores as $coordenador){
-			$this->enviarEmailInteressado($email, $coordenador->email, $coordenador->name, $aluno->name, $s->id, $s->descricao);	
+			$this->enviarEmailInteressado($email, $coordenador->email, $coordenador->name, $aluno->name, $s->id, $s->descricao);
 			var_dump($coordenador->email);
 		}
-		
+
         return true;
 	}
-	
+
     /* notificar Secretárias sobre solicitações       */
     protected function notificarSecretarias($s, $email){
-	    
+
 		$aluno = Usuario::findOne($s->solicitante_id);
 		$secretarias = Usuario::findAll(['perfil' => "Secretaria"]);
 		foreach($secretarias as $secretaria){
-			$this->enviarEmailInteressado($email, $secretaria->email, $secretaria->name, $aluno->name, $s->id, $s->descricao);	
+			$this->enviarEmailInteressado($email, $secretaria->email, $secretaria->name, $aluno->name, $s->id, $s->descricao);
 			var_dump($secretaria->email);
 		}
-		
+
         return true;
 	}
-	
+
 	/* Envio de emails sobre resultados de solicitações */
-    protected function enviarEmailInteressado($email, $to, $usuario, $aluno, $codigo, $descricao){	
+    protected function enviarEmailInteressado($email, $to, $usuario, $aluno, $codigo, $descricao){
 		try{
                Yii::$app->mailer->compose()
                 ->setFrom('sistemas@icomp.ufam.edu.br', 'Admin-Atv Complementares')
@@ -353,13 +355,13 @@ class SolicitacaoController extends Controller
                 ->setSubject("[IComp/UFAM] Solicitação de Atividade Complementar Processada")
                 ->setHtmlBody($this->renderPartial($email, ['usuario' => $usuario, 'aluno' => $aluno, 'codigo' => $codigo, 'descricao' => $descricao]),[])
                 ->send();
-				
+
         }catch(Exception $e){
                 $this->mensagens('warning', 'Erro ao enviar Email(s)', 'Ocorreu um Erro ao Enviar Processamento de Solicita褯 .
                     Tente novamente ou contate o adminstrador do sistema');
                 return false;
         }
-	}	
+	}
 
     /**
      * Finds the Solicitacao model based on its primary key value.
@@ -381,9 +383,9 @@ class SolicitacaoController extends Controller
      * Lists Report with all Solicitacao.
      * @return mixed
      */
-    
+
 	public function actionRelatorio()
-    {   
+    {
         $action = Yii::$app->request->post('Periodo');
         if($action != null){
             $id = $action['id'];
@@ -392,10 +394,10 @@ class SolicitacaoController extends Controller
             $model = Periodo::find()->where("isAtivo = 1")->one();
         }
 
-        $cmd = Yii::$app->db->createCommand("SELECT usuario.id as id, usuario.name as nome,usuario.matricula as matricula,
+       $cmd = Yii::$app->db->createCommand("SELECT DISTINCT usuario.id as id, usuario.name as nome,usuario.matricula as matricula,
                                                   (
                                                       SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
-                                                      FROM solicitacao 
+                                                      FROM solicitacao
                                                       JOIN atividade on solicitacao.atividade_id = atividade.id
                                                       JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Ensino'
                                                       WHERE solicitacao.status = 'Deferida'
@@ -405,7 +407,7 @@ class SolicitacaoController extends Controller
                                                   ) as ensino,
                                                   (
                                                       SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
-                                                      FROM solicitacao 
+                                                      FROM solicitacao
                                                       JOIN atividade on solicitacao.atividade_id = atividade.id
                                                       JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Pesquisa'
                                                       WHERE solicitacao.status = 'Deferida'
@@ -415,7 +417,7 @@ class SolicitacaoController extends Controller
                                                   ) as pesquisa,
                                                   (
                                                       SELECT COALESCE(sum(solicitacao.horasComputadas), 0)
-                                                      FROM solicitacao 
+                                                      FROM solicitacao
                                                       JOIN atividade on solicitacao.atividade_id = atividade.id
                                                       JOIN grupo on atividade.grupo_id = grupo.id AND grupo.nome = 'Extensão'
                                                       WHERE solicitacao.status = 'Deferida'
@@ -432,14 +434,13 @@ class SolicitacaoController extends Controller
                                            :periodo WHERE usuario.curso_id =
                                            :curso AND usuario.isAtivo = 1 AND
                                            usuario.perfil = 'Aluno' AND
-                                           solicitacao.status = 'Deferida' GROUP BY
-                                           usuario.name",[':curso' => Yii::$app->user->identity->curso_id, ':periodo' => $model->id]);
+                                           solicitacao.status = 'Deferida'",[':curso' => Yii::$app->user->identity->curso_id, ':periodo' => $model->id]);
 
       $dados = $cmd->queryAll();
-        
+
       return $this->render('relatorio', ['resultado' => $dados, 'model' => $model]);
 
-    }	
+    }
             /* Envio de mensagens para views
        Tipo: success, danger, warning*/
     protected function mensagens($tipo, $titulo, $mensagem){
@@ -454,21 +455,21 @@ class SolicitacaoController extends Controller
             'showProgressbar' => true,
         ]);
     }
-	
+
 	        /* Computar quantas horas serão totalizadas ao aluno */
     protected function computarHoras($s){
-        
+
 		$horasAtual = $s->horasLancadas;
-        
+
 		// Verificando se ultrapassa o total da ATIVIDADE
 		$Atividade = Atividade::findOne($s->atividade_id);
 
         if ($horasAtual > $Atividade->max_horas) {
             $horasAtual = $Atividade->max_horas;
         }
-		
+
 		// Verificando se ultrapassa o total do GRUPO
-		
+
 		//calcula a quantidade de horas que o Aluno ja tem naquela atividade...
         $cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma
                     FROM solicitacao AS S
@@ -479,39 +480,39 @@ class SolicitacaoController extends Controller
                     AND G.id IN (SELECT grupo_id FROM atividade WHERE id = $s->atividade_id)
                     GROUP BY (G.id)");
 
-        $hsProduzidas = $cmd->queryScalar();		
-				
+        $hsProduzidas = $cmd->queryScalar();
+
 		$Grupo = Grupo::findOne(['id' => $Atividade->grupo_id]);
         $MaxHorasGrupo = (int) $Grupo->max_horas;
-		
+
 		if(($hsProduzidas + $horasAtual) > $MaxHorasGrupo)
         {
             $horasAtual = $MaxHorasGrupo - ($hsProduzidas + $horasAtual);
 
         }
-		
+
 		// Verificando se ultrapassa o total do CURSO
-	
+
 		//calcula a quantidade de horas que o Aluno ja tem naquela atividade...
-		$cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma 
+		$cmd = Yii::$app->db->createCommand("SELECT SUM(horasComputadas) AS soma
 				FROM solicitacao AS S
 				WHERE solicitante_id = $s->solicitante_id
 				AND status = 'Deferida'");
 
-		$hsProduzidas = $cmd->queryScalar();		
-	
+		$hsProduzidas = $cmd->queryScalar();
+
 		$curso_id = Yii::$app->user->identity->curso_id;
-			
+
 		$Curso = Curso::findOne(['id' => $curso_id]);
 		$MaxHorasCurso = (int) $Curso->max_horas;
-	
+
 		if(($hsProduzidas + $horasAtual) > $MaxHorasCurso)
 		{
 			$horasAtual = ($MaxHorasCurso - $hsProduzidas);
 		}
-		
+
 		if($horasAtual < 0) $horasAtual = 0;
-	
+
 		return $horasAtual;
 	}
 

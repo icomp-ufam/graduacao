@@ -4822,6 +4822,32 @@ a.brand-icomp{
   top: 0px;
   left: 55px;
 }
+
+
+
+    .selectMain:hover,
+    .selectMain:focus,
+    .selectMain:active,
+    .selectMain.active,
+    .selectMain.disabled,
+    .selectMain[disabled],
+    .selectMain option{
+        background-color: #333;
+        border-top-color: #333;
+        border-bottom-color: #333;
+    }
+
+.selectMain{
+    background: url(../images/mainSelect.png) no-repeat 96% 0;
+    -webkit-appearance: none;  /* Remove estilo padrão do Chrome */
+    -moz-appearance: none; /* Remove estilo padrão do FireFox */
+    appearance: none;/* Remove estilo padrão do FireFox*/
+    background-color: #333;
+    width: auto;
+}
+
+
+
 }
 
 

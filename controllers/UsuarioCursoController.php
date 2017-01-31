@@ -3,39 +3,23 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Curso;
-use app\models\CursoSearch;
-use app\models\Grupo;
-use app\models\GrupoSearch;
+use app\models\UsuarioCurso;
+use app\models\UsuarioCursoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 
 /**
- * CursoController implements the CRUD actions for Curso model.
+ * UsuarioCursoController implements the CRUD actions for UsuarioCurso model.
  */
-class CursoController extends Controller
+class UsuarioCursoController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['create','index', 'update', 'view', 'delete'],
-                'rules' => [
-                    [
-                        'actions' => ['create','index', 'update', 'view', 'delete'],
-                        'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            if(!Yii::$app->user->isGuest)
-                            {
-                                return Yii::$app->user->identity->isAdmin == 1 ;
-                            }
-                        }
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -46,12 +30,12 @@ class CursoController extends Controller
     }
 
     /**
-     * Lists all Curso models.
+     * Lists all UsuarioCurso models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CursoSearch();
+        $searchModel = new UsuarioCursoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -61,7 +45,7 @@ class CursoController extends Controller
     }
 
     /**
-     * Displays a single Curso model.
+     * Displays a single UsuarioCurso model.
      * @param integer $id
      * @return mixed
      */
@@ -73,41 +57,21 @@ class CursoController extends Controller
     }
 
     /**
-     * Creates a new Curso model.
+     * Creates a new UsuarioCurso model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+    public function deleteAll($id){
+        echo $id;
+    }
+
     public function actionCreate()
     {
-        $model = new Curso();
-
-
-        $grupoPesquisa = new Grupo();
-        $grupoExtensao = new Grupo();
+        $model = new UsuarioCurso();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $grupoEnsino = new Grupo();
-            $grupoEnsino->curso_id = $model->id;
-            $grupoEnsino->codigo = "Grupo1";
-            $grupoEnsino->nome = "Ensino";
-            $grupoEnsino->max_horas = $model->max_horas;
-
-            $grupoPesquisa->curso_id = $model->id;
-            $grupoPesquisa->codigo = "Grupo2";
-            $grupoPesquisa->nome = "Pesquisa";
-            $grupoPesquisa->max_horas = $model->max_horas;
-
-            $grupoExtensao->curso_id = $model->id;
-            $grupoExtensao->codigo = "Grupo3";
-            $grupoExtensao->nome = "Extensão";
-            $grupoExtensao->max_horas = $model->max_horas;
-
-            $grupoEnsino->save();
-            $grupoPesquisa->save();
-            $grupoExtensao->save();
-
-
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -116,7 +80,7 @@ class CursoController extends Controller
     }
 
     /**
-     * Updates an existing Curso model.
+     * Updates an existing UsuarioCurso model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -135,7 +99,7 @@ class CursoController extends Controller
     }
 
     /**
-     * Deletes an existing Curso model.
+     * Deletes an existing UsuarioCurso model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -148,15 +112,15 @@ class CursoController extends Controller
     }
 
     /**
-     * Finds the Curso model based on its primary key value.
+     * Finds the UsuarioCurso model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Curso the loaded model
+     * @return UsuarioCurso the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Curso::findOne($id)) !== null) {
+        if (($model = UsuarioCurso::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

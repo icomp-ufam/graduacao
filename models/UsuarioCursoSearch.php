@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Grupo;
+use app\models\UsuarioCurso;
 
 /**
- * GrupoSearch represents the model behind the search form about `app\models\Grupo`.
+ * UsuarioCursoSearch represents the model behind the search form of `app\models\UsuarioCurso`.
  */
-class GrupoSearch extends Grupo
+class UsuarioCursoSearch extends UsuarioCurso
 {
     /**
      * @inheritdoc
@@ -18,8 +18,7 @@ class GrupoSearch extends Grupo
     public function rules()
     {
         return [
-            [['id', 'max_horas'], 'integer'],
-            [['codigo', 'nome'], 'safe'],
+            [['id', 'usuario', 'curso'], 'integer'],
         ];
     }
 
@@ -41,7 +40,7 @@ class GrupoSearch extends Grupo
      */
     public function search($params)
     {
-        $query = Grupo::find();
+        $query = UsuarioCurso::find();
 
         // add conditions that should always apply here
 
@@ -60,12 +59,9 @@ class GrupoSearch extends Grupo
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'max_horas' => $this->max_horas,
-            'curso_id' => Yii::$app->user->identity->curso_id,
+            'usuario' => $this->usuario,
+            'curso' => $this->curso,
         ]);
-
-        $query->andFilterWhere(['like', 'codigo', $this->codigo])
-            ->andFilterWhere(['like', 'nome', $this->nome]);
 
         return $dataProvider;
     }

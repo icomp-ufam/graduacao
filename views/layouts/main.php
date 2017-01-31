@@ -7,7 +7,9 @@ use kartik\icons\Icon;
 use app\models\Usuario;
 use app\models\Comissao;
 use app\models\Curso;
+use app\models\UsuarioCurso;
 use yii\bootstrap\Alert;
+use yii\helpers\Url;
 
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/main.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
@@ -25,6 +27,7 @@ AppAsset::register($this);
         <?php $this->head() ?>
     </head>
     <body class="hold-transition skin-green sidebar-mini">
+
         <?php $this->beginBody() ?>
         <div class="wrapper">
 
@@ -43,7 +46,51 @@ AppAsset::register($this);
             <span class="sr-only">Toggle navigation</span>
           </a>
           <div class="navbar-custom-menu">
-            
+
+              <script>
+                  $(function(){
+                      $(document).on("change", "#meuSelect", function(){
+
+                          var e = document.getElementById("meuSelect");
+                          var a = e.options[e.selectedIndex].id;
+
+                          $.ajax({
+                              url: '<?php echo Url::to(['usuario/alterar']); ?>',
+                              type:'POST',
+                              data:{'curso': a}
+                          });
+
+                      });
+
+                  });
+              </script>
+            <?php
+            $usuario = Yii::$app->user->identity->id;
+            if (Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Secretaria") {
+                $usuarioCursos = UsuarioCurso::find()->where(['usuario' => $usuario])->all();
+                if(count($usuarioCursos)>1) {
+                    echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
+
+                    echo "<option>Selecionar Curso</option>";
+                    foreach ($usuarioCursos as $uc) {
+                        $curso = Curso::findOne($uc);
+                        echo "<option id=" . $curso->id . "'>" . $curso->nome . "</option>";
+                    }
+                    echo "</select>";
+                 }
+            }elseif (Yii::$app->user->identity->perfil == "admin"){
+                $cursos = Curso::find()->all();
+
+                echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
+
+                echo "<option>Selecionar Curso</option>";
+                foreach ($cursos as $uc) {
+                    echo "<option id=" . $uc->id . "'>" . $uc->nome . "</option>";
+                }
+                echo "</select>";
+
+            }
+            ?>
           </div>
         </nav>
       </header>
@@ -56,17 +103,22 @@ AppAsset::register($this);
           <div class="user-panel" style="height:60px">
             <div class="info">
                   <p>Olá, <?= Yii::$app->user->identity->name ?><br/> Seu perfil atual é: <?= Yii::$app->user->identity->perfil ?>
-				  <?php if(Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Aluno" ){
-							$idUsuario = Yii::$app->user->identity->id;
-							$usuario = Usuario::findOne($idUsuario);
-							$curso = Curso::findOne($usuario->curso_id);
-							echo "<br/>de ".$curso->nome;
-						}
+				  <?php
+
+                  if(Yii::$app->user->identity->perfil == "Secretaria" ||Yii::$app->user->identity->perfil == "Coordenador" || Yii::$app->user->identity->perfil == "Aluno" ) {
+                      if (Yii::$app->user->identity->curso_id) {
+                          $idUsuario = Yii::$app->user->identity->id;
+                          $usuario = Usuario::findOne($idUsuario);
+                          $curso = Curso::findOne($usuario->curso_id);
+                          echo "<br/>de " .$curso->nome;
+                      }
+                  }
 
 				  ?>
 				  </p> 
             </div>
           </div>
+
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MENU</li>

@@ -1,15 +1,14 @@
 <?php
 namespace app\controllers;
+use app\models\UsuarioCurso;
 use Yii;
 use app\models\Usuario;
 use app\models\Curso;
 use app\models\UsuarioSearch;
-use app\models\UsuarioForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -99,17 +98,22 @@ class UsuarioController extends Controller
      */
     public function actionCreate()
     {
-        
-		$model = new Usuario();
-		$model->scenario = 'insert';
+
+        $model = new Usuario();
+        $model->scenario = 'insert';
+
+        $usuarioCursos = UsuarioCurso::findAll(['usuario' => 0]);
+        foreach ($usuarioCursos as $uc){
+            $model->curso_id[]=$uc;
+        }
+
 
         if ($model->load(Yii::$app->request->post()) ){//&& $model->save()) {
 
             //verifica se o CPF já está cadastrado
             $usuario = Usuario::find()->where(['cpf' => $model->cpf ])->one();
 
-            if( $usuario != null )
-            {
+            if( $usuario != null ){
                 $model->addError('cpf','O CPF informado já está cadastrado...');
                 return $this->render('create', ['model' => $model]);
             }
@@ -117,8 +121,7 @@ class UsuarioController extends Controller
             //verifica se o EMAIL já está cadastrado
             $usuario = Usuario::find()->where(['email' => $model->email ])->one();
 
-            if( $usuario != null )
-            {
+            if( $usuario != null ){
                 $model->addError('email','O EMAIL informado já está cadastrado...');
                 return $this->render('create', ['model' => $model]);
             }
@@ -126,12 +129,59 @@ class UsuarioController extends Controller
             $model->isAtivo = 1;
 			// criptografa a senha...
             $model->password = md5($model->password);
-	    $model->password_repeat = md5($model->password_repeat);
+	         $model->password_repeat = md5($model->password_repeat);
 
-            if($model->save())
-				return $this->redirect(['view', 'id' => $model->id]);
-			else
-				return $this->render('create', ['model' => $model,]);
+            if($model->perfil == 'admin') $model->isAdmin = 1;
+            else $model->isAdmin = 0;
+
+            $model->telefone= '';
+            $model->endereco= '';
+            $model->rg='';
+
+            $array = $model->curso_id;
+
+            if($model->perfil == 'Aluno'){
+                if(count($array) > 1){
+                    $model->addError('curso_id','Selecione apenas um curso.');
+                    return $this->render('create', ['model' => $model]);
+                }
+                if (empty($array)) {
+                    $model->addError('curso_id','Este campo é obrigatório para Alunos');
+                    return $this->render('create', ['model' => $model]);;
+                }
+            }
+
+
+            if (!empty($array)) {
+                $model->curso_id = $array[0];
+            }
+
+           // $model->curso_id = NULL;
+
+            if($model->save()) {
+
+                $usuarioSalvo = Usuario::find()->where(['cpf' => $model->cpf ])->one();
+
+                if(!empty($array)) {
+
+                    foreach ($array as $curso) {
+
+                        $modelUsuarioCurso = new UsuarioCurso();
+
+                        $modelUsuarioCurso->usuario = $usuarioSalvo->id;
+                        $modelUsuarioCurso->curso = $curso;
+
+                        $modelUsuarioCurso->load(Yii::$app->request->post());
+                        $modelUsuarioCurso->save();
+
+                    }
+
+                }
+
+                return $this->redirect(['view', 'id' => $model->id]);
+
+            }else
+                return $this->render('create', ['model' => $model,]);
 			
         } else {
             return $this->render('create', [
@@ -148,9 +198,11 @@ class UsuarioController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-	$senhaAntiga = $model->password;
-	$model->isAtivo = 1;
-		
+        $senhaAntiga = $model->password;
+        $model->isAtivo = 1;
+
+        $usuarioCursos = UsuarioCurso::findAll(['usuario' => $id]);
+
         if ($model->load(Yii::$app->request->post())){
 						
 			if($model->password != ""){
@@ -161,19 +213,85 @@ class UsuarioController extends Controller
 				$model->password = $senhaAntiga;
 				$model->password_repeat = $senhaAntiga;
 			}
-			
-				if($model->save())
-				return $this->redirect(['view', 'id' => $model->id]);
-			else
+
+            if($model->perfil == 'admin') $model->isAdmin = 1;
+            else $model->isAdmin = 0;
+
+            $model->telefone= '';
+            $model->endereco= '';
+            $model->rg='';
+
+            $array = $model->curso_id;
+
+            if($model->perfil == 'Aluno'){
+                if(count($array) > 1){
+                    $model->addError('curso_id','Selecione apenas um curso.');
+                    return $this->render('create', ['model' => $model]);
+                }
+                if (empty($array)) {
+                    $model->addError('curso_id','Este campo é obrigatório para Alunos');
+                    return $this->render('create', ['model' => $model]);;
+                }
+            }
+
+
+            if (!empty($array)) {
+                $model->curso_id = $array[0];
+            }
+
+           // $model->curso_id = NULL;
+
+            if($model->save()) {
+                $usuarioSalvo = Usuario::find()->where(['cpf' => $model->cpf ])->one();
+                //deletar usuarioCursos associado ao usuário
+                if(!empty($usuarioCursos)) {
+                    foreach ($usuarioCursos as $uc) {
+                        $uc->delete();
+                    }
+                }
+
+                //Salvar
+                if(!empty($array)) {
+
+                    foreach ($array as $curso) {
+
+                        $modelUsuarioCurso = new UsuarioCurso();
+
+                        $modelUsuarioCurso->usuario = $usuarioSalvo->id;
+                        $modelUsuarioCurso->curso = $curso;
+
+                        $modelUsuarioCurso->load(Yii::$app->request->post());
+                        $modelUsuarioCurso->save();
+
+                    }
+
+                }
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else
 				return $this->render('update', ['model' => $model,]);
 			
         } else {
-			
+            $usuarioCursos = UsuarioCurso::findAll(['usuario' => $id]);
+
+            if(!empty($usuarioCursos)){
+
+                foreach ($usuarioCursos as $uc){
+                    $cursos[]=$uc->curso;
+                }
+
+                $model->curso_id=$cursos;
+            }
+
             return $this->render('update', [
-                'model' => $model,
+                'model' => $model,  'usuarioCursos' =>$usuarioCursos
             ]);
         }
     }
+
+
+
+
     /**
      * Deletes an existing Usuario model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -269,6 +387,25 @@ class UsuarioController extends Controller
             'positonX' => 'center',
             'showProgressbar' => true,
         ]);
+    }
+
+    public function actionAlterar(){
+
+        $usuario = Usuario::find()->where(['id'=>Yii::$app->user->identity->id])->one();
+        $idCurso= Yii::$app->request->post('curso');
+        $idCurso = str_replace('\'','', $idCurso);
+        $usuario->curso_id =(string)$idCurso;
+
+        if($usuario->save(false)){
+            if(Yii::$app->user->identity->perfil == "Secretaria")
+                return $this->redirect('index.php');
+
+            elseif (Yii::$app->user->identity->perfil == "Coordenador")
+                return $this->redirect(['dashboard/index']);
+
+            elseif (Yii::$app->user->identity->perfil == "admin")
+                return $this->redirect(['curso/index']);
+        }
     }
 
 

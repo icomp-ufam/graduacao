@@ -19,6 +19,7 @@ use app\models\DisciplinaSearch;
 use app\models\Curso;
 use app\models\CursoSearch;
 use app\models\Usuario;
+use app\models\UsuarioCurso;
 use app\models\UsuarioSearch;
 use app\models\Periodo;
 use app\models\PeriodoSearch;
@@ -130,6 +131,17 @@ class DisciplinaPeriodoController extends Controller
         $model = new DisciplinaPeriodo();
         $model->scenario = 'default';
 
+        $usuario = Usuario::findAll(['id' => Yii::$app->user->identity->id]);
+        $usuarioCursos = UsuarioCurso::findAll(['usuario' => Yii::$app->user->identity->id]);
+
+        if(!empty($usuarioCursos)){
+            foreach ($usuarioCursos as $uc){
+                $cursos[]=$uc->curso;
+            }
+        }else $cursos[0]= $usuario[0]->curso_id;
+
+        $model->idCurso = $cursos;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -141,7 +153,7 @@ class DisciplinaPeriodoController extends Controller
             }
 
             $arrayDisciplinas = ArrayHelper::map($lista, 'id', 'nomeDisciplina');
-            return $this->render('create', ['model' => $model, 'arrayDisciplinas' => $arrayDisciplinas,]);
+            return $this->render('create', ['model' => $model, 'arrayDisciplinas' => $arrayDisciplinas]);
         }
     }
 
