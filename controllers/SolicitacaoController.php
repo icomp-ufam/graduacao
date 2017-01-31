@@ -507,7 +507,7 @@ class SolicitacaoController extends Controller
 	
 		if(($hsProduzidas + $horasAtual) > $MaxHorasCurso)
 		{
-			$horasAtual = $MaxHorasCurso - ($hsProduzidas + $horasAtual);
+			$horasAtual = ($MaxHorasCurso - $hsProduzidas);
 		}
 		
 		if($horasAtual < 0) $horasAtual = 0;
