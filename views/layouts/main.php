@@ -78,17 +78,6 @@ AppAsset::register($this);
                     }
                     echo "</select>";
                  }
-            }elseif (Yii::$app->user->identity->perfil == "admin"){
-                $cursos = Curso::find()->all();
-
-                echo "<select  id=\"meuSelect\" class=\"btn btn-success selectMain\">";
-
-                echo "<option>Selecionar Curso</option>";
-                foreach ($cursos as $uc) {
-                    echo "<option id=" . $uc->id . "'>" . $uc->nome . "</option>";
-                }
-                echo "</select>";
-
             }
             ?>
           </div>
